@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Zone extends Model
+class Feature extends Model
 {
-     /**
+    /**
      * Auto-apply mass assignment protection
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'lon', 'lat'
+        'name', 'slug', 'image'
     ];
 
     /**

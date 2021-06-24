@@ -21,7 +21,7 @@ class Location extends Model
      *
      * @var array
      */
-    protected $appends = [
+    protected $appends = [];
 
     /**
      * The attributes that should be mutated to dates.
