@@ -17,8 +17,8 @@ class CreateRestaurentsTable extends Migration
             $table->id();
             $table->string('name',200);
             $table->text('slug');
-            $table->int('approx_cost',8);
-            $table->int('is_booking',1);
+            $table->integer('approx_cost')->length(8)->unsigned();
+            $table->integer('is_booking')->length(1)->default(1)->unsigned();
             $table->text('description')->nullable();
             $table->timestamps();
         });

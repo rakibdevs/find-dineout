@@ -17,7 +17,7 @@ class CreateLocationsTable extends Migration
             $table->id();
             $table->string('name',100);
             $table->text('slug');
-            $table->unsignedInteger('zone_id');
+            $table->unsignedBigInteger('zone_id');
             $table->string('lon',50)->nullable();
             $table->string('lat',50)->nullable();
             $table->timestamps();

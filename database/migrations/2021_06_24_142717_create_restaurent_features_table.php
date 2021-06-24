@@ -14,8 +14,8 @@ class CreateRestaurentFeaturesTable extends Migration
     public function up()
     {
         Schema::create('restaurent_features', function (Blueprint $table) {
-            $table->unsignedInteger('restaurent_id');
-            $table->unsignedInteger('feature_id');
+            $table->unsignedBigInteger('restaurent_id');
+            $table->unsignedBigInteger('feature_id');
             $table->timestamps();
 
             $table->foreign('restaurent_id')->references('id')->on('restaurents')->onDelete('cascade');

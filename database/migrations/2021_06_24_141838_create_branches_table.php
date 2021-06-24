@@ -15,10 +15,10 @@ class CreateBranchesTable extends Migration
     {
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('restaurent_id');
-            $table->unsignedInteger('location_id')->nullable();
+            $table->unsignedBigInteger('restaurent_id');
+            $table->unsignedBigInteger('location_id')->nullable();
             $table->text('address')->nullable();
-            $table->int('status',1)->default(1);
+            $table->integer('status')->length(1)->default(1)->unsigned();
             $table->string('lon',50)->nullable();
             $table->string('lat',50)->nullable();
             $table->timestamps();

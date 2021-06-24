@@ -14,8 +14,8 @@ class CreateRestaurentCategoriesTable extends Migration
     public function up()
     {
         Schema::create('restaurent_categories', function (Blueprint $table) {
-            $table->unsignedInteger('restaurent_id');
-            $table->unsignedInteger('category_id');
+            $table->unsignedBigInteger('restaurent_id');
+            $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
             $table->foreign('restaurent_id')->references('id')->on('restaurents')->onDelete('cascade');
