@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class District extends Model
+class Location extends Model
 {
      /**
      * Auto-apply mass assignment protection
@@ -13,7 +13,7 @@ class District extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'lon', 'lat'
+        'name', 'slug', 'lon', 'lat', 'district_id'
     ];
 
     /**
