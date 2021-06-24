@@ -1,0 +1,7 @@
+.header{height: 65px;}
+.main-content{margin-top: 65px;}
+.header-layer {
+    background: url(../images/background.jpg);
+    height: 450px;
+    background-position: center;
+}
