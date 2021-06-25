@@ -43,4 +43,14 @@ class Branch extends Model
     {
         return $this->belongsTo(Restaurent::class);
     }
+
+    /**
+     * A branch belongs to loction
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 }

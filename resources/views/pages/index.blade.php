@@ -4,6 +4,7 @@
 	<div class="header-layer">
 		
 	</div>
-
-	<restaurent-list start-point="{{ '/fetch/restaurents/' }}"></restaurent-list>
+	<div class="container mx-auto px-2 mt-10 sm:px-4 lg:px-8">
+		<restaurent-list start-point="{{ '/fetch/restaurents/' }}"></restaurent-list>
+	</div>
 @endsection

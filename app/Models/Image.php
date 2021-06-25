@@ -31,4 +31,13 @@ class Image extends Model
     protected $dates = [
         'created_at', 'updated_at'
     ];
+
+
+    /**
+     * Get the parent imageable model (Restaurent or Menu).
+     */
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
 }

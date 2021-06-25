@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use App\Models\Restaurent;
 use Illuminate\Http\Request;
 
@@ -14,17 +15,23 @@ class RestaurentController extends Controller
      */
     public function fetch()
     {
-        return Restaurent::with([
-                'categories' => function ($query) {
+        // fetch restaurents of current location
+        $location = 1;
+        return Branch::with([
+                'restaurent',
+                'restaurent.categories' => function ($query) {
                     $query->select('name', 'slug');
                 },
-                'features'=> function ($query) {
+                'restaurent.features' => function ($query) {
                     $query->select('name', 'slug');
                 },
-                'cuisines'=> function ($query) {
+                'restaurent.cuisines' => function ($query) {
                     $query->select('name', 'slug');
-                }
+                },
+                'location',
+                'location.zone'
             ])
+            ->where('location_id', $location)
             ->paginate(5);
     }
 

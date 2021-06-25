@@ -1,10 +1,12 @@
 <template>
 	<div>
-        <restaurent-item
-            v-for="(restaurent, index) in restaurents"
-            :key="restaurent.id"
-            :restaurent="restaurent">
-        </restaurent-item>
+        <div class="restaurent-cards grid grid-cols-4 gap-4">
+            <restaurent-card
+                v-for="(restaurent, index) in restaurents"
+                :key="restaurent.id"
+                :restaurent="restaurent">
+            </restaurent-card>
+        </div>
         <div v-if="nextUrl && !isUpdating" class="text-center my-3">
             <button @click.prevent="fetch(nextUrl)" class="btn btn-sm btn-outline-secondary">
                 {{ __('View more restaurents') }}

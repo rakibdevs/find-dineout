@@ -11,7 +11,7 @@ app.component('header-component', require('./components/Common/Header.vue').defa
 app.component('footer-component', require('./components/Common/Footer.vue').default);
 app.component('offers', require('./components/Offer/OfferList.vue').default);
 app.component('restaurent-list', require('./components/Restaurent/RestaurentList.vue').default);
-app.component('restaurent-item', require('./components/Restaurent/RestaurentItem.vue').default);
+app.component('restaurent-card', require('./components/Restaurent/RestaurentCard.vue').default);
 
 app.mixin(Main)
    .mount("#app");
