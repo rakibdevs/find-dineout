@@ -2,6 +2,8 @@
 @section('title','Home')
 @section('container')
 	<div class="header-layer">
-		hi
+		
 	</div>
+
+	<restaurent-list start-point="{{ '/fetch/restaurents/' }}"></restaurent-list>
 @endsection

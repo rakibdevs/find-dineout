@@ -43,7 +43,7 @@ class Restaurent extends Model
      */
     public function features()
     {
-        return $this->belongsToMany(Feature::class)
+        return $this->belongsToMany(Feature::class, 'restaurent_features')
             ->withTimestamps();
     }
 
@@ -54,7 +54,7 @@ class Restaurent extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany(Category::class)
+        return $this->belongsToMany(Category::class, 'restaurent_categories')
             ->withTimestamps();
     }
 
@@ -65,7 +65,7 @@ class Restaurent extends Model
      */
     public function cuisines()
     {
-        return $this->belongsToMany(Cuisine::class)
+        return $this->belongsToMany(Cuisine::class, 'restaurent_cuisines')
             ->withTimestamps();
     }
 }

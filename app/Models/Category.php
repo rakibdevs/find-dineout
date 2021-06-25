@@ -41,7 +41,7 @@ class Category extends Model
      */
     public function restaurents()
     {
-        return $this->belongsToMany(Restaurent::class)
+        return $this->belongsToMany(Restaurent::class, 'restaurent_categories')
             ->withTimestamps();
     }
 }

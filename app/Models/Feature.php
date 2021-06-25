@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Restaurent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,7 +40,7 @@ class Feature extends Model
      */
     public function restaurents()
     {
-        return $this->belongsToMany(Restaurent::class)
+        return $this->belongsToMany(Restaurent::class, 'restaurent_features')
             ->withTimestamps();
     }
 }

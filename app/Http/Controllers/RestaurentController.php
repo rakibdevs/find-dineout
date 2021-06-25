@@ -12,74 +12,21 @@ class RestaurentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function fetch()
     {
-        //
+        return Restaurent::with([
+                'categories' => function ($query) {
+                    $query->select('name', 'slug');
+                },
+                'features'=> function ($query) {
+                    $query->select('name', 'slug');
+                },
+                'cuisines'=> function ($query) {
+                    $query->select('name', 'slug');
+                }
+            ])
+            ->paginate(5);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Restaurent  $restaurent
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Restaurent $restaurent)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Restaurent  $restaurent
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Restaurent $restaurent)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Restaurent  $restaurent
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Restaurent $restaurent)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Restaurent  $restaurent
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Restaurent $restaurent)
-    {
-        //
-    }
+    
 }
