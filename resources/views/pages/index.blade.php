@@ -2,7 +2,10 @@
 @section('title','Home | FoodMoy')
 @section('container')
 	<div class="header-layer">
-		
+		<div class="find-dineout">
+			<input type="text" class="form-control" placeholder="Search for restaurent, cuisines, location">
+			<button class="btn btn-search" disabled="">Search </button>
+		</div>
 	</div>
 	<div class="container mx-auto px-2 mt-10 sm:px-4 lg:px-8">
 		<offers start-point="{{ '/fetch/offers/' }}"></offers>
@@ -13,4 +16,5 @@
 			<restaurent-list start-point="{{ '/fetch/restaurents/' }}"></restaurent-list>
 		</div>
 	</div>
+
 @endsection

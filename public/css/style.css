@@ -8,10 +8,42 @@
     overflow: hidden;
     white-space: nowrap;
 }
+.bar-title{
+    color: #FF645A;
+    font-weight: bold;
+}
 .header-layer {
     background: url(../images/background.jpg);
     height: 450px;
     background-position: center;
+}
+.find-dineout {
+    margin: auto;
+    margin-top: 100px;
+    position: relative;
+    width: 60%;
+    opacity: 0.9;
+    padding-top: 200px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.find-dineout input.form-control {
+    border-radius: 30px;
+    padding: 5px 0 5px 30px;
+    height: 60px;
+    border-color: transparent;
+    background: #2a2a2a;
+    width: 100%;
+}
+.btn-search {
+    position: absolute;
+    top: 200px;
+    right: -5px;
+    background: #0b0b0b;
+    border-radius: 0 30px 30px 0;
+    height: 60px;
+    width: 150px;
+    color: #fff;
 }
 .featured-restaurents {
     background: #f7f7f7;

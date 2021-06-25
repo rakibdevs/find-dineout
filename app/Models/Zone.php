@@ -43,4 +43,14 @@ class Zone extends Model
     {
         return $this->hasMany(Location::class);
     }
+
+    /**
+     * A zone may has to many locations and location has many restaurents
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function restaurents()
+    {
+        return $this->hasManyThrough(Branch::class,Location::class);
+    }
 }

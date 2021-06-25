@@ -3,6 +3,7 @@
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RestaurentController;
+use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,4 @@ Route::get('/', [PageController::class,'index']);
 
 Route::get('/fetch/restaurents', [RestaurentController::class,'fetch']);
 Route::get('/fetch/offers', [OfferController::class,'fetch']);
-Route::get('/fetch/zones', [ZoneController::class,'fetch']);
+Route::get('/fetch/available-zones', [ZoneController::class,'available']);
