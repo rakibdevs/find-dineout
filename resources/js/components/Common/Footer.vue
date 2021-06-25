@@ -1,5 +1,7 @@
 <template>
-	<div>
-		This will be footer
+	<div class="footer-section">
+		<div class="available-in">
+			
+		</div>
 	</div>
 </template>

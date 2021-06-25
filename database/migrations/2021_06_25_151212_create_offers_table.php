@@ -15,6 +15,11 @@ class CreateOffersTable extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
+            $table->string('name',100);
+            $table->text('slug');
+            $table->text('image')->nullable();
+            $table->integer('percent')->length(3)->unsigned();
+            $table->integer('status')->length(1)->default(1)->unsigned();
             $table->timestamps();
         });
     }

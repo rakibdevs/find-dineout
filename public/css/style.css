@@ -13,13 +13,16 @@
     height: 450px;
     background-position: center;
 }
+.featured-restaurents {
+    background: #f7f7f7;
+}
 .restnt-card {
     margin-bottom: 10px;
     background: #fff;
     border: none;
     border-radius: 4px;
     width: 270px;
-    margin: 0 0 18px 18px;
+    margin-bottom:18px;
 }
 .restnt-card .img-wrap {
     float: none;
@@ -62,4 +65,15 @@
     position: relative;
     font-size: 11px;
     color: #8f8f8f;
+}
+.offer-image {
+    background: #fff;
+    padding: 15px;
+    box-shadow: 2px 1px 10px -1px #d1d1d1;
+}
+.offer-image img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    margin: auto;
 }
