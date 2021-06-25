@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Category;
 use App\Models\Cuisine;
 use App\Models\Feature;
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +26,7 @@ class Restaurent extends Model
      *
      * @var array
      */
-    protected $appends = [];
+    protected $appends = ['cover_src'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -35,6 +36,14 @@ class Restaurent extends Model
     protected $dates = [
         'created_at', 'updated_at'
     ];
+
+    /**
+     * Get all of the restaurents's images.
+     */
+    public function getCoverSrcAttribute()
+    {
+        return isset($this->cover)?asset($this->cover):asset('images/resource/no-image.jpg');
+    }
 
     /**
      * A restaurent may has many features
@@ -67,5 +76,24 @@ class Restaurent extends Model
     {
         return $this->belongsToMany(Cuisine::class, 'restaurent_cuisines')
             ->withTimestamps();
+    }
+
+    /**
+     * A restaurent may has to many branches
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function branches()
+    {
+        return $this->hasMany(Branch::class);
+    }
+
+
+    /**
+     * Get all of the restaurents's images.
+     */
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

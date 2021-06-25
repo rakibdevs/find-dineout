@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Branch;
 use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,5 +43,15 @@ class Location extends Model
     public function zone()
     {
         return $this->belongsTo(Zone::class);
+    }
+
+    /**
+     * A location assigned to many restaurent branches
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function branches()
+    {
+        return $this->hasMany(Branch::class);
     }
 }

@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Offer extends Model
 {
-    /**
+     /**
      * Auto-apply mass assignment protection
      *
      * @var array
      */
-    protected $protected = [
+    protected $hidden = [
         'id'
     ];
 
@@ -21,7 +21,7 @@ class Image extends Model
      *
      * @var array
      */
-    protected $appends = [];
+    protected $appends = ['image_src'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -32,12 +32,11 @@ class Image extends Model
         'created_at', 'updated_at'
     ];
 
-
     /**
-     * Get the parent imageable model (Restaurent or Menu).
+     * Get all of the restaurents's images.
      */
-    public function imageable()
+    public function getImageSrcAttribute()
     {
-        return $this->morphTo();
+        return isset($this->image)?asset($this->image):asset('images/resource/no-image.jpg');
     }
 }

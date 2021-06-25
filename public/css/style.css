@@ -1,7 +1,111 @@
 .header{height: 65px;}
 .main-content{margin-top: 65px;}
+.cursor {
+    cursor: pointer;
+}
+.ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.bar-title{
+    color: #FF645A;
+    font-weight: bold;
+}
 .header-layer {
     background: url(../images/background.jpg);
     height: 450px;
     background-position: center;
+}
+.find-dineout {
+    margin: auto;
+    margin-top: 100px;
+    position: relative;
+    width: 60%;
+    opacity: 0.9;
+    padding-top: 200px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.find-dineout input.form-control {
+    border-radius: 30px;
+    padding: 5px 0 5px 30px;
+    height: 60px;
+    border-color: transparent;
+    background: #2a2a2a;
+    width: 100%;
+}
+.btn-search {
+    position: absolute;
+    top: 200px;
+    right: -5px;
+    background: #0b0b0b;
+    border-radius: 0 30px 30px 0;
+    height: 60px;
+    width: 150px;
+    color: #fff;
+}
+.featured-restaurents {
+    background: #f7f7f7;
+}
+.restnt-card {
+    margin-bottom: 10px;
+    background: #fff;
+    border: none;
+    border-radius: 4px;
+    width: 270px;
+    margin-bottom:18px;
+}
+.restnt-card .img-wrap {
+    float: none;
+    width: 100%;
+    overflow: visible;
+    position: relative;
+}
+.restnt-card .img-wrap .img {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.restnt-card .img-wrap .img {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.restnt-card .restnt-detail-wrap {
+    margin-left: 0;
+    padding: 10px;
+}
+.restnt-card .restnt-detail-wrap .restnt-info {
+    margin-bottom: 4px;
+    width: calc(100% - 10px);
+}
+.restnt-card .restnt-detail-wrap .restnt-info .restnt-name {
+    padding-bottom: 5px;
+    font-size: 16px;
+    color: #141723;
+    display: block;
+}
+.restnt-card .restnt-detail-wrap .restnt-info .restnt-loc {
+    font-size: 11px;
+    color: #8f8f8f;
+}
+.restnt-card .restnt-detail-wrap .detail-info ul li {
+    margin-top: 5px;
+    position: relative;
+    font-size: 11px;
+    color: #8f8f8f;
+}
+.offer-image {
+    background: #fff;
+    padding: 15px;
+    box-shadow: 2px 1px 10px -1px #d1d1d1;
+}
+.offer-image img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    margin: auto;
 }
