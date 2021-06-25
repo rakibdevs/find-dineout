@@ -31,4 +31,15 @@ class Feature extends Model
     protected $dates = [
         'created_at', 'updated_at'
     ];
+
+    /**
+     * A feature may be assigned to many restaurents
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function restaurents()
+    {
+        return $this->belongsToMany(Restaurent::class)
+            ->withTimestamps();
+    }
 }

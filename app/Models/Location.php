@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,4 +32,15 @@ class Location extends Model
     protected $dates = [
         'created_at', 'updated_at'
     ];
+
+
+    /**
+     * A location assigned to zone
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class);
+    }
 }

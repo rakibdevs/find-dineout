@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Restaurent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,4 +32,16 @@ class Cuisine extends Model
     protected $dates = [
         'created_at', 'updated_at'
     ];
+
+
+    /**
+     * A cuisine may be assigned to many restaurents
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function restaurents()
+    {
+        return $this->belongsToMany(Restaurent::class)
+            ->withTimestamps();
+    }
 }

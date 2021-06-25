@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Location;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,4 +32,15 @@ class Zone extends Model
     protected $dates = [
         'created_at', 'updated_at'
     ];
+
+
+    /**
+     * A zone may has to many locations
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
 }
