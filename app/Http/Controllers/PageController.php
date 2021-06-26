@@ -10,4 +10,10 @@ class PageController extends Controller
     {
         return view('pages.index');
     }
+
+    public function restaurents(Request $request)
+    {
+        $params = $request->all();
+        return view('pages.restaurents', compact('params'));
+    }
 }

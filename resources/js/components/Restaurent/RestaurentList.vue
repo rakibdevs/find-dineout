@@ -3,7 +3,7 @@
         
         <div class="restaurent-cards grid grid-cols-4 gap-4">
             <!-- restaurent card -->
-            <restaurent-card-loader v-if="isLoading"></restaurent-card-loader>
+            <restaurent-card-loader v-if="isLoading" :count="4"></restaurent-card-loader>
 
             <restaurent-card
                 v-for="(restaurent, index) in restaurents"

@@ -12,6 +12,7 @@ app.component('footer-component', require('./components/Common/Footer.vue').defa
 app.component('offers', require('./components/Offer/Offers.vue').default);
 app.component('zone-list', require('./components/Location/ZoneList.vue').default);
 app.component('restaurent-list', require('./components/Restaurent/RestaurentList.vue').default);
+app.component('restaurent-filter', require('./components/Restaurent/RestaurentFilter.vue').default);
 app.component('restaurent-card', require('./components/Restaurent/RestaurentCard.vue').default);
 
 app.mixin(Main)

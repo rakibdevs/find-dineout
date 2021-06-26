@@ -14,11 +14,13 @@ class RestaurentRepository
      */
     public function get($request)
     {
-        $categories = isset($request->categories)?explode(",",$request->categories):[];
-        $cuisines   = isset($request->cuisines)  ?explode(",",$request->cuisines):  [];
-        $features   = isset($request->features)  ?explode(",",$request->features):  [];
+        $categories = isset($request->categories)?$request->categories:[];
+        $cuisines   = isset($request->cuisines)  ?$request->cuisines:  [];
+        $features   = isset($request->features)  ?$request->features:  [];
+        $per_page   = isset($request->per_page)  ?$request->per_page: 12;
         // fetch restaurents of current location
         $location = 1;
+        
         return Branch::with([
                 'restaurent',
                 'restaurent.categories' => function ($query) {
@@ -33,23 +35,23 @@ class RestaurentRepository
                 'location',
                 'location.zone'
             ])
-            ->whereHas('restaurent.categories', function($query) use ($categories){
-                $query->when(!empty($categories), function($q) use ($categories) {
+            ->when(!empty($categories), function($query) use ($categories){
+                $query->whereHas('restaurent.categories', function($q) use ($categories){
                     $q->whereIn('name', $categories);
                 });
             })
-            ->whereHas('restaurent.features', function($query) use ($features){
-                $query->when(!empty($features), function($q) use ($features) {
+            ->when(!empty($features), function($query) use ($features){
+                $query->whereHas('restaurent.features', function($q) use ($features){
                     $q->whereIn('name', $features);
                 });
             })
-            ->whereHas('restaurent.cuisines', function($query) use ($cuisines){
-                $query->when(!empty($cuisines), function($q) use ($cuisines) {
+            ->when(!empty($cuisines), function($query) use ($cuisines){
+                $query->whereHas('restaurent.cuisines', function($q) use ($cuisines){
                     $q->whereIn('name', $cuisines);
                 });
             })
             ->where('location_id', $location)
-            ->paginate(12);
+            ->paginate($per_page);
     }
 
     
