@@ -21,5 +21,6 @@ Route::get('/', [PageController::class,'index']);
 
 
 Route::get('/fetch/restaurents', [RestaurentController::class,'fetch']);
+Route::get('/fetch/', [RestaurentController::class,'fetch']);
 Route::get('/fetch/offers', [OfferController::class,'fetch']);
 Route::get('/fetch/available-zones', [ZoneController::class,'available']);
