@@ -2,15 +2,14 @@
 	<div>
         <div class="grid grid-cols-4 gap-4">
             <div class="">
-                <!-- do some filter here -->
                 <!-- filter by cuisine -->
                 <div v-if="ignore !='cuisine'" class="">
                     <h3 class="py-2">Cuisines</h3>
                     <hr>
-                    <div>
+                    <div v-for="(item, index) in libCuisines">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" id="cuisines-" v-model="cuisines">
-                            <span >Option 1</span>
+                            <input type="checkbox" class="form-checkbox" v-model="cuisines" :value="item.name" @click="checkBoxFilter"> 
+                            <span >{{item.name}}</span>
                         </label>
                     </div>
                 </div>
@@ -18,10 +17,10 @@
                 <div v-if="ignore !='category'" class="">
                     <h3 class="py-2">Categories</h3>
                     <hr>
-                    <div>
+                    <div v-for="(item, index) in libCategories">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" v-model="categories">
-                            <span >Option 1</span>
+                            <input type="checkbox" class="form-checkbox" v-model="categories" :value="item.name" @click="checkBoxFilter"> 
+                            <span >{{item.name}}</span>
                         </label>
                     </div>
                 </div>
@@ -29,10 +28,10 @@
                 <div v-if="ignore !='feature'" class="">
                     <h3 class="py-2">Features</h3>
                     <hr>
-                    <div>
+                    <div v-for="(item, index) in libFeatures">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" v-model="features">
-                            <span>Option 1</span>
+                            <input type="checkbox" class="form-checkbox" v-model="features" :value="item.name" @click="checkBoxFilter" > 
+                            <span>{{item.name}}</span>
                         </label>
                     </div>
                     <hr>
@@ -62,6 +61,7 @@
 
 <script type="text/javascript">
 import RestaurentCardLoader from './RestaurentCardLoader.vue';
+import queryString from 'query-string';
 
 export default {
     props: {
@@ -79,32 +79,64 @@ export default {
     components: {RestaurentCardLoader},
     data () {
         return {
-            filterable:[],
             restaurents: [],
             cuisines:[],
             categories:[],
             features:[],
-            isLoading:true
+            libCuisines: [],
+            libCategories: [],
+            libFeatures: [],
+            params: [],
+            isLoading:true,
+            nextUrl:''
         }
     },
 
     created () {
+        this.setParams();
+        this.fetchLibrary();
         this.fetch(this.startPoint);
     },
 
     methods: {
-        fetch (endpoint) {
+        fetch (endpoint) {  
+            this.isLoading = true
             this.startUpdating();
             axios.get(endpoint).then(({data}) => {
-                this.restaurents.push(...data.data);
+                this.restaurents = data.data;
                 this.isLoading = false
                 this.nextUrl = data.next_page_url;
                 this.stopUpdating();
             });
         },
         fetchLibrary(){
-
+            // fetch cuisine
+            if(this.ignore !='cuisine'){
+                axios.get('api/fetch/cuisines').then(({data}) => {
+                    this.libCuisines = data;
+                    console.log(this.libCuisines)
+                });
+            }
+            // fetch cuisine
+            if(this.ignore !='category'){
+                axios.get('api/fetch/categories').then(({data}) => {
+                    this.libCategories = data;
+                });
+            }
+            // fetch cuisine
+            if(this.ignore !='feature'){
+                axios.get('api/fetch/features').then(({data}) => {
+                    this.libFeatures = data;
+                });
+            }
+        },
+        setParams(){
+            this.params = queryString.parse(location.search);
+        },
+        checkBoxFilter(){
+            //this.fetch(this.startPoint);
         }
+
     }
 }
 </script>

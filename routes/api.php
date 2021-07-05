@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CuisineController;
+use App\Http\Controllers\API\FeatureController;
 use App\Http\Controllers\API\OfferController;
 use App\Http\Controllers\API\RestaurentController;
 use App\Http\Controllers\API\ZoneController;
