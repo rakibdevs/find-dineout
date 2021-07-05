@@ -7,16 +7,18 @@
           				<a class="inline-flex items-center font-black font-display text-cool-indigo-800 text-xl" href="/">
           					<span class="ml-3 hidden xl:inline-block"> <span class="text-cool-indigo-600"> foodmoy </span></span>
           				</a>  
-          				<div >
-          					<div class="">
-          						<input type="text" name="">
-          					</div>
+          				<div class="header-searchable-location mx-3">
+          					<vue-select :model-value="selectedLocation"  v-model="selectedLocation" :options="options" @update:modelValue="handleChange" clear-on-close clear-on-select placeholder="Select location"> 
+          						<template #dropdown-item="{ option }">
+							    	<div>{{ option}}</div>
+							    </template>
+          					</vue-select>
           				</div>      		
           			</div>
 		        	<div class="hidden lg:ml-6 xl:ml-8 lg:flex lg:space-x-8">
 						<!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
 						<a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" href="/">Home</a>
-						<a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" href="/book-a-table">Book a Table</a>
+						<a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" href="/restaurents">Restaurents</a>
 						<a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" href="/privacy-policy">Privacy Policy</a>
 						<a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" href="/blog">Blog</a>
 		        	</div>
@@ -43,10 +45,36 @@
   		<div class="hidden lg:hidden" id="mobile-menu" data-controller="toggle" data-toggle-target="toggleable">
     		<div class="px-2 pt-2 pb-3">
 				<a class="block px-3 py-2 rounded-xl text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50" href="/">Home</a>
-				<a class="block px-3 py-2 rounded-xl text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50" href="/book-a-table">Book a Table</a>
+				<a class="block px-3 py-2 rounded-xl text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50" href="/restaurents">Book a Table</a>
 				<a class="block px-3 py-2 rounded-xl text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50" href="/privacy-policy">Privacy Policy</a>
 				<a class="block px-3 py-2 rounded-xl text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50" href="/blog">Blog</a>
 			</div> 
 		</div>
 	</nav>
 </template>
+
+<script>
+	import queryString from 'query-string';
+	export default{
+		data(){
+			return {
+				options: ['dhaka','rangpur','khulna'],
+				selectedLocation: '',
+			}
+		},
+		created(){
+			this.checkQueryString();
+		},
+		methods:{
+			checkQueryString(){
+				let parsed = queryString.parse(location.search);
+				this.selectedLocation = parsed.location
+			},
+			handleChange()
+			{
+				console.log(this.selectedLocation)
+			}
+		}
+	}
+
+</script>
