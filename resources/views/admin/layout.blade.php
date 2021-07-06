@@ -16,13 +16,11 @@
 <body>
     <!-- loader END -->
     <div id="app">
-        <router-view></router-view>
-        <header-component></header-component>
+        @include('admin.include.header')
         <div class="main-content">
-            
+            @include('admin.include.menu')
             @yield('container')
         </div>
-        @include('include.footer')
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

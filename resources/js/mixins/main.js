@@ -1,3 +1,4 @@
+import queryString from 'query-string';
 export default {
     data () {
         return {/*
@@ -5,6 +6,8 @@ export default {
             authUser: window.Auth.authUser || null,*/
             isEditing: false,
             isUpdating: false,
+            params: [],
+            mainUri: window.location.protocol + "//" + window.location.host + window.location.pathname,
         }
     },
 
@@ -18,6 +21,19 @@ export default {
         },
         stopUpdating () {
             this.isUpdating = false;
+        },
+        createdParams(){
+            this.params = queryString.parse(location.search);
+        },
+        setParams(queries){
+
+            this.params = queries;
+        },
+        setQueryString(){
+            const stringified = queryString.stringify(this.params);
+            let newurl = decodeURIComponent(this.mainUri + '?' + stringified);
+            console.log(newurl)
+            window.history.pushState({path: newurl}, '', newurl);
         }
         /*showLoginModal () {
             window.events.$emit('showLoginModal');

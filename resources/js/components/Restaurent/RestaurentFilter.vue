@@ -8,7 +8,7 @@
                     <hr>
                     <div v-for="(item, index) in libCuisines">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" v-model="cuisines" :value="item.name" @change="checkBoxFilter"> 
+                            <input type="checkbox" class="form-checkbox" v-model="cuisines" :value="item.slug" @change="checkBoxFilter"> 
                             <span >{{item.name}}</span>
                         </label>
                     </div>
@@ -19,7 +19,7 @@
                     <hr>
                     <div v-for="(item, index) in libCategories">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" v-model="categories" :value="item.name" @change="checkBoxFilter"> 
+                            <input type="checkbox" class="form-checkbox" v-model="categories" :value="item.slug" @change="checkBoxFilter"> 
                             <span >{{item.name}}</span>
                         </label>
                     </div>
@@ -30,7 +30,7 @@
                     <hr>
                     <div v-for="(item, index) in libFeatures">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" v-model="features" :value="item.name" @change="checkBoxFilter" > 
+                            <input type="checkbox" class="form-checkbox" v-model="features" :value="item.slug" @change="checkBoxFilter" > 
                             <span>{{item.name}}</span>
                         </label>
                     </div>
@@ -61,7 +61,6 @@
 
 <script type="text/javascript">
 import RestaurentCardLoader from './RestaurentCardLoader.vue';
-import queryString from 'query-string';
 
 export default {
     props: {
@@ -86,14 +85,14 @@ export default {
             libCuisines: [],
             libCategories: [],
             libFeatures: [],
-            params: [],
             isLoading:true,
-            nextUrl:''
+            nextUrl:'',
+            queries: [],
         }
     },
 
     created () {
-        this.setParams();
+        this.createdParams();
         this.fetchLibrary();
         this.fetch(this.startPoint);
     },
@@ -114,7 +113,6 @@ export default {
             if(this.ignore !='cuisine'){
                 axios.get('api/fetch/cuisines').then(({data}) => {
                     this.libCuisines = data;
-                    console.log(this.libCuisines)
                 });
             }
             // fetch cuisine
@@ -130,13 +128,23 @@ export default {
                 });
             }
         },
-        setParams(){
-            this.params = queryString.parse(location.search);
-        },
         checkBoxFilter(){
-            console.log('hi');
+            this.getSelectedParams();
             this.fetch(this.startPoint);
-            //this.fetch(this.startPoint);
+            this.setParams(this.queries);
+            this.setQueryString();
+        },
+        getSelectedParams(){
+            this.queries = [];
+            if(this.cuisines.length > 0){
+                this.queries.cuisines = this.cuisines.join()
+            }
+            if(this.categories.length > 0){
+                this.queries.categories = this.categories.join()
+            }
+            if(this.categories.length > 0){
+                this.queries.features = this.features.join()
+            }
         }
 
     }

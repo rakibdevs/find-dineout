@@ -3,18 +3,13 @@ require('./bootstrap');
 import Main from './mixins/main';
 
 import { createApp } from "vue";
-///import VueRouter from "vue-router";
+import router from './router'
 import VueNextSelect from 'vue-next-select'
 import queryString from 'query-string';
 import 'vue-next-select/dist/index.min.css'
 
 const app = createApp({});
 
-/*const routes = []
-const router = new VueRouter({
-  routes // short for `routes: routes`
-})
-*/
 app.component('vue-select', VueNextSelect)
 app.component('login', require('./components/Auth/Login.vue').default);
 app.component('header-component', require('./components/Common/Header.vue').default);
@@ -26,6 +21,7 @@ app.component('restaurent-filter', require('./components/Restaurent/RestaurentFi
 app.component('restaurent-card', require('./components/Restaurent/RestaurentCard.vue').default);
 
 app.mixin(Main)
+   .use(router)
    .use(queryString)
    .mount("#app");
 
