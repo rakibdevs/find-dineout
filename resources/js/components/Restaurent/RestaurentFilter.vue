@@ -130,9 +130,9 @@ export default {
         },
         checkBoxFilter(){
             this.getSelectedParams();
-            this.fetch(this.startPoint);
             this.setParams(this.queries);
-            this.setQueryString();
+            let query = this.setQueryString();
+            this.fetch(this.startPoint+'?'+query);
         },
         getSelectedParams(){
             this.queries = [];
@@ -142,7 +142,7 @@ export default {
             if(this.categories.length > 0){
                 this.queries.categories = this.categories.join()
             }
-            if(this.categories.length > 0){
+            if(this.features.length > 0){
                 this.queries.features = this.features.join()
             }
         }

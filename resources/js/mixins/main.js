@@ -32,8 +32,8 @@ export default {
         setQueryString(){
             const stringified = queryString.stringify(this.params);
             let newurl = decodeURIComponent(this.mainUri + '?' + stringified);
-            console.log(newurl)
             window.history.pushState({path: newurl}, '', newurl);
+            return decodeURIComponent(stringified)
         }
         /*showLoginModal () {
             window.events.$emit('showLoginModal');

@@ -17884,9 +17884,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     checkBoxFilter: function checkBoxFilter() {
       this.getSelectedParams();
-      this.fetch(this.startPoint);
       this.setParams(this.queries);
-      this.setQueryString();
+      var query = this.setQueryString();
+      this.fetch(this.startPoint + '?' + query);
     },
     getSelectedParams: function getSelectedParams() {
       this.queries = [];
@@ -17899,7 +17899,7 @@ __webpack_require__.r(__webpack_exports__);
         this.queries.categories = this.categories.join();
       }
 
-      if (this.categories.length > 0) {
+      if (this.features.length > 0) {
         this.queries.features = this.features.join();
       }
     }
@@ -18700,10 +18700,10 @@ __webpack_require__.r(__webpack_exports__);
     setQueryString: function setQueryString() {
       var stringified = query_string__WEBPACK_IMPORTED_MODULE_0__.stringify(this.params);
       var newurl = decodeURIComponent(this.mainUri + '?' + stringified);
-      console.log(newurl);
       window.history.pushState({
         path: newurl
       }, '', newurl);
+      return decodeURIComponent(stringified);
     }
     /*showLoginModal () {
         window.events.$emit('showLoginModal');
