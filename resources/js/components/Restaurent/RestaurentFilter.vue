@@ -8,7 +8,7 @@
                     <hr>
                     <div v-for="(item, index) in libCuisines">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" v-model="cuisines" :value="item.name" @click="checkBoxFilter"> 
+                            <input type="checkbox" class="form-checkbox" v-model="cuisines" :value="item.name" @change="checkBoxFilter"> 
                             <span >{{item.name}}</span>
                         </label>
                     </div>
@@ -19,7 +19,7 @@
                     <hr>
                     <div v-for="(item, index) in libCategories">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" v-model="categories" :value="item.name" @click="checkBoxFilter"> 
+                            <input type="checkbox" class="form-checkbox" v-model="categories" :value="item.name" @change="checkBoxFilter"> 
                             <span >{{item.name}}</span>
                         </label>
                     </div>
@@ -30,7 +30,7 @@
                     <hr>
                     <div v-for="(item, index) in libFeatures">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" v-model="features" :value="item.name" @click="checkBoxFilter" > 
+                            <input type="checkbox" class="form-checkbox" v-model="features" :value="item.name" @change="checkBoxFilter" > 
                             <span>{{item.name}}</span>
                         </label>
                     </div>
@@ -42,12 +42,12 @@
                 <!-- results here -->
                 <div class="restaurent-cards grid grid-cols-3 gap-4">
                     <!-- restaurent card -->
-                    <restaurent-card
+                    <restaurent-card v-if="!isUpdating"
                         v-for="(restaurent, index) in restaurents"
                         :key="restaurent.id"
                         :restaurent="restaurent">
                     </restaurent-card>
-                    <restaurent-card-loader v-if="isLoading" :count="3"></restaurent-card-loader>
+                    <restaurent-card-loader v-if="isLoading" :count="6"></restaurent-card-loader>
                 </div>
                 <div v-if="nextUrl && !isUpdating" class="text-center my-3">
                     <button @click.prevent="fetch(nextUrl)" class="btn btn-sm btn-outline-secondary">
@@ -134,6 +134,8 @@ export default {
             this.params = queryString.parse(location.search);
         },
         checkBoxFilter(){
+            console.log('hi');
+            this.fetch(this.startPoint);
             //this.fetch(this.startPoint);
         }
 

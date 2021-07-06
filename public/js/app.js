@@ -17888,7 +17888,9 @@ __webpack_require__.r(__webpack_exports__);
     setParams: function setParams() {
       this.params = query_string__WEBPACK_IMPORTED_MODULE_1__.parse(location.search);
     },
-    checkBoxFilter: function checkBoxFilter() {//this.fetch(this.startPoint);
+    checkBoxFilter: function checkBoxFilter() {
+      console.log('hi');
+      this.fetch(this.startPoint); //this.fetch(this.startPoint);
     }
   }
 });
@@ -18326,10 +18328,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "animate-pulse space-x-4"
+  "class": "animate-pulse space-x-4 restaurent-card-loader-item"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"rounded w-full bg-gray-400 h-24\"></div><div class=\"h-4 bg-gray-400 rounded w-3/4 my-4\"></div><div class=\"space-y-2\"><div class=\"h-4 bg-gray-400 rounded w-7/8\"></div><div class=\"h-4 bg-gray-400 rounded w-4/6\"></div></div>", 3);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"rounded w-full bg-gray-400 h-167\"></div><div class=\"h-4 bg-gray-400 rounded w-3/4 my-4\"></div><div class=\"space-y-2\"><div class=\"h-4 bg-gray-400 rounded w-7/8\"></div><div class=\"h-4 bg-gray-400 rounded w-4/6\"></div></div>", 3);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.count, function (i) {
@@ -18442,11 +18444,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $data.cuisines = $event;
       }),
       value: item.name,
-      onClick: _cache[2] || (_cache[2] = function () {
+      onChange: _cache[2] || (_cache[2] = function () {
         return $options.checkBoxFilter && $options.checkBoxFilter.apply($options, arguments);
       })
-    }, null, 8
-    /* PROPS */
+    }, null, 40
+    /* PROPS, HYDRATE_EVENTS */
     , ["value"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.cuisines]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 1
     /* TEXT */
     )])]);
@@ -18460,11 +18462,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $data.categories = $event;
       }),
       value: item.name,
-      onClick: _cache[4] || (_cache[4] = function () {
+      onChange: _cache[4] || (_cache[4] = function () {
         return $options.checkBoxFilter && $options.checkBoxFilter.apply($options, arguments);
       })
-    }, null, 8
-    /* PROPS */
+    }, null, 40
+    /* PROPS, HYDRATE_EVENTS */
     , ["value"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.categories]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 1
     /* TEXT */
     )])]);
@@ -18478,17 +18480,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $data.features = $event;
       }),
       value: item.name,
-      onClick: _cache[6] || (_cache[6] = function () {
+      onChange: _cache[6] || (_cache[6] = function () {
         return $options.checkBoxFilter && $options.checkBoxFilter.apply($options, arguments);
       })
-    }, null, 8
-    /* PROPS */
+    }, null, 40
+    /* PROPS, HYDRATE_EVENTS */
     , ["value"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.features]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 1
     /* TEXT */
     )])]);
   }), 256
   /* UNKEYED_FRAGMENT */
-  )), _hoisted_15])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" results here "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" restaurent card "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.restaurents, function (restaurent, index) {
+  )), _hoisted_15])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" results here "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" restaurent card "), !_ctx.isUpdating ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 0
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.restaurents, function (restaurent, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_restaurent_card, {
       key: restaurent.id,
       restaurent: restaurent
@@ -18497,9 +18501,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , ["restaurent"]);
   }), 128
   /* KEYED_FRAGMENT */
-  )), $data.isLoading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_restaurent_card_loader, {
-    key: 0,
-    count: 3
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.isLoading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_restaurent_card_loader, {
+    key: 1,
+    count: 6
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $data.nextUrl && !_ctx.isUpdating ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
     onClick: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $options.fetch($data.nextUrl);
