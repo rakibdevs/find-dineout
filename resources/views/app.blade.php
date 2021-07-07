@@ -16,6 +16,7 @@
 <body>
     <!-- loader END -->
     <div id="app">
+        <router-view></router-view>
         <header-component></header-component>
         <div class="main-content">
             

@@ -8,7 +8,7 @@
                     <hr>
                     <div v-for="(item, index) in libCuisines">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" v-model="cuisines" :value="item.name" @click="checkBoxFilter"> 
+                            <input type="checkbox" class="form-checkbox" v-model="cuisines" :value="item.slug" @change="checkBoxFilter"> 
                             <span >{{item.name}}</span>
                         </label>
                     </div>
@@ -19,7 +19,7 @@
                     <hr>
                     <div v-for="(item, index) in libCategories">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" v-model="categories" :value="item.name" @click="checkBoxFilter"> 
+                            <input type="checkbox" class="form-checkbox" v-model="categories" :value="item.slug" @change="checkBoxFilter"> 
                             <span >{{item.name}}</span>
                         </label>
                     </div>
@@ -30,7 +30,7 @@
                     <hr>
                     <div v-for="(item, index) in libFeatures">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox" v-model="features" :value="item.name" @click="checkBoxFilter" > 
+                            <input type="checkbox" class="form-checkbox" v-model="features" :value="item.slug" @change="checkBoxFilter" > 
                             <span>{{item.name}}</span>
                         </label>
                     </div>
@@ -42,12 +42,12 @@
                 <!-- results here -->
                 <div class="restaurent-cards grid grid-cols-3 gap-4">
                     <!-- restaurent card -->
-                    <restaurent-card
+                    <restaurent-card v-if="!isUpdating"
                         v-for="(restaurent, index) in restaurents"
                         :key="restaurent.id"
                         :restaurent="restaurent">
                     </restaurent-card>
-                    <restaurent-card-loader v-if="isLoading" :count="3"></restaurent-card-loader>
+                    <restaurent-card-loader v-if="isLoading" :count="6"></restaurent-card-loader>
                 </div>
                 <div v-if="nextUrl && !isUpdating" class="text-center my-3">
                     <button @click.prevent="fetch(nextUrl)" class="btn btn-sm btn-outline-secondary">
@@ -61,7 +61,6 @@
 
 <script type="text/javascript">
 import RestaurentCardLoader from './RestaurentCardLoader.vue';
-import queryString from 'query-string';
 
 export default {
     props: {
@@ -86,14 +85,14 @@ export default {
             libCuisines: [],
             libCategories: [],
             libFeatures: [],
-            params: [],
             isLoading:true,
-            nextUrl:''
+            nextUrl:'',
+            queries: [],
         }
     },
 
     created () {
-        this.setParams();
+        this.createdParams();
         this.fetchLibrary();
         this.fetch(this.startPoint);
     },
@@ -114,7 +113,6 @@ export default {
             if(this.ignore !='cuisine'){
                 axios.get('api/fetch/cuisines').then(({data}) => {
                     this.libCuisines = data;
-                    console.log(this.libCuisines)
                 });
             }
             // fetch cuisine
@@ -130,11 +128,23 @@ export default {
                 });
             }
         },
-        setParams(){
-            this.params = queryString.parse(location.search);
-        },
         checkBoxFilter(){
-            //this.fetch(this.startPoint);
+            this.getSelectedParams();
+            this.setParams(this.queries);
+            let query = this.setQueryString();
+            this.fetch(this.startPoint+'?'+query);
+        },
+        getSelectedParams(){
+            this.queries = [];
+            if(this.cuisines.length > 0){
+                this.queries.cuisines = this.cuisines.join()
+            }
+            if(this.categories.length > 0){
+                this.queries.categories = this.categories.join()
+            }
+            if(this.features.length > 0){
+                this.queries.features = this.features.join()
+            }
         }
 
     }
