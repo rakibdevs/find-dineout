@@ -1,4 +1,5 @@
-<div class="sticky top-0 z-40">
+<template>
+    <div class="sticky top-0 z-40 w-100">
             <div class="w-full h-20 px-6 bg-gray-100 border-b flex items-center justify-between">
 
               <!-- left navbar -->
@@ -39,3 +40,26 @@
             <!-- dropdown menu end -->
 
     </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+    name: 'Navbar',
+    computed: {
+        ...mapState(['sideBarOpen'])
+    },
+    data() {
+        return {
+            dropDownOpen: false
+        }
+    },
+    methods: {
+        toggleSidebar() {
+            this.$store.dispatch('toggleSidebar')
+        }
+    }
+}
+</script>
+{"mode":"full","isActive":false}
