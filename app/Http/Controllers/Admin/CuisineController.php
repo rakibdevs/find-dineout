@@ -16,7 +16,7 @@ class CuisineController extends Controller
      */
     public function index()
     {
-        return view('admin.cuisines.index');
+        return view('admin.cuisines');
     }
 
 
@@ -87,7 +87,11 @@ class CuisineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cuisine = Cuisine::find($id);
+        $cuisine->name = $request->name;
+        $cuisine->slug = $request->name;
+
+        return $cuisine->save();
     }
 
     /**
@@ -98,6 +102,6 @@ class CuisineController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Cuisine::find($id)->delete();
     }
 }

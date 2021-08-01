@@ -38,6 +38,8 @@ Route::group(['prefix' => 'admin'], function(){
 	Route::resource('restaurents', RestaurentController::class);
 	
 	Route::get('fetch/cuisines/', [CuisineController::class, 'fetch']);
+	Route::get('fetch/features/', [FeatureController::class, 'fetch']);
+	Route::get('fetch/categories/', [CategoryController::class, 'fetch']);
 });
 
 

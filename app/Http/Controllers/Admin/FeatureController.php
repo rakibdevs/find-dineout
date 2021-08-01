@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FeatureRequest;
 use App\Models\Feature;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,20 @@ class FeatureController extends Controller
      */
     public function index()
     {
-        $features = Feature::paginate(1);
-        return view('admin.features.index', compact('features'));
+        return view('admin.features');
+    }
+
+
+    public function fetch(Request $request)
+    {
+        $perpage = $request->per_page != ''? ((int)$request->per_page):10;
+        $keyword = $request->keyword??'';
+        return Feature::withCount('restaurents')
+            ->when($keyword != '', function($q) use ($keyword){
+                $q->where('name','like','%'.$keyword.'%');
+            })
+            ->orderBy('id','desc')
+            ->paginate($perpage);
     }
 
     /**
@@ -35,9 +48,12 @@ class FeatureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FeatureRequest $request, Feature $feature)
     {
-        //
+        $feature->name = $request->name;
+        $feature->slug = $request->name;
+
+        return $feature->save();
     }
 
     /**
@@ -48,7 +64,7 @@ class FeatureController extends Controller
      */
     public function show($id)
     {
-        //
+        return Feature::find($id);
     }
 
     /**
@@ -71,7 +87,11 @@ class FeatureController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $feature = Feature::find($id);
+        $feature->name = $request->name;
+        $feature->slug = $request->name;
+
+        return $feature->save();
     }
 
     /**
@@ -82,6 +102,6 @@ class FeatureController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Feature::find($id)->delete();
     }
 }
