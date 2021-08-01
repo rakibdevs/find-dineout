@@ -46,7 +46,7 @@
 						<td class="text-center">{{row.restaurents_count}}</td>
 						<td class="text-center">
 							<div class="flex item-center justify-center action-buttons">
-								<i class="las la-edit text-green-500 cursor-pointer text-xl" @click="edit(row.id)"></i>
+								<i class="las la-edit text-green-500 cursor-pointer text-xl" @click="showEditModal(row)"></i>
 								<i class="las la-trash-alt text-red-500 cursor-pointer text-xl" @click="delete(row.id)"></i>
 							</div>
 						</td>
@@ -96,6 +96,30 @@
 				            </label>
 			        	</div>
 			            <button class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="save">
+						  <span>Save</span>
+						</button>
+			        </div>
+		        </div>
+	         </div>
+	    </div>
+
+	    <!-- edit modal -->
+		<div class="modal fade apps-modal" :class="editModal == true?'modal-open':''">
+	    	<div class="modal-dialog modal-dialog-centered" role="document">
+	        	<div class="modal-content p-5 ">
+		        	<span class="close cursor-pointer hover:text-red-500 focus:text-red-500 " @click="closeEditModal"><i class="las la-times font-bold text-xl"></i></span>
+		        	<div class="w-3/4 mx-auto">
+			        	<h3 class="font-bold mt-2 mb-2">
+			        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-hamburger align-bottom"></i> 
+			        		Edit Cuisine
+			        	</h3>
+			        	<div class="grid grid-cols-1 gap-6 mb-3">
+			        		<label class="block">
+				                <span class="text-gray-700 font-bold text-sm">Title</span>
+				                <input type="text" class="mt-1 block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter a title" v-model="item.name">
+				            </label>
+			        	</div>
+			            <button class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="update(item.id)">
 						  <span>Save</span>
 						</button>
 			        </div>
@@ -155,13 +179,13 @@
 	        	this.fetch(this.startpoint)
 	        },
 	        loadPage(page_url) {
-	        	console.log(page_url)
 	        	this.fetch(page_url)
 	        },
 	        save(){
 	        	axios.post('/admin/cuisines', {
 	                name: this.item.name
 	            }).then(res => {
+	                this.closeCreateModal()
 	                this.fetch(this.reserve_endpoint)
 	            }).catch(error => {
 	                var errors = "";
@@ -171,21 +195,36 @@
 	        delete(id) {
 
 	        },
-	        update(){
-
+	        update(id){
+	        	axios.put('/admin/cuisines/'+id, {
+	                name: this.item.name
+	            }).then(res => {
+	                this.closeEditModal()
+	                this.fetch(this.reserve_endpoint)
+	            }).catch(error => {
+	                var errors = "";
+	            });
 	        },
 	        showCreateModal(){
-	        	this.createModal = true;
+	        	this.item = {
+		    		id:null,
+		    		name: null
+		    	}
+	        	this.createModal = true;	
 	        },
 	        closeCreateModal(){
 	        	this.createModal = false;
 	        },
-	        showEditModal(id) {
+	        showEditModal(data) {
 	        	this.editModal = true;
-	        	// fetch data
+	        	this.item = data;
 	        },
 	        closeEditModal(){
 	        	this.editModal = false;
+	        	this.item = {
+		    		id:null,
+		    		name: null
+		    	}
 	        },
 
 	    }

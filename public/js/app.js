@@ -17848,7 +17848,6 @@ __webpack_require__.r(__webpack_exports__);
       this.fetch(this.startpoint);
     },
     loadPage: function loadPage(page_url) {
-      console.log(page_url);
       this.fetch(page_url);
     },
     save: function save() {
@@ -17857,24 +17856,47 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/admin/cuisines', {
         name: this.item.name
       }).then(function (res) {
+        _this2.closeCreateModal();
+
         _this2.fetch(_this2.reserve_endpoint);
       })["catch"](function (error) {
         var errors = "";
       });
     },
     "delete": function _delete(id) {},
-    update: function update() {},
+    update: function update(id) {
+      var _this3 = this;
+
+      axios.put('/admin/cuisines/' + id, {
+        name: this.item.name
+      }).then(function (res) {
+        _this3.closeEditModal();
+
+        _this3.fetch(_this3.reserve_endpoint);
+      })["catch"](function (error) {
+        var errors = "";
+      });
+    },
     showCreateModal: function showCreateModal() {
+      this.item = {
+        id: null,
+        name: null
+      };
       this.createModal = true;
     },
     closeCreateModal: function closeCreateModal() {
       this.createModal = false;
     },
-    showEditModal: function showEditModal(id) {
-      this.editModal = true; // fetch data
+    showEditModal: function showEditModal(data) {
+      this.editModal = true;
+      this.item = data;
     },
     closeEditModal: function closeEditModal() {
       this.editModal = false;
+      this.item = {
+        id: null,
+        name: null
+      };
     }
   }
 });
@@ -18582,6 +18604,49 @@ var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
+var _hoisted_41 = {
+  "class": "modal-dialog modal-dialog-centered",
+  role: "document"
+};
+var _hoisted_42 = {
+  "class": "modal-content p-5 "
+};
+
+var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "las la-times font-bold text-xl"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_44 = {
+  "class": "w-3/4 mx-auto"
+};
+
+var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h3", {
+  "class": "font-bold mt-2 mb-2"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "h-6 w-6 text-2xl text-indigo-700 las la-hamburger align-bottom"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Edit Cuisine ")], -1
+/* HOISTED */
+);
+
+var _hoisted_46 = {
+  "class": "grid grid-cols-1 gap-6 mb-3"
+};
+var _hoisted_47 = {
+  "class": "block"
+};
+
+var _hoisted_48 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+  "class": "text-gray-700 font-bold text-sm"
+}, "Title", -1
+/* HOISTED */
+);
+
+var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, "Save", -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_loading_table = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("loading-table");
 
@@ -18630,7 +18695,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
       "class": "las la-edit text-green-500 cursor-pointer text-xl",
       onClick: function onClick($event) {
-        return _ctx.edit(row.id);
+        return $options.showEditModal(row);
       }
     }, null, 8
     /* PROPS */
@@ -18700,6 +18765,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.save && $options.save.apply($options, arguments);
     })
   }, [_hoisted_40])])])])], 2
+  /* CLASS */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" edit modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+    "class": ["modal fade apps-modal", $data.editModal == true ? 'modal-open' : '']
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+    "class": "close cursor-pointer hover:text-red-500 focus:text-red-500 ",
+    onClick: _cache[10] || (_cache[10] = function () {
+      return $options.closeEditModal && $options.closeEditModal.apply($options, arguments);
+    })
+  }, [_hoisted_43]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_44, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", _hoisted_47, [_hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+    type: "text",
+    "class": "mt-1 block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+    placeholder: "Enter a title",
+    "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+      return $data.item.name = $event;
+    })
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.item.name]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+    "class": "bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center",
+    onClick: _cache[12] || (_cache[12] = function ($event) {
+      return $options.update($data.item.id);
+    })
+  }, [_hoisted_49])])])])], 2
   /* CLASS */
   )]);
 }

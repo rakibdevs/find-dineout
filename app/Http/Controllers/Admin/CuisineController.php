@@ -28,6 +28,7 @@ class CuisineController extends Controller
             ->when($keyword != '', function($q) use ($keyword){
                 $q->where('name','like','%'.$keyword.'%');
             })
+            ->orderBy('id','desc')
             ->paginate($perpage);
     }
 
@@ -47,9 +48,12 @@ class CuisineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CuisineRequest $request)
+    public function store(CuisineRequest $request, Cuisine $cuisine)
     {
-        return Cuisine::create($request->except('_token'));
+        $cuisine->name = $request->name;
+        $cuisine->slug = $request->name;
+
+        return $cuisine->save();
     }
 
     /**
@@ -60,7 +64,7 @@ class CuisineController extends Controller
      */
     public function show($id)
     {
-        //
+        return Cuisine::find($id);
     }
 
     /**

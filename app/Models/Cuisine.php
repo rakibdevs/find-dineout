@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Models\Restaurent;
+use App\Traits\MakeSluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Cuisine extends Model
 {
+    use MakeSluggable;
     /**
      * Auto-apply mass assignment protection
      *
@@ -32,29 +34,6 @@ class Cuisine extends Model
     protected $dates = [
         'created_at', 'updated_at'
     ];
-
-    public function setSlugAttribute($value) 
-    {
-        if (static::whereSlug($slug = str_slug($value))->exists()) {
-            $slug = $this->incrementSlug($slug);
-        }
-
-        $this->attributes['slug'] = $slug;
-    }
-
-
-    public function incrementSlug($slug) 
-    {
-
-        $original = $slug;
-        $count = 2;
-        while (static::whereSlug($slug)->exists()) {
-            $slug = "{$original}-" . $count++;
-        }
-
-        return $slug;
-
-    }
 
 
     /**
