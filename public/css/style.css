@@ -1,3 +1,10 @@
+*{
+    font-size: 13px;
+}
+table tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+select{padding: 4px 20px;}
 .h-167{height: 166px;}
 .header{height: 65px;}
 .main-content{margin-top: 65px;}
@@ -110,6 +117,62 @@
     margin: auto;
 }
 
+.border-collapseed{
+    border-collapse: collapse;
+}
+.table-bordered th, .table-bordered td{
+    border: 1px solid #dee2e6;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding: 3px;
+    vertical-align: middle;
+}
+.table-bordered th:nth-first-child, .table-bordered td:nth-first-child{
+    border-left-width: 1px;
+}
+.table-bordered td::hover{
+    background-color: rgba(0,0,0,.05);
+}
+.action-buttons i {
+    margin: 0 5px;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+.modal-open.apps-modal { overflow: hidden;display: block; }
+.modal-open.apps-modal .close { position: absolute; top: 10px; right: 10px; text-shadow: none; z-index: 10; }
+.modal-open.apps-modal .modal-dialog { justify-content: center;width: 100%; max-width: 100%; height: 100vh; margin: 0;padding: 0; }
+.modal-open.apps-modal .modal-dialog .modal-content .quick-search { position: relative; width: 100%; top: 17px; padding: 0 50px; z-index: 9; }
+.modal-open.apps-modal .modal-dialog .modal-content .quick-search .input-wrap { position: relative; }
+.modal-open.apps-modal .modal-dialog .modal-content .quick-search .input-wrap i { position: absolute; right: 5px; top: 0; width: 30px; height: 35px; border-radius: 50%; line-height: 35px; text-align: center; }
+.modal-open.apps-modal .modal-dialog .modal-content .modal-body .apps-wrap { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-flex-flow: row wrap; -moz-flex-flow: row wrap; -ms-flex-flow: row wrap; flex-flow: row wrap; -webkit-justify-content: center; -moz-justify-content: center; -ms-justify-content: center; justify-content: center; -ms-flex-pack: center; width: 100%; }
+.modal-open.apps-modal .modal-dialog .modal-content .modal-body .apps-wrap .app-item { width: 130px; height: 100px; margin: 10px; color: #ccc; text-align: center; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-align-items: center; -moz-align-items: center; -ms-align-items: center; align-items: center; -webkit-justify-content: center; -moz-justify-content: center; -ms-justify-content: center; justify-content: center; -ms-flex-pack: center; }
+.modal-open.apps-modal .modal-dialog .modal-content .modal-body .apps-wrap .app-item a { display: inline-block; }
+.modal-open.apps-modal .modal-dialog .modal-content .modal-body .apps-wrap .app-item a i { font-size: 40px; color: #3e5569; display: inline-block; margin-bottom: 10px; -moz-transition: all 0.3s ease 0s; -o-transition: all 0.3s ease 0s; -webkit-transition: all 0.3s ease 0s; transition: all 0.3s ease 0s; }
+.modal-open.apps-modal .modal-dialog .modal-content .modal-body .apps-wrap .app-item a span { display: block; font-size: 14px; color: #3e5569; }
+.modal-open.apps-modal .modal-dialog .modal-content .modal-body .apps-wrap .app-item:hover i { color: #ef4153; }
+.modal-open.apps-modal.fade .modal-dialog { overflow: hidden; -moz-transform: translate(0, 0) scale(1.2); -o-transform: translate(0, 0) scale(1.2); -ms-transform: translate(0, 0) scale(1.2); -webkit-transform: translate(0, 0) scale(1.2); transform: translate(0, 0) scale(1.2); }
+.modal-open.apps-modal.fade.show .modal-dialog { -moz-transform: translate(0, 0) scale(1); -o-transform: translate(0, 0) scale(1); -ms-transform: translate(0, 0) scale(1); -webkit-transform: translate(0, 0) scale(1); transform: translate(0, 0) scale(1); }
+
+.apps-modal .modal-content {
+    position: relative;
+    width: 380px;
+    top: 100px;
+    background: #fff;
+    box-shadow: 0px 0px 4px 6px #dcdcdc;
+    margin: auto;
+    min-height: 300px;
+    padding-bottom: 50px;
+    border-radius: 10px !important;
+}
 @media (min-width: 1280px){
     .container {
         max-width: 1180px;

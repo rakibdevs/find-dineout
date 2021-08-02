@@ -7,23 +7,22 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') - </title>
+    <title>@yield('title') - {{config('app.name')}} </title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/1.3.0/css/line-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <!-- loader END -->
     <div id="app">
         <div class="leading-normal tracking-normal" id="main-body">
-            <div class="flex flex-wrap">
-                <admin-header></admin-header>
-                <div class="w-full bg-gray-100 pl-0 lg:pl-64 min-h-screen" :class="sideBarOpen ? 'overlay' : ''" id="main-content">
-                    <admin-sidebar></admin-sidebar>
-                    <div class="p-6 bg-gray-100 mb-20">
-                        @yield('container')
-                    </div>
+            <admin-header></admin-header>
+            <div class="w-full bg-gray-100 pl-0 lg:pl-64 min-h-screen" :class="sideBarOpen ? 'overlay' : ''" id="main-content">
+                <admin-sidebar></admin-sidebar>
+                <div class="p-6 bg-gray-100 mb-20">
+                    @yield('container')
                 </div>
             </div>
         </div>
