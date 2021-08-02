@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Models\Restaurent;
+use App\Traits\MakeSluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Feature extends Model
 {
+    use MakeSluggable;
     /**
      * Auto-apply mass assignment protection
      *

@@ -2,12 +2,12 @@
 	<div>
 		<div class="heading flex justify-between">
 			<h2 class="font-bold mt-2 mb-2">
-        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-hamburger align-bottom"></i> 
-        		Cuisines
+        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-coffee align-bottom"></i> 
+        		Categories
         	</h2>
         	<button class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="showCreateModal">
 			  <i class="las la-plus  font-bold mr-2"></i>
-			  <span>Cuisine</span>
+			  <span>Category</span>
 			</button>
 		</div>
 		<div class="flex justify-between mb-3">
@@ -21,7 +21,7 @@
 				</select>
 			</div>
 			<div >
-				<input type="text" v-model="search_text" class=" block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Search cuisine" @keyup.enter="filter">
+				<input type="text" v-model="search_text" class=" block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Search categorie" @keyup.enter="filter">
 			</div>
 			
 		</div>
@@ -86,8 +86,8 @@
 		        	<span class="close cursor-pointer hover:text-red-500 focus:text-red-500 " @click="closeCreateModal"><i class="las la-times font-bold text-xl"></i></span>
 		        	<div class="w-3/4 mx-auto">
 			        	<h3 class="font-bold mt-2 mb-2">
-			        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-hamburger align-bottom"></i> 
-			        		Add Cuisine
+			        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-coffee align-bottom"></i> 
+			        		Add Category
 			        	</h3>
 			        	<div class="grid grid-cols-1 gap-6 mb-3">
 			        		<label class="block">
@@ -110,8 +110,8 @@
 		        	<span class="close cursor-pointer hover:text-red-500 focus:text-red-500 " @click="closeEditModal"><i class="las la-times font-bold text-xl"></i></span>
 		        	<div class="w-3/4 mx-auto">
 			        	<h3 class="font-bold mt-2 mb-2">
-			        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-hamburger align-bottom"></i> 
-			        		Edit Cuisine
+			        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-coffee align-bottom"></i> 
+			        		Edit Category
 			        	</h3>
 			        	<div class="grid grid-cols-1 gap-6 mb-3">
 			        		<label class="block">
@@ -182,11 +182,11 @@
 	        	this.fetch(page_url)
 	        },
 	        save(){
-	        	axios.post('/admin/cuisines', {
+	        	axios.post('/admin/categories', {
 	                name: this.item.name
 	            }).then(res => {
 	                this.closeCreateModal()
-	                this.$toast.success("Cuisine added.");
+	                this.$toast.success("Category added.");
 					this.fetch(this.reserve_endpoint)
 	            }).catch(error => {
 	                var errors = "";
@@ -194,10 +194,9 @@
 	            });
 	        },
 	        destroy(id) {
-	        	console.log('hi');
 	        	if(confirm('are you sure?')){
-	        		axios.delete('/admin/cuisines/'+id).then(res => {
-	        			this.$toast.success("Cuisine item has been removed.");
+	        		axios.delete('/admin/categories/'+id).then(res => {
+	        			this.$toast.success("Category item has been removed.");
 		                this.fetch(this.reserve_endpoint)
 		            }).catch(error => {
 		                var errors = "";
@@ -206,7 +205,7 @@
 
 	        },
 	        update(id){
-	        	axios.put('/admin/cuisines/'+id, {
+	        	axios.put('/admin/categories/'+id, {
 	                name: this.item.name
 	            }).then(res => {
 	                this.closeEditModal()

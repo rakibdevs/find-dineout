@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +16,20 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.categories');
+    }
+
+
+    public function fetch(Request $request)
+    {
+        $perpage = $request->per_page != ''? ((int)$request->per_page):10;
+        $keyword = $request->keyword??'';
+        return Category::withCount('restaurents')
+            ->when($keyword != '', function($q) use ($keyword){
+                $q->where('name','like','%'.$keyword.'%');
+            })
+            ->orderBy('id','desc')
+            ->paginate($perpage);
     }
 
     /**
@@ -33,9 +48,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request, Category $category)
     {
-        //
+        $category->name = $request->name;
+        $category->slug = $request->name;
+
+        return $category->save();
     }
 
     /**
@@ -46,7 +64,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return Category::find($id);
     }
 
     /**
@@ -69,7 +87,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->slug = $request->name;
+
+        return $category->save();
     }
 
     /**
@@ -80,6 +102,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Category::find($id)->delete();
     }
 }

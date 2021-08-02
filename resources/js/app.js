@@ -31,6 +31,7 @@ app.component('admin-sidebar', require('./components/Admin/Include/AdminSidebar.
 
 app.component('cuisine-list', require('./components/Admin/Cuisines/CuisineList.vue').default);
 app.component('feature-list', require('./components/Admin/Features/FeatureList.vue').default);
+app.component('category-list', require('./components/Admin/Categories/CategoryList.vue').default);
 app.component('rdata-table', require('./components/Common/RdataTable.vue').default);
 
 app.mixin(Main)

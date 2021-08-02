@@ -186,7 +186,7 @@
 	                name: this.item.name
 	            }).then(res => {
 	                this.closeCreateModal()
-	                this.$toast.success("feature added.");
+	                this.$toast.success("New Feature added.");
 					this.fetch(this.reserve_endpoint)
 	            }).catch(error => {
 	                var errors = "";
@@ -197,6 +197,7 @@
 	        	console.log('hi');
 	        	if(confirm('are you sure?')){
 	        		axios.delete('/admin/features/'+id).then(res => {
+	        			this.$toast.success("Feature item has been removed.");
 		                this.fetch(this.reserve_endpoint)
 		            }).catch(error => {
 		                var errors = "";
@@ -209,6 +210,7 @@
 	                name: this.item.name
 	            }).then(res => {
 	                this.closeEditModal()
+	                this.$toast.success("Feature item has been updated.");
 	                this.fetch(this.reserve_endpoint)
 	            }).catch(error => {
 	                var errors = "";
