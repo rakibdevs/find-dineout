@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LocationRequest;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -14,7 +16,21 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.locations');
+    }
+
+
+    public function fetch(Request $request)
+    {
+        $perpage = $request->per_page != ''? ((int)$request->per_page):10;
+        $keyword = $request->keyword??'';
+        return Location::with('zone')
+            ->withCount('branches')
+            ->when($keyword != '', function($q) use ($keyword){
+                $q->where('name','like','%'.$keyword.'%');
+            })
+            ->orderBy('id','desc')
+            ->paginate($perpage);
     }
 
     /**
@@ -33,9 +49,13 @@ class LocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LocationRequest $request, Location $location)
     {
-        //
+        $location->name = $request->name;
+        $location->slug = $request->name;
+        $location->zone_id = $request->zone_id;
+
+        return $location->save();
     }
 
     /**
@@ -46,7 +66,7 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        //
+        return Location::find($id);
     }
 
     /**
@@ -69,7 +89,12 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $location = Location::find($id);
+        $location->name = $request->name;
+        $location->slug = $request->name;
+        $location->zone_id = $request->zone_id;
+
+        return $location->save();
     }
 
     /**
@@ -80,6 +105,6 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Location::find($id)->delete();
     }
 }

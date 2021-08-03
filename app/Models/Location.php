@@ -4,11 +4,13 @@ namespace App\Models;
 
 use App\Models\Branch;
 use App\Models\Zone;
+use App\Traits\MakeSluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
+    use MakeSluggable;
      /**
      * Auto-apply mass assignment protection
      *
