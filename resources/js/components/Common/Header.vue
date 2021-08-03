@@ -8,11 +8,10 @@
           					<span class="ml-3 hidden xl:inline-block"> <span class="text-cool-indigo-600"> foodmoy </span></span>
           				</a>  
           				<div class="header-searchable-location mx-3">
-          					<vue-select :model-value="selectedLocation"  v-model="selectedLocation" :options="options" @update:modelValue="handleChange" clear-on-close clear-on-select placeholder="Select location"> 
-          						<template #dropdown-item="{ option }">
-							    	<div>{{ option}}</div>
-							    </template>
-          					</vue-select>
+          					<select v-model="selectedZone" class="mt-1 block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+							    <option  value="">Select Location</option>
+							    <option v-for="(zone, z) in zones" :key="z" :value="zone.name.toLowerCase()">{{zone.name}}</option>
+							</select>
           				</div>      		
           			</div>
 		        	<div class="hidden lg:ml-6 xl:ml-8 lg:flex lg:space-x-8">
@@ -58,21 +57,27 @@
 	export default{
 		data(){
 			return {
-				options: ['dhaka','rangpur','khulna'],
-				selectedLocation: '',
+				zones:[],
+				selectedZone: '',
 			}
 		},
 		created(){
-			this.checkQueryString();
+			this.checkQueryString()
+			this.fetchZones()
 		},
 		methods:{
 			checkQueryString(){
 				let parsed = queryString.parse(location.search);
-				this.selectedLocation = parsed.location
+				this.selectedZone = parsed.location != undefined?parsed.location.toLowerCase():""
 			},
 			handleChange()
 			{
-				console.log(this.selectedLocation)
+			},
+			fetchZones(){
+				axios.get('/api/fetch/zones/').then(({data}) => {
+	                this.zones = data;
+
+	            });
 			}
 		}
 	}

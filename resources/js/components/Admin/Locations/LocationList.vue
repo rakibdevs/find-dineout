@@ -2,12 +2,12 @@
 	<div>
 		<div class="heading flex justify-between">
 			<h2 class="font-bold mt-2 mb-2">
-        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-hamburger align-bottom"></i> 
-        		Cuisines
+        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-map-marker-alt align-bottom"></i> 
+        		Locations
         	</h2>
         	<button class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="showCreateModal">
 			  <i class="las la-plus  font-bold mr-2"></i>
-			  <span>Cuisine</span>
+			  <span>Location</span>
 			</button>
 		</div>
 		<div class="flex justify-between mb-3">
@@ -21,7 +21,7 @@
 				</select>
 			</div>
 			<div >
-				<input type="text" v-model="search_text" class=" block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Search cuisine" @keyup.enter="filter">
+				<input type="text" v-model="search_text" class=" block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Search location" @keyup.enter="filter">
 			</div>
 			
 		</div>
@@ -30,9 +30,9 @@
 				<thead>
 					<tr>
 						<th>Sl</th>
-						<th>Image</th>
-						<th>Title</th>
+						<th>Name</th>
 						<th>Slug</th>
+						<th>Zone</th>
 						<th>Restaurents</th>
 						<th>Action</th>
 					</tr>
@@ -40,10 +40,10 @@
 				<tbody>
 					<tr v-for="(row, index) in rows" :key="index">
 						<td class="text-center">{{++index}}</td>
-						<td></td>
 						<td>{{row.name}}</td>
 						<td>{{row.slug}}</td>
-						<td class="text-center">{{row.restaurents_count}}</td>
+						<td>{{row.zone.name}}</td>
+						<td class="text-center">{{row.branches_count}}</td>
 						<td class="text-center">
 							<div class="flex item-center justify-center action-buttons">
 								<i class="las la-edit text-green-500 cursor-pointer text-xl" @click="showEditModal(row)"></i>
@@ -86,14 +86,21 @@
 		        	<span class="close cursor-pointer hover:text-red-500 focus:text-red-500 " @click="closeCreateModal"><i class="las la-times font-bold text-xl"></i></span>
 		        	<div class="w-3/4 mx-auto">
 			        	<h3 class="font-bold mt-2 mb-2">
-			        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-hamburger align-bottom"></i> 
-			        		Add Cuisine
+			        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-map-marker-alt align-bottom"></i> 
+			        		Add Location
 			        	</h3>
 			        	<div class="grid grid-cols-1 gap-6 mb-3">
 			        		<label class="block">
 				                <span class="text-gray-700 font-bold text-sm">Title</span>
 				                <input type="text" class="mt-1 block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter a title" v-model="item.name">
 				            </label>
+				            <label class="block">
+				                <span class="text-gray-700 font-bold text-sm">Zone</span>
+								<select v-model="item.zone_id" class="mt-1 block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+								    <option  value="">Please select one</option>
+								    <option v-for="(zone, z) in zones" :key="z" :value="zone.id">{{zone.name}}</option>
+								</select>
+							</label>
 			        	</div>
 			            <button class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="save">
 						  <span>Save</span>
@@ -110,14 +117,21 @@
 		        	<span class="close cursor-pointer hover:text-red-500 focus:text-red-500 " @click="closeEditModal"><i class="las la-times font-bold text-xl"></i></span>
 		        	<div class="w-3/4 mx-auto">
 			        	<h3 class="font-bold mt-2 mb-2">
-			        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-hamburger align-bottom"></i> 
-			        		Edit Cuisine
+			        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-map-marker-alt align-bottom"></i> 
+			        		Edit Location
 			        	</h3>
 			        	<div class="grid grid-cols-1 gap-6 mb-3">
 			        		<label class="block">
 				                <span class="text-gray-700 font-bold text-sm">Title</span>
 				                <input type="text" class="mt-1 block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter a title" v-model="item.name">
 				            </label>
+				            <label class="block">
+				                <span class="text-gray-700 font-bold text-sm">Zone</span>
+								<select v-model="item.zone_id" class="mt-1 block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+								    <option  value="">Please select one</option>
+								    <option v-for="(zone, z) in zones" :key="z" :value="zone.id">{{zone.name}}</option>
+								</select>
+							</label>
 			        	</div>
 			            <button class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="update(item.id)">
 						  <span>Save</span>
@@ -147,14 +161,17 @@
 		    	search_text:null,
 		    	item:{
 		    		id:null,
-		    		name: null
+		    		name: null,
+		    		zone_id: ""
 		    	},
 		    	createModal:false,
-		    	editModal:false
+		    	editModal:false,
+		    	zones:[]
 		    }
 	    },
 	    created () {
 	        this.fetch(this.startpoint);
+	        this.fetchZones()
 	    },
 	    methods: {
 	    	withParams( page_url ){
@@ -175,6 +192,11 @@
 	                
 	            });
 	        },
+	        fetchZones(){
+	        	axios.get('/api/fetch/zones/').then(({data}) => {
+	                this.zones = data;
+	            });
+	        },
 	        filter(){
 	        	this.fetch(this.startpoint)
 	        },
@@ -182,11 +204,12 @@
 	        	this.fetch(page_url)
 	        },
 	        save(){
-	        	axios.post('/admin/cuisines', {
-	                name: this.item.name
+	        	axios.post('/admin/locations', {
+	                name: this.item.name,
+	                zone_id: this.item.zone_id
 	            }).then(res => {
 	                this.closeCreateModal()
-	                this.$toast.success("Cuisine added.");
+	                this.$toast.success("New Location added.");
 					this.fetch(this.reserve_endpoint)
 	            }).catch(error => {
 	                var errors = "";
@@ -196,8 +219,8 @@
 	        destroy(id) {
 	        	console.log('hi');
 	        	if(confirm('are you sure?')){
-	        		axios.delete('/admin/cuisines/'+id).then(res => {
-	        			this.$toast.success("Cuisine item has been removed.");
+	        		axios.delete('/admin/locations/'+id).then(res => {
+	        			this.$toast.success("Location item has been removed.");
 		                this.fetch(this.reserve_endpoint)
 		            }).catch(error => {
 		                var errors = "";
@@ -206,21 +229,19 @@
 
 	        },
 	        update(id){
-	        	axios.put('/admin/cuisines/'+id, {
-	                name: this.item.name
+	        	axios.put('/admin/locations/'+id, {
+	                name: this.item.name,
+	                zone_id: this.item.zone_id
 	            }).then(res => {
 	                this.closeEditModal()
-	                this.$toast.success("Cuisine item has been updated.");
+	                this.$toast.success("Location item has been updated.");
 	                this.fetch(this.reserve_endpoint)
 	            }).catch(error => {
 	                var errors = "";
 	            });
 	        },
 	        showCreateModal(){
-	        	this.item = {
-		    		id:null,
-		    		name: null
-		    	}
+	        	this.setItemNull()
 	        	this.createModal = true;	
 	        },
 	        closeCreateModal(){
@@ -228,14 +249,18 @@
 	        },
 	        showEditModal(data) {
 	        	this.editModal = true;
-	        	this.item = data;
+	        	this.item = JSON.parse(JSON.stringify(data)) // to ignore object instance effect
+	        },
+	        setItemNull(){
+	        	this.item = {
+		    		id:null,
+		    		name: null,
+		    		zone_id : ""
+		    	}
 	        },
 	        closeEditModal(){
 	        	this.editModal = false;
-	        	this.item = {
-		    		id:null,
-		    		name: null
-		    	}
+	  			this.setItemNull()
 	        },
 
 	    }

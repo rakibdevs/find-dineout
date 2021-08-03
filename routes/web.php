@@ -40,6 +40,8 @@ Route::group(['prefix' => 'admin'], function(){
 	Route::get('fetch/cuisines/', [CuisineController::class, 'fetch']);
 	Route::get('fetch/features/', [FeatureController::class, 'fetch']);
 	Route::get('fetch/categories/', [CategoryController::class, 'fetch']);
+	Route::get('fetch/zones/', [ZoneController::class, 'fetch']);
+	Route::get('fetch/locations/', [LocationController::class, 'fetch']);
 });
 
 

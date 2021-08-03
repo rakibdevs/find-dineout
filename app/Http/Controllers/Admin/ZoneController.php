@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ZoneRequest;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,20 @@ class ZoneController extends Controller
      */
     public function index()
     {
-        $zones = Zone::paginate(10);
-        return view('admin.zone.index', compact('zones'));
+        return view('admin.zones');
+    }
+
+
+    public function fetch(Request $request)
+    {
+        $perpage = $request->per_page != ''? ((int)$request->per_page):10;
+        $keyword = $request->keyword??'';
+        return Zone::withCount('restaurents')
+            ->when($keyword != '', function($q) use ($keyword){
+                $q->where('name','like','%'.$keyword.'%');
+            })
+            ->orderBy('id','desc')
+            ->paginate($perpage);
     }
 
     /**
@@ -35,9 +48,12 @@ class ZoneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ZoneRequest $request, Zone $zone)
     {
-        //
+        $zone->name = $request->name;
+        $zone->slug = $request->name;
+
+        return $zone->save();
     }
 
     /**
@@ -48,7 +64,7 @@ class ZoneController extends Controller
      */
     public function show($id)
     {
-        //
+        return Zone::find($id);
     }
 
     /**
@@ -71,7 +87,11 @@ class ZoneController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $zone = Zone::find($id);
+        $zone->name = $request->name;
+        $zone->slug = $request->name;
+
+        return $zone->save();
     }
 
     /**
@@ -82,6 +102,6 @@ class ZoneController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Zone::find($id)->delete();
     }
 }

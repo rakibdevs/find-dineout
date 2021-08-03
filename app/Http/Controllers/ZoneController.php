@@ -16,4 +16,6 @@ class ZoneController extends Controller
     {
         return Zone::has('restaurents')->withCount('restaurents')->get();
     }
+
+    
 }

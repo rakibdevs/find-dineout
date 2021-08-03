@@ -17,4 +17,11 @@ class ZoneController extends Controller
     {
         return Zone::has('restaurents')->withCount('restaurents')->get();
     }
+
+    public function fetch(Request $request)
+    {
+        return Zone::withCount('restaurents')
+            ->orderBy('restaurents_count', 'desc')
+            ->get();
+    }
 }
