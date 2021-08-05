@@ -16,7 +16,7 @@ class RestaurentController extends Controller
      */
     public function index()
     {
-        return view('admin.restaurents');
+        return view('admin.restaurents.index');
     }
 
 
@@ -39,7 +39,7 @@ class RestaurentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.restaurents.create');
     }
 
     /**
@@ -75,7 +75,7 @@ class RestaurentController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.restaurents.edit');
     }
 
     /**

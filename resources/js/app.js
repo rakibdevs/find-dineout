@@ -10,6 +10,7 @@ import store from './store';
 import VueNextSelect from 'vue-next-select'
 import queryString from 'query-string';
 import Toaster from "@meforma/vue-toaster";
+import CKEditor from '@ckeditor/ckeditor5-vue';
 import 'vue-next-select/dist/index.min.css'
 
 const app = createApp({});
@@ -34,7 +35,10 @@ app.component('feature-list', require('./components/Admin/Features/FeatureList.v
 app.component('category-list', require('./components/Admin/Categories/CategoryList.vue').default);
 app.component('zones-list', require('./components/Admin/Zones/ZoneList.vue').default);
 app.component('location-list', require('./components/Admin/Locations/LocationList.vue').default);
+
 app.component('restaurent-list', require('./components/Admin/Restaurents/RestaurentList.vue').default);
+app.component('restaurent-create', require('./components/Admin/Restaurents/RestaurentCreate.vue').default);
+app.component('restaurent-edit', require('./components/Admin/Restaurents/RestaurentEdit.vue').default);
 app.component('rdata-table', require('./components/Common/RdataTable.vue').default);
 
 app.mixin(Main)
@@ -44,6 +48,7 @@ app.mixin(Main)
       position: "top-right",
    })
    .use(queryString)
+   .use(CKEditor)
    .mount("#app");
 
 

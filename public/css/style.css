@@ -173,6 +173,11 @@ select{padding: 4px 20px;}
     padding-bottom: 50px;
     border-radius: 10px !important;
 }
+.heading{margin-bottom: 10px;}
+.heading h2{
+    font-size: 16px;
+}
+.heading a span,.heading button span{font-size: inherit;}
 @media (min-width: 1280px){
     .container {
         max-width: 1180px;

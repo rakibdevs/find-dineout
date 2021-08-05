@@ -5,10 +5,10 @@
         		<i class="h-6 w-6 text-2xl text-indigo-700 las la-utensils align-bottom"></i> 
         		Restaurents
         	</h2>
-        	<button class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="showCreateModal">
-			  <i class="las la-plus  font-bold mr-2"></i>
-			  <span>Restaurent</span>
-			</button>
+			<a href="/admin/restaurents/create" class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" >
+              <i class="las la-plus  font-bold mr-2"></i>
+              <span>Restaurent</span>
+            </a>
 		</div>
 		<div class="flex justify-between mb-3">
 			<div class="">
@@ -51,7 +51,9 @@
 						</td>
 						<td class="text-center">
 							<div class="flex item-center justify-center action-buttons">
-								<i class="las la-edit text-green-500 cursor-pointer text-xl" @click="showEditModal(row)"></i>
+								<a :href="'/admin/restaurents/'+row.id+'/edit/'" >
+					              <i class="las la-edit text-green-500 cursor-pointer text-xl"></i>
+					            </a>
 								<i class="las la-trash-alt text-red-500 cursor-pointer text-xl" @click="destroy(row.id)"></i>
 							</div>
 						</td>
@@ -83,68 +85,6 @@
 			</nav>
 		</div>
 		<loading-table v-if="isLoading"></loading-table>
-
-		<!-- create modal -->
-		<div class="modal fade apps-modal" :class="createModal == true?'modal-open':''">
-	    	<div class="modal-dialog modal-dialog-centered" role="document">
-	        	<div class="modal-content p-5 ">
-		        	<span class="close cursor-pointer hover:text-red-500 focus:text-red-500 " @click="closeCreateModal"><i class="las la-times font-bold text-xl"></i></span>
-		        	<div class="w-3/4 mx-auto">
-			        	<h3 class="font-bold mt-2 mb-2">
-			        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-utensils align-bottom"></i> 
-			        		Add Restaurent
-			        	</h3>
-			        	<div class="grid grid-cols-1 gap-6 mb-3">
-			        		<label class="block">
-				                <span class="text-gray-700 font-bold text-sm">Title</span>
-				                <input type="text" class="mt-1 block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter a title" v-model="item.name">
-				            </label>
-				            <label class="block">
-				                <span class="text-gray-700 font-bold text-sm">Zone</span>
-								<select v-model="item.zone_id" class="mt-1 block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-								    <option  value="">Please select one</option>
-								    <option v-for="(zone, z) in zones" :key="z" :value="zone.id">{{zone.name}}</option>
-								</select>
-							</label>
-			        	</div>
-			            <button class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="save">
-						  <span>Save</span>
-						</button>
-			        </div>
-		        </div>
-	         </div>
-	    </div>
-
-	    <!-- edit modal -->
-		<div class="modal fade apps-modal" :class="editModal == true?'modal-open':''">
-	    	<div class="modal-dialog modal-dialog-centered" role="document">
-	        	<div class="modal-content p-5 ">
-		        	<span class="close cursor-pointer hover:text-red-500 focus:text-red-500 " @click="closeEditModal"><i class="las la-times font-bold text-xl"></i></span>
-		        	<div class="w-3/4 mx-auto">
-			        	<h3 class="font-bold mt-2 mb-2">
-			        		<i class="h-6 w-6 text-2xl text-indigo-700 las la-utensils align-bottom"></i> 
-			        		Edit Restaurent
-			        	</h3>
-			        	<div class="grid grid-cols-1 gap-6 mb-3">
-			        		<label class="block">
-				                <span class="text-gray-700 font-bold text-sm">Title</span>
-				                <input type="text" class="mt-1 block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter a title" v-model="item.name">
-				            </label>
-				            <label class="block">
-				                <span class="text-gray-700 font-bold text-sm">Zone</span>
-								<select v-model="item.zone_id" class="mt-1 block w-full h-8 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-								    <option  value="">Please select one</option>
-								    <option v-for="(zone, z) in zones" :key="z" :value="zone.id">{{zone.name}}</option>
-								</select>
-							</label>
-			        	</div>
-			            <button class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="update(item.id)">
-						  <span>Save</span>
-						</button>
-			        </div>
-		        </div>
-	         </div>
-	    </div>
 	</div>
 	
 </template>
@@ -169,8 +109,6 @@
 		    		name: null,
 		    		zone_id: ""
 		    	},
-		    	createModal:false,
-		    	editModal:false,
 		    	zones:[]
 		    }
 	    },

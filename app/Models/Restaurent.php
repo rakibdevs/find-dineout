@@ -19,9 +19,7 @@ class Restaurent extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        'id'
-    ];
+    protected $hidden = [];
 
     /**
      * The accessors to append to the model's array form
