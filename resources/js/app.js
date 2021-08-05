@@ -20,7 +20,7 @@ app.component('header-component', require('./components/Common/Header.vue').defa
 app.component('footer-component', require('./components/Common/Footer.vue').default);
 app.component('offers', require('./components/Offer/Offers.vue').default);
 app.component('zone-list', require('./components/Location/ZoneList.vue').default);
-app.component('restaurent-list', require('./components/Restaurent/RestaurentList.vue').default);
+app.component('restaurents', require('./components/Restaurent/RestaurentList.vue').default);
 app.component('restaurent-filter', require('./components/Restaurent/RestaurentFilter.vue').default);
 app.component('restaurent-card', require('./components/Restaurent/RestaurentCard.vue').default);
 
@@ -34,6 +34,7 @@ app.component('feature-list', require('./components/Admin/Features/FeatureList.v
 app.component('category-list', require('./components/Admin/Categories/CategoryList.vue').default);
 app.component('zones-list', require('./components/Admin/Zones/ZoneList.vue').default);
 app.component('location-list', require('./components/Admin/Locations/LocationList.vue').default);
+app.component('restaurent-list', require('./components/Admin/Restaurents/RestaurentList.vue').default);
 app.component('rdata-table', require('./components/Common/RdataTable.vue').default);
 
 app.mixin(Main)

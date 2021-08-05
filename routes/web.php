@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin'], function(){
 	Route::resource('features', FeatureController::class);
 	Route::resource('restaurents', RestaurentController::class);
 	
+	Route::get('fetch/restaurents/', [RestaurentController::class, 'fetch']);
 	Route::get('fetch/cuisines/', [CuisineController::class, 'fetch']);
 	Route::get('fetch/features/', [FeatureController::class, 'fetch']);
 	Route::get('fetch/categories/', [CategoryController::class, 'fetch']);
