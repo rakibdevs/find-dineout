@@ -186,7 +186,11 @@
 	                name: this.item.name
 	            }).then(res => {
 	                this.closeCreateModal()
-	                this.$toast.success("Cuisine added.");
+	                this.$notify({
+			          title: 'Success',
+			          message: 'Cuisine Added to the list',
+			          type: 'success'
+			        });
 					this.fetch(this.reserve_endpoint)
 	            }).catch(error => {
 	                var errors = "";

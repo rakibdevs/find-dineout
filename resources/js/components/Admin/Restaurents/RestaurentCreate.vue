@@ -25,6 +25,9 @@
                             @input="updateBody"
                             placeholder="Add restaurent description" :class="'h-30'">
                         </wysiwyg>
+                        <label class="block">
+                            <span class="text-gray-700 font-bold">Menu Card</span>
+                        </label>
                     </div>
                 </div>
                 <div class="">

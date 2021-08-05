@@ -7,15 +7,14 @@ import Main from './mixins/main';
 import router from './router'
 import store from './store';
 
-import VueNextSelect from 'vue-next-select'
 import queryString from 'query-string';
 import Toaster from "@meforma/vue-toaster";
 import CKEditor from '@ckeditor/ckeditor5-vue';
-import 'vue-next-select/dist/index.min.css'
+import ElementPlus from 'element-plus';
+import 'element-plus/lib/theme-chalk/index.css';
 
 const app = createApp({});
 
-app.component('vue-select', VueNextSelect)
 app.component('login', require('./components/Auth/Login.vue').default);
 app.component('header-component', require('./components/Common/Header.vue').default);
 app.component('footer-component', require('./components/Common/Footer.vue').default);
@@ -48,6 +47,7 @@ app.mixin(Main)
       position: "top-right",
    })
    .use(queryString)
+   .use(ElementPlus)
    .use(CKEditor)
    .mount("#app");
 
