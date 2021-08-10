@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Branch;
+use App\Models\Restaurent;
 use App\Models\Zone;
 use App\Traits\MakeSluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -55,5 +56,15 @@ class Location extends Model
     public function branches()
     {
         return $this->hasMany(Branch::class);
+    }
+
+    /**
+     * A location assigned to many restaurents
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function restaurents()
+    {
+        return $this->hasMany(Restaurent::class);
     }
 }

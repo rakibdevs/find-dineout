@@ -103,7 +103,7 @@
                         <span class="text-gray-700 font-bold">Location</span>
                         <select v-model="item.location_id" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option  value="">Please select one</option>
-                            <option v-for="(location, z) in locations" :key="z" :value="location.id">{{zone.name}}</option>
+                            <option v-for="(location, z) in locations" :key="z" :value="location.id">{{location.name}}</option>
                         </select>
                     </label>
                     <label class="block">

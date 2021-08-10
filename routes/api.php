@@ -32,3 +32,4 @@ Route::get('/fetch/categories', [CategoryController::class,'get']);
 
 Route::get('/fetch/zones/available', [ZoneController::class,'available']);
 Route::get('/fetch/zones', [ZoneController::class,'fetch']);
+Route::get('fetch/locations', [ZoneController::class,'fetchLocation']);
