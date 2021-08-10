@@ -178,6 +178,11 @@ select{padding: 4px 20px;}
     font-size: 16px;
 }
 .heading a span,.heading button span{font-size: inherit;}
+.photo-uploader .el-upload--picture-card {
+    width: 100%;
+    height: 140px;
+    line-height: 140px;
+}
 @media (min-width: 1280px){
     .container {
         max-width: 1180px;

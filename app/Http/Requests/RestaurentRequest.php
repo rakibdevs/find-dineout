@@ -24,7 +24,8 @@ class RestaurentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
+            'zone_id' => 'required'
         ];
     }
 }

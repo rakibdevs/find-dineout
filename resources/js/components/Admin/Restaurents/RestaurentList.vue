@@ -43,8 +43,8 @@
 						<td class="text-center">{{++index}}</td>
 						<td>{{row.name}}</td>
 						<td class="text-right"><span class="pr-3">{{row.approx_cost}}</span></td>
-						<td>{{row.address}}, {{row.location.name}}</td>
-						<td>{{row.location.zone.name}}</td>
+						<td>{{row.address}}, <span v-if="row.location">{{row.location.name}}</span></td>
+						<td><span v-if="row.location">{{row.location.zone.name}}</span></td>
 						<td class="text-center">
 							<i v-if="row.is_booking == 1" class="las la-check text-green-600 text-bold"></i>
 							<i v-else class="las la-times text-red-600 font-bold"></i>

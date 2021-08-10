@@ -7,6 +7,8 @@ use App\Http\Requests\RestaurentRequest;
 use App\Models\Restaurent;
 use Illuminate\Http\Request;
 
+use DB;
+
 class RestaurentController extends Controller
 {
     /**
@@ -50,10 +52,34 @@ class RestaurentController extends Controller
      */
     public function store(RestaurentRequest $request, Restaurent $restaurent)
     {
-        $restaurent->name = $request->name;
-        $restaurent->slug = $request->name;
+        DB::beginTransaction();
+        try{
+            $restaurent->name = $request->name;
+            $restaurent->slug = $request->name;
+            $restaurent->is_booking = $request->is_booking?1:0;
+            $restaurent->location_id = $request->location_id;
+            //$restaurent->zone_id = $request->zone_id;
+            //$restaurent->cover = $request->feature_image;
+            $restaurent->description = $request->description;
+            $restaurent->approx_cost = $request->approx_cost;
+            $restaurent->address = $request->address;
 
-        return $restaurent->save();
+            if ($restaurent->save()){
+                if(isset($request->cuisines)){
+                    $restaurent->cuisines()->sync($request->cuisines);
+                }
+                if(isset($request->features)){
+                    $restaurent->features()->sync($request->features);
+                }
+                if(isset($request->categories)){
+                    $restaurent->categories()->sync($request->categories);
+                }
+            }
+            DB::commit();
+            return $restaurent;
+        }catch(\Exception $e){
+            DB::rollback();
+        }
     }
 
     /**

@@ -10,7 +10,7 @@
               <span>Restaurents</span>
             </a>
         </div>
-        <form >
+        <form>
             <div class="grid grid-cols-4 gap-6">
                 <div class="col-span-2">
                     <div class="grid grid-cols-1 gap-3 mb-3">
@@ -28,9 +28,62 @@
                         <label class="block">
                             <span class="text-gray-700 font-bold">Menu Card</span>
                         </label>
+
+
+                        <el-upload 
+                            action="#" list-type="picture-card" 
+                            :auto-upload="false" 
+                            multiple
+                            :name="image"
+                            v-model="selImages"
+                            
+                            >
+                          <template #default>
+                            <i class="el-icon-plus"></i>
+                          </template>
+                          <template #file="{file}">
+                            <div>
+                              <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+                              <span class="el-upload-list__item-actions">
+                                <span
+                                  class="el-upload-list__item-preview"
+                                  @click="handlePictureCardPreview(file)"
+                                >
+                                  <i class="el-icon-zoom-in"></i>
+                                </span>
+                                <span
+                                  v-if="!disabled"
+                                  class="el-upload-list__item-delete"
+                                  @click="handleDownload(file)"
+                                >
+                                  <i class="el-icon-download"></i>
+                                </span>
+                                <span
+                                  v-if="!disabled"
+                                  class="el-upload-list__item-delete"
+                                  @click="handleRemove(file)"
+                                >
+                                  <i class="el-icon-delete"></i>
+                                </span>
+                              </span>
+                            </div>
+                          </template>
+                        </el-upload>
+                        <el-dialog v-model="dialogVisible">
+                          <img width="100%" :src="dialogImageUrl" alt="" />
+
+                        </el-dialog>
+
+
+
                     </div>
                 </div>
                 <div class="">
+                    <label class="block">
+                        <span class="text-gray-700 font-bold">Feature Image</span>
+                        <image-upload @loaded="onLoad" > </image-upload>
+                    </label>
+
                     <label class="block">
                         <span class="text-gray-700 font-bold">Approximate Cost</span>
                         <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter cost" v-model="item.approx_cost">
@@ -38,7 +91,6 @@
                     <label class="block my-3">
                         <input type="checkbox" class="form-checkbox" v-model="item.is_booking"> 
                         <span class="text-gray-700 text-sm ml-3">Booking Available</span>
-                        <span >{{item.name}}</span>
                     </label>
                     <label class="block">
                         <span class="text-gray-700 font-bold">Zone</span>
@@ -65,10 +117,11 @@
                             <span class="text-gray-700 font-bold">Cuisines</span>
                             <div class="libray-items-checkbox overflow-y-auto max-h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
                                 <label class="block items-center" v-for="(lib, index) in libCuisines">
-                                    <input type="checkbox" class="form-checkbox" v-model="cuisines" :value="lib.id"> 
+                                    <input type="checkbox" class="form-checkbox" v-model="item.cuisines" :value="lib.id"> 
                                     <span class="pl-3">{{lib.name}}</span>
                                 </label>
                             </div>
+                            
                         </label>
                     </div>
                     <div class="">
@@ -76,7 +129,7 @@
                             <span class="text-gray-700 font-bold">Categories</span>
                             <div class="libray-items-checkbox overflow-y-auto max-h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
                                 <label class="block items-center" v-for="(lib, index) in libCategories">
-                                    <input type="checkbox" class="form-checkbox" v-model="categories" :value="lib.id"> 
+                                    <input type="checkbox" class="form-checkbox" v-model="item.categories" :value="lib.id"> 
                                     <span class="pl-3">{{lib.name}}</span>
                                 </label>
                             </div>
@@ -87,12 +140,16 @@
                             <span class="text-gray-700 font-bold">Features</span>
                             <div class="libray-items-checkbox overflow-y-auto max-h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
                                 <label class="block items-center" v-for="(lib, index) in libFeatures">
-                                    <input type="checkbox" class="form-checkbox" v-model="features" :value="lib.id" > 
+                                    <input type="checkbox" class="form-checkbox" v-model="item.features" :value="lib.id" > 
                                     <span class="pl-3">{{lib.name}}</span>
                                 </label>
                             </div>
                         </label>
                     </div>
+
+                    <button type="button" class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="save">
+                        <span>Save</span>
+                    </button>
                     
                 </div>
             </div>
@@ -102,27 +159,31 @@
 </template>
 <script>
     import Wysiwyg from './../../Common/Wysiwyg.vue';
+    import ImageUpload from './../../Common/ImageUpload.vue';
+    const cityOptions = ['Shanghai', 'Beijing', 'Guangzhou', 'Shenzhen'];
     export default{
         data(){
             return {
                 isLoading: false,
                 item:{
-                    name:'',
-                    description:'',
-                    zone_id : '',
-                    location_id : '',
+                    cuisines: [],
+                    features: [],
+                    categories: [],
                 },
                 zones:[],
                 locations:[],
                 libCuisines: [],
                 libCategories: [],
                 libFeatures: [],
-                cuisines:[],
-                categories:[],
-                features:[],
+                dialogImageUrl: '',
+                dialogVisible: false,
+                disabled: false,
+                image:[],
+                selImages:[],
+                checkedCities:[]
             }
         },
-        components:{ Wysiwyg },
+        components:{ Wysiwyg, ImageUpload },
         created () {
             this.fetchZones()
             this.fetchLibrary();
@@ -159,25 +220,31 @@
                 this.item.description = newValue;
             },
             save(){
-                axios.post('/admin/restaurents', {
-                    name: this.item.name,
-                    zone_id: this.item.zone_id
-                }).then(res => {
-                    this.$toast.success("New restaurent added.");
+                let data = this.item
+                axios.post('/admin/restaurents', data).then(res => {
+                    this.$notify({
+                      title: 'Success',
+                      message: 'New restaurent added to the list',
+                      type: 'success'
+                    });
                 }).catch(error => {
                     var errors = "";
                     
                 });
             },
-            destroy(id) {
-                if(confirm('are you sure?')){
-                    axios.delete('/admin/restaurents/'+id).then(res => {
-                        this.$toast.success("restaurent item has been removed.");
-                    }).catch(error => {
-                        var errors = "";
-                    });
-                }
-
+            handleRemove(file) {
+                console.log(this.image)
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url
+                this.dialogVisible = true
+            },
+            handleDownload(file) {
+                console.log(file)
+            },
+            onLoad(image)
+            {
+                this.item.cover = image.src;
             }
 
         }
@@ -186,3 +253,4 @@
 <style>
     .ck.ck-editor__editable_inline{height: 120px;}
 </style>
+
