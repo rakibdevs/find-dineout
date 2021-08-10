@@ -21,44 +21,36 @@ class RestaurentRepository
         // fetch restaurents of current location
         $location = 1;
         
-        return Branch::with([
-                'restaurent',
-                'restaurent.categories' => function ($query) {
+        return Restaurent::with([
+                'categories' => function ($query) {
                     $query->select('name', 'slug');
                 },
-                'restaurent.features' => function ($query) {
+                'features' => function ($query) {
                     $query->select('name', 'slug');
                 },
-                'restaurent.cuisines' => function ($query) {
+                'cuisines' => function ($query) {
                     $query->select('name', 'slug');
                 },
                 'location',
                 'location.zone'
             ])
             ->when(!empty($categories), function($query) use ($categories){
-                $query->whereHas('restaurent.categories', function($q) use ($categories){
+                $query->whereHas('categories', function($q) use ($categories){
                     $q->whereIn('slug', $categories);
                 });
             })
             ->when(!empty($features), function($query) use ($features){
-                $query->whereHas('restaurent.features', function($q) use ($features){
+                $query->whereHas('features', function($q) use ($features){
                     $q->whereIn('slug', $features);
                 });
             })
             ->when(!empty($cuisines), function($query) use ($cuisines){
-                $query->whereHas('restaurent.cuisines', function($q) use ($cuisines){
+                $query->whereHas('cuisines', function($q) use ($cuisines){
                     $q->whereIn('slug', $cuisines);
                 });
             })
             ->where('location_id', $location)
             ->paginate($per_page);
-
-
-            /*->when(!empty($cuisines), function($query) use ($cuisines){
-                $query->join('restaurent_cuisines','restaurent_cuisines.restaurent_id','branches.restaurent_id')
-                    ->join('cuisines', 'restaurent_cuisines.cuisine_id', 'cuisines.id')
-                    ->whereIn('cuisines.slug', $cuisines);
-            })*/
     }
 
     

@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Cuisine;
 use App\Models\Feature;
 use App\Models\Image;
+use App\Models\Location;
+use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,9 +19,7 @@ class Restaurent extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        'id'
-    ];
+    protected $hidden = [];
 
     /**
      * The accessors to append to the model's array form
@@ -95,5 +95,15 @@ class Restaurent extends Model
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    /**
+     * A branch belongs to loction
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
     }
 }

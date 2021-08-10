@@ -13,7 +13,7 @@
 	<div class="featured-restaurents">
 		<div class="container mx-auto px-2 pt-5 sm:px-4 lg:px-8">
 			<h4 class="bar-title mb-3">Find the best dine in your location</h4>
-			<restaurent-list start-point="{{ url('/api/fetch/restaurents/') }}"></restaurent-list>
+			<restaurents start-point="{{ url('/api/fetch/restaurents/') }}"></restaurents>
 		</div>
 	</div>
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Location;
+use App\Models\Restaurent;
 use App\Traits\MakeSluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -53,6 +54,6 @@ class Zone extends Model
      */
     public function restaurents()
     {
-        return $this->hasManyThrough(Branch::class,Location::class);
+        return $this->hasManyThrough(Restaurent::class,Location::class);
     }
 }

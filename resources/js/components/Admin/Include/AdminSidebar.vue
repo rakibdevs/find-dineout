@@ -1,7 +1,7 @@
 <template>
     <!-- give the sidebar z-50 class so its higher than the navbar if you want to see the logo -->
     <!-- you will need to add a little "X" button next to the logo in order to close it though -->
-    <div class="w-1/2 md:w-1/3 lg:w-64 fixed md:top-0 md:left-0 h-screen lg:block text-white bg-indigo-900 border-r z-40" :class="sideBarOpen ? '' : 'hidden'" id="main-nav">
+    <div class="w-1/2 md:w-1/3 lg:w-64 fixed md:top-0 md:left-0 h-screen lg:block text-white bg-gray-200 border-r z-40" :class="sideBarOpen ? '' : 'hidden'" id="main-nav">
 
           <div class="w-full h-18 border-b flex px-4 items-center mb-8" style="height:57px;">
             <p class="font-semibold text-3xl text-white-400 pl-4">LOGO</p>

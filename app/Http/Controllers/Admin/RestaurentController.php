@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RestaurentRequest;
+use App\Models\Restaurent;
 use Illuminate\Http\Request;
+
+use DB;
 
 class RestaurentController extends Controller
 {
@@ -14,7 +18,20 @@ class RestaurentController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.restaurents.index');
+    }
+
+
+    public function fetch(Request $request)
+    {
+        $perpage = $request->per_page != ''? ((int)$request->per_page):10;
+        $keyword = $request->keyword??'';
+        return Restaurent::with('categories','cuisines','features','location','location.zone')
+            ->when($keyword != '', function($q) use ($keyword){
+                $q->where('name','like','%'.$keyword.'%');
+            })
+            ->orderBy('id','desc')
+            ->paginate($perpage);
     }
 
     /**
@@ -24,7 +41,7 @@ class RestaurentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.restaurents.create');
     }
 
     /**
@@ -33,9 +50,36 @@ class RestaurentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RestaurentRequest $request, Restaurent $restaurent)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $restaurent->name = $request->name;
+            $restaurent->slug = $request->name;
+            $restaurent->is_booking = $request->is_booking?1:0;
+            $restaurent->location_id = $request->location_id;
+            //$restaurent->zone_id = $request->zone_id;
+            //$restaurent->cover = $request->feature_image;
+            $restaurent->description = $request->description;
+            $restaurent->approx_cost = $request->approx_cost;
+            $restaurent->address = $request->address;
+
+            if ($restaurent->save()){
+                if(isset($request->cuisines)){
+                    $restaurent->cuisines()->sync($request->cuisines);
+                }
+                if(isset($request->features)){
+                    $restaurent->features()->sync($request->features);
+                }
+                if(isset($request->categories)){
+                    $restaurent->categories()->sync($request->categories);
+                }
+            }
+            DB::commit();
+            return $restaurent;
+        }catch(\Exception $e){
+            DB::rollback();
+        }
     }
 
     /**
@@ -46,7 +90,7 @@ class RestaurentController extends Controller
      */
     public function show($id)
     {
-        //
+        return Restaurent::find($id);
     }
 
     /**
@@ -57,7 +101,7 @@ class RestaurentController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.restaurents.edit');
     }
 
     /**
@@ -69,7 +113,12 @@ class RestaurentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $restaurent = Restaurent::find($id);
+        $restaurent->name = $request->name;
+        $restaurent->slug = $request->name;
+        $restaurent->zone_id = $request->zone_id;
+
+        return $restaurent->save();
     }
 
     /**
@@ -80,6 +129,6 @@ class RestaurentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Restaurent::find($id)->delete();
     }
 }
