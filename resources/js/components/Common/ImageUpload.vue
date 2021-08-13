@@ -32,6 +32,7 @@ export default {
             if (! e.target.files.length) return;
 
             let file = e.target.files[0];
+            
 
             let reader = new FileReader();
 

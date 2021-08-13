@@ -81,7 +81,16 @@
                 <div class="">
                     <label class="block">
                         <span class="text-gray-700 font-bold">Feature Image</span>
-                        <image-upload @loaded="onLoad" > </image-upload>
+                        <!-- <image-upload @loaded="onLoad" > </image-upload> -->
+                        <label class="custom-file-label photo-uploader" >
+                            <div class="el-upload el-upload--picture-card" tabindex="0">
+                                <img class="img w-full h-full object-cover" v-if="img_src" :src="this.img_src">
+                                <i v-else class="el-icon-plus"></i>
+
+                                <input type="file" accept="image/*"
+                                @change="onChange" class="custom-file-input" style="display:none;">
+                            </div>
+                        </label>
                     </label>
 
                     <label class="block">
@@ -180,7 +189,8 @@
                 disabled: false,
                 image:[],
                 selImages:[],
-                checkedCities:[]
+                checkedCities:[],
+                img_src: ''
             }
         },
         components:{ Wysiwyg, ImageUpload },
@@ -220,8 +230,30 @@
                 this.item.description = newValue;
             },
             save(){
-                let data = this.item
-                axios.post('/admin/restaurents', data).then(res => {
+                console.log(this.item.cuisines)
+                let formData = new FormData();
+                formData.append('image', this.item.image);
+                for ( var key in this.item ) {
+                    Array.isArray(this.item[key])
+                    ? this.item[key].forEach(value => formData.append(key + '[]', value))
+                    : formData.append(key, this.item[key]) ;
+                }
+                
+                /*formData.append('name', this.item.name);
+                formData.append('description', this.item.description);
+                formData.append('approx_cost', this.item.approx_cost);
+                formData.append('is_booking', this.item.is_booking);
+                formData.append('address', this.item.address);
+                formData.append('location_id', this.item.location_id);
+                formData.append('cuisines', this.item.cuisines);
+                formData.append('cuisines', this.item.cuisines);
+                formData.append('categories', this.item.categories);
+                formData.append('features', this.item.features);*/
+                axios.post('/admin/restaurents', formData, {
+                    headers: {
+                      'Content-Type': 'multipart/form-data'
+                    }
+                }).then(res => {
                     this.$notify({
                       title: 'Success',
                       message: 'New restaurent added to the list',
@@ -242,9 +274,15 @@
             handleDownload(file) {
                 console.log(file)
             },
-            onLoad(image)
+            onChange(e)
             {
-                this.item.cover = image.src;
+                if (! e.target.files.length) return;
+                this.item.image = e.target.files[0];
+                let reader = new FileReader();
+                reader.readAsDataURL(this.item.image);
+                reader.onload = e => {
+                    this.img_src = e.target.result;
+                };
             }
 
         }

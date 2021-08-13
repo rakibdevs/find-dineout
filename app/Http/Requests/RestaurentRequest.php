@@ -25,7 +25,7 @@ class RestaurentRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'zone_id' => 'required'
+            'location_id' => 'required'
         ];
     }
 }
