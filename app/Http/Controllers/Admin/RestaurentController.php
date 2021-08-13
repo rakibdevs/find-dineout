@@ -8,6 +8,7 @@ use App\Models\Restaurent;
 use Illuminate\Http\Request;
 
 use DB;
+use Image;
 
 class RestaurentController extends Controller
 {
@@ -58,28 +59,39 @@ class RestaurentController extends Controller
             $restaurent->slug = $request->name;
             $restaurent->is_booking = $request->is_booking?1:0;
             $restaurent->location_id = $request->location_id;
-            //$restaurent->zone_id = $request->zone_id;
-            //$restaurent->cover = $request->feature_image;
             $restaurent->description = $request->description;
             $restaurent->approx_cost = $request->approx_cost;
             $restaurent->address = $request->address;
 
+            // store image
+            if($request->hasfile('image')){
+                $restaurent->cover = $this->storeImage($request->file('image'));
+            }
+
             if ($restaurent->save()){
                 if(isset($request->cuisines)){
-                    $restaurent->cuisines()->sync($request->cuisines);
+                    $restaurent->cuisines()->attach($request->cuisines);
                 }
                 if(isset($request->features)){
-                    $restaurent->features()->sync($request->features);
+                    $restaurent->features()->attach($request->features);
                 }
                 if(isset($request->categories)){
-                    $restaurent->categories()->sync($request->categories);
+                    $restaurent->categories()->attach($request->categories);
                 }
             }
             DB::commit();
             return $restaurent;
         }catch(\Exception $e){
             DB::rollback();
+            return $e->getMessage();
         }
+    }
+
+    public function storeImage($image, $name = null, $path = null)
+    {
+        Image::make($image)->save('images/restaurents/bar.jpg');
+
+        return  'images/restaurents/bar.jpg';
     }
 
     /**
