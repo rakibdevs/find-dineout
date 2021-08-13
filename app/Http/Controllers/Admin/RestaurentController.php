@@ -113,7 +113,8 @@ class RestaurentController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.restaurents.edit');
+        $restaurent = Restaurent::with('categories','cuisines','features','location','location.zone')->find($id);
+        return view('admin.restaurents.edit', compact('restaurent'));
     }
 
     /**
@@ -123,14 +124,40 @@ class RestaurentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RestaurentRequest $request, Restaurent $restaurent)
     {
-        $restaurent = Restaurent::find($id);
-        $restaurent->name = $request->name;
-        $restaurent->slug = $request->name;
-        $restaurent->zone_id = $request->zone_id;
+        DB::beginTransaction();
+        try{
+            $restaurent->name = $request->name;
+            $restaurent->slug = $request->name;
+            $restaurent->is_booking = $request->is_booking?1:0;
+            $restaurent->location_id = $request->location_id;
+            $restaurent->description = $request->description;
+            $restaurent->approx_cost = $request->approx_cost;
+            $restaurent->address = $request->address;
 
-        return $restaurent->save();
+            // store image
+            if($request->hasfile('image')){
+                $restaurent->cover = $this->storeImage($request->file('image'));
+            }
+
+            if ($restaurent->save()){
+                if(isset($request->cuisines)){
+                    $restaurent->cuisines()->sync($request->cuisines);
+                }
+                if(isset($request->features)){
+                    $restaurent->features()->sync($request->features);
+                }
+                if(isset($request->categories)){
+                    $restaurent->categories()->sync($request->categories);
+                }
+            }
+            DB::commit();
+            return $restaurent;
+        }catch(\Exception $e){
+            DB::rollback();
+            return $e->getMessage();
+        }
     }
 
     /**

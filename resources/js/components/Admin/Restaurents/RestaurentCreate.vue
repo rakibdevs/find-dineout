@@ -34,8 +34,9 @@
                             action="#" list-type="picture-card" 
                             :auto-upload="false" 
                             multiple
-                            :name="image"
-                            v-model="selImages"
+                            name="images"
+                            :file-list="menuCards"
+                            :on-change="setMenuImages"
                             
                             >
                           <template #default>
@@ -188,7 +189,7 @@
                 dialogVisible: false,
                 disabled: false,
                 image:[],
-                selImages:[],
+                menuCards:[],
                 checkedCities:[],
                 img_src: ''
             }
@@ -230,7 +231,6 @@
                 this.item.description = newValue;
             },
             save(){
-                console.log(this.item.cuisines)
                 let formData = new FormData();
                 formData.append('image', this.item.image);
                 for ( var key in this.item ) {
@@ -238,17 +238,9 @@
                     ? this.item[key].forEach(value => formData.append(key + '[]', value))
                     : formData.append(key, this.item[key]) ;
                 }
-                
-                /*formData.append('name', this.item.name);
-                formData.append('description', this.item.description);
-                formData.append('approx_cost', this.item.approx_cost);
-                formData.append('is_booking', this.item.is_booking);
-                formData.append('address', this.item.address);
-                formData.append('location_id', this.item.location_id);
-                formData.append('cuisines', this.item.cuisines);
-                formData.append('cuisines', this.item.cuisines);
-                formData.append('categories', this.item.categories);
-                formData.append('features', this.item.features);*/
+                if(this.menuCards.length > 0){
+                    formData.append('menu_cards', this.menuCards);
+                }
                 axios.post('/admin/restaurents', formData, {
                     headers: {
                       'Content-Type': 'multipart/form-data'
@@ -265,7 +257,7 @@
                 });
             },
             handleRemove(file) {
-                console.log(this.image)
+                console.log(this.menuCards)
             },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url
@@ -283,6 +275,10 @@
                 reader.onload = e => {
                     this.img_src = e.target.result;
                 };
+            },
+            setMenuImages(file, filelist){
+                this.menuCards = filelist;
+                console.log(filelist)
             }
 
         }
