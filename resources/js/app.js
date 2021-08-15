@@ -18,11 +18,14 @@ const app = createApp({});
 app.component('login', require('./components/Auth/Login.vue').default);
 app.component('header-component', require('./components/Common/Header.vue').default);
 app.component('footer-component', require('./components/Common/Footer.vue').default);
+app.component('booking', require('./components/Common/Booking.vue').default);
+
 app.component('offers', require('./components/Offer/Offers.vue').default);
 app.component('zone-list', require('./components/Location/ZoneList.vue').default);
 app.component('restaurents', require('./components/Restaurent/RestaurentList.vue').default);
 app.component('restaurent-filter', require('./components/Restaurent/RestaurentFilter.vue').default);
 app.component('restaurent-card', require('./components/Restaurent/RestaurentCard.vue').default);
+app.component('restaurent', require('./components/Restaurent/Restaurent.vue').default);
 
 app.component('loading-table', require('./components/Common/LoadingTable.vue').default);
 

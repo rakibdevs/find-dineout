@@ -17,7 +17,7 @@ class CuisineController extends Controller
     public function get(Request $request)
     {
         return Cache::remember('cuisines', 3600 ,function () {
-            return Cuisine::withCount('restaurents')->get()->toArray();
+            return Cuisine::withCount('restaurents')->orderByDesc("restaurents_count")->get()->toArray();
         });
     }
 }

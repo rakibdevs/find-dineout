@@ -11,11 +11,12 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/1.3.0/css/line-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <!-- loader END -->
-    <div id="app">
+    <div id="app" >
         <router-view></router-view>
         <header-component></header-component>
         <div class="main-content">

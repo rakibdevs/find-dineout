@@ -24,7 +24,8 @@ use App\Http\Controllers\Admin\RestaurentController;
 
 Route::get('/', [PageController::class,'index']);
 Route::get('/restaurents', [PageController::class,'restaurents']);
-Route::get('/restaurent/{slug}', [PageController::class,'restaurentView']);
+Route::get('/restaurents/{slug}', [PageController::class,'restaurentView']);
+Route::get('/{type}/restaurents/{slug}', [PageController::class,'restaurentFilter']);
 
 
 Route::get('/admin/', [AdminController::class,'dashboard']);

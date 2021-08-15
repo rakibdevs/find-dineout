@@ -1,5 +1,5 @@
 <template>
-	<div class="restnt-card restaurant">
+	<div class="restnt-card restaurant hover:shadow-xl">
 		<div class="restnt-main-wrap clearfix">
 			<div class="img-wrap">
 				<div class="img cursor">
@@ -9,7 +9,7 @@
 			<div class="restnt-detail-wrap">
 				<div class="restaurant-info-section restnt-detail" >
 					<div class="restnt-info cursor" data-gatype="RestaurantNameClick">
-						<a href="/kochi/" class="restnt-name ellipsis">
+						<a :href="/restaurents/+restaurent.slug" class="restnt-name ellipsis">
 							{{restaurent.name}}
 						</a>
 						<div class="restnt-loc ellipsis" data-w-onclick="stopClickPropagation|w1-restarant">

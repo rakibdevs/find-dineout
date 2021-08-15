@@ -3,7 +3,7 @@
         <div class="grid grid-cols-4 gap-4">
             <div class="">
                 <!-- filter by cuisine -->
-                <div v-if="ignore !='cuisine'" class="">
+                <div v-if="ignore !='cuisines'" class="">
                     <h3 class="py-2">Cuisines</h3>
                     <hr>
                     <div v-for="(item, index) in libCuisines">
@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <!-- filter by categories -->
-                <div v-if="ignore !='category'" class="">
+                <div v-if="ignore !='categories'" class="">
                     <h3 class="py-2">Categories</h3>
                     <hr>
                     <div v-for="(item, index) in libCategories">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <!-- filter by features -->
-                <div v-if="ignore !='feature'" class="">
+                <div v-if="ignore !='features'" class="">
                     <h3 class="py-2">Features</h3>
                     <hr>
                     <div v-for="(item, index) in libFeatures">
@@ -51,7 +51,7 @@
                 </div>
                 <div v-if="nextUrl && !isUpdating" class="text-center my-3">
                     <button @click.prevent="fetch(nextUrl)" class="btn btn-sm btn-outline-secondary">
-                        {{ __('View more restaurents') }}
+                        View more restaurents
                     </button>
                 </div>
             </div> 
@@ -72,7 +72,12 @@ export default {
             type: String,
             required: false,
             default: ''
-        }
+        },
+        findSlug: {
+            type: String,
+            required: false,
+            default: ''
+        },
 
     },
     components: {RestaurentCardLoader},
@@ -111,19 +116,19 @@ export default {
         fetchLibrary(){
             // fetch cuisine
             if(this.ignore !='cuisine'){
-                axios.get('api/fetch/cuisines').then(({data}) => {
+                axios.get('/api/fetch/cuisines').then(({data}) => {
                     this.libCuisines = data;
                 });
             }
             // fetch cuisine
             if(this.ignore !='category'){
-                axios.get('api/fetch/categories').then(({data}) => {
+                axios.get('/api/fetch/categories').then(({data}) => {
                     this.libCategories = data;
                 });
             }
             // fetch cuisine
             if(this.ignore !='feature'){
-                axios.get('api/fetch/features').then(({data}) => {
+                axios.get('/api/fetch/features').then(({data}) => {
                     this.libFeatures = data;
                 });
             }
@@ -131,8 +136,9 @@ export default {
         checkBoxFilter(){
             this.getSelectedParams();
             this.setParams(this.queries);
-            let query = this.setQueryString();
-            this.fetch(this.startPoint+'?'+query);
+            let params = this.setQueryString();
+            let fetchUri = this.startPoint+(this.startPoint.indexOf('?') !== -1?'&':'?')+params;
+            this.fetch(fetchUri);
         },
         getSelectedParams(){
             this.queries = [];
@@ -145,6 +151,10 @@ export default {
             if(this.features.length > 0){
                 this.queries.features = this.features.join()
             }
+            /*if(this.ignore != '' && this.findSlug != ''){
+                this.queries[this.ignore] = this.findSlug
+            }*/
+            console.log(this.queries)
         }
 
     }

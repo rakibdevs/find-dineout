@@ -13,10 +13,10 @@
         </div>
         <div v-if="nextUrl && !isUpdating" class="text-center my-3">
             <button @click.prevent="fetch(nextUrl)" class="btn btn-sm btn-outline-secondary">
-                {{ __('View more restaurents') }}
+                View more restaurents
             </button>
         </div>   
-    </div>
+    </div> 
 </template>
 
 <script type="text/javascript">

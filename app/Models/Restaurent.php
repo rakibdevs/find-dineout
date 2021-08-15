@@ -8,11 +8,13 @@ use App\Models\Feature;
 use App\Models\Image;
 use App\Models\Location;
 use App\Models\Zone;
+use App\Traits\MakeSluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Restaurent extends Model
 {
+    use MakeSluggable;
     
      /**
      * Auto-apply mass assignment protection
