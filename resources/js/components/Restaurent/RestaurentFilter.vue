@@ -9,7 +9,7 @@
                     <div v-for="(item, index) in libCuisines">
                         <label class="inline-flex items-center">
                             <input type="checkbox" class="form-checkbox" v-model="cuisines" :value="item.slug" @change="checkBoxFilter"> 
-                            <span >{{item.name}}</span>
+                            <span class="ml-2"> {{item.name}}</span>
                         </label>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                     <div v-for="(item, index) in libCategories">
                         <label class="inline-flex items-center">
                             <input type="checkbox" class="form-checkbox" v-model="categories" :value="item.slug" @change="checkBoxFilter"> 
-                            <span >{{item.name}}</span>
+                            <span class="ml-2"> {{item.name}}</span>
                         </label>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <div v-for="(item, index) in libFeatures">
                         <label class="inline-flex items-center">
                             <input type="checkbox" class="form-checkbox" v-model="features" :value="item.slug" @change="checkBoxFilter" > 
-                            <span>{{item.name}}</span>
+                            <span class="ml-2"> {{item.name}}</span>
                         </label>
                     </div>
                     <hr>
@@ -42,6 +42,7 @@
                 <!-- results here -->
                 <div class="restaurent-cards grid grid-cols-3 gap-4">
                     <!-- restaurent card -->
+
                     <restaurent-card v-if="!isUpdating"
                         v-for="(restaurent, index) in restaurents"
                         :key="restaurent.id"
@@ -50,7 +51,7 @@
                     <restaurent-card-loader v-if="isLoading" :count="6"></restaurent-card-loader>
                 </div>
                 <div v-if="nextUrl && !isUpdating" class="text-center my-3">
-                    <button @click.prevent="fetch(nextUrl)" class="btn btn-sm btn-outline-secondary">
+                    <button @click.prevent="addMore(nextUrl)" class="btn btn-sm btn-outline-secondary">
                         View more restaurents
                     </button>
                 </div>
@@ -108,6 +109,17 @@ export default {
             this.startUpdating();
             axios.get(endpoint).then(({data}) => {
                 this.restaurents = data.data;
+                this.isLoading = false
+                this.nextUrl = data.next_page_url;
+                this.stopUpdating();
+            });
+        },
+        addMore (endpoint) {
+            this.isLoading = true
+            this.startUpdating();
+            axios.get(endpoint).then(({data}) => {
+                this.restaurents = [...this.restaurents,...data.data]
+                console.log(this.restaurents)
                 this.isLoading = false
                 this.nextUrl = data.next_page_url;
                 this.stopUpdating();
