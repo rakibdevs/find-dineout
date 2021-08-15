@@ -18,6 +18,7 @@ const app = createApp({});
 app.component('login', require('./components/Auth/Login.vue').default);
 app.component('header-component', require('./components/Common/Header.vue').default);
 app.component('footer-component', require('./components/Common/Footer.vue').default);
+app.component('footer-location', require('./components/Common/FooterLocation.vue').default);
 app.component('booking', require('./components/Common/Booking.vue').default);
 
 app.component('offers', require('./components/Offer/Offers.vue').default);

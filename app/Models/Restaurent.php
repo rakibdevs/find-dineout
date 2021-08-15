@@ -28,7 +28,7 @@ class Restaurent extends Model
      *
      * @var array
      */
-    protected $appends = ['cover_src'];
+    protected $appends = ['cover_src','public_uri'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -45,6 +45,14 @@ class Restaurent extends Model
     public function getCoverSrcAttribute()
     {
         return isset($this->cover)?asset($this->cover):asset('images/resource/no-image.jpg');
+    }
+
+    /**
+     * Get all of the restaurents's public uri.
+     */
+    public function getPublicUriAttribute()
+    {
+        return url('restaurents/'.$this->slug);
     }
 
     /**

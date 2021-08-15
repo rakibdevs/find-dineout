@@ -21,7 +21,7 @@
 											<span>৳ {{restaurent.approx_cost}} for 2 </span>
 											<span> | </span>
 											<span v-if="restaurent.cuisines">
-												<a v-for="(cuisine, index) in restaurent.cuisines.slice(0,5)" :href="'/cuisinies/'+cuisine.slug">{{cuisine.name}},&nbsp;</a> 
+												<a v-for="(cuisine, index) in restaurent.cuisines.slice(0,5)" :href="cuisine.public_uri">{{cuisine.name}},&nbsp;</a> 
 											</span>
 										</span>
 									</li>
@@ -46,7 +46,7 @@
 						<div class="min-w-0 relative flex-auto sm:pr-20 lg:pr-0 xl:pr-20">
 							<h5 class="font-bold">Cuisines</h5>
 							<p>
-								<a v-for="(cuisine, index) in restaurent.cuisines" :href="'/cuisinies/'+cuisine.slug">{{cuisine.name}},&nbsp;</a> 
+								<a v-for="(cuisine, index) in restaurent.cuisines" :href="cuisine.public_uri">{{cuisine.name}},&nbsp;</a> 
 							</p>
 						</div>
 					</div>
@@ -62,7 +62,7 @@
 						<div class="min-w-0 relative flex-auto sm:pr-20 lg:pr-0 xl:pr-20">
 							<h5 class="font-bold">Categories</h5>
 							<p>
-								<a v-for="(category, index) in restaurent.categories" :href="'/cuisinies/'+category.slug">{{category.name}},&nbsp;</a> 
+								<a v-for="(category, index) in restaurent.categories" :href="category.public_uri">{{category.name}},&nbsp;</a> 
 							</p>
 						</div>
 					</div>
@@ -71,7 +71,7 @@
 						<div class="min-w-0 relative flex-auto sm:pr-20 lg:pr-0 xl:pr-20">
 							<h5 class="font-bold">Features</h5>
 							<p>
-								<a v-for="(feature, index) in restaurent.features" :href="'/cuisinies/'+feature.slug">{{feature.name}},&nbsp;</a> 
+								<a v-for="(feature, index) in restaurent.features" :href="feature.public_uri">{{feature.name}},&nbsp;</a> 
 							</p>
 						</div>
 					</div>

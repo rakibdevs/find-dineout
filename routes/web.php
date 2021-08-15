@@ -26,6 +26,7 @@ Route::get('/', [PageController::class,'index']);
 Route::get('/restaurents', [PageController::class,'restaurents']);
 Route::get('/restaurents/{slug}', [PageController::class,'restaurentView']);
 Route::get('/{type}/restaurents/{slug}', [PageController::class,'restaurentFilter']);
+Route::get('/privacy-policy', [PageController::class,'privacy']);
 
 
 Route::get('/admin/', [AdminController::class,'dashboard']);

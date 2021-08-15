@@ -12,6 +12,11 @@ class PageController extends Controller
         return view('pages.index');
     }
 
+    public function privacy()
+    {
+        return view('pages.privacy-policy');
+    }
+
     public function restaurents(Request $request)
     {
         $params = $request->all();
