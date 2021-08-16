@@ -16,11 +16,10 @@
 </head>
 <body>
     <!-- loader END -->
-    <div id="app" >
+    <div id="app" class="@yield('class')">
         <router-view></router-view>
         <header-component></header-component>
         <div class="main-content">
-            
             @yield('container')
         </div>
         @include('include.footer')

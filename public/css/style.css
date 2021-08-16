@@ -1,6 +1,4 @@
-*{
-    font-size: 13px;
-}
+*{ font-size: 13px;}
 #app{background: #f7f7f7;}
 table tr:nth-of-type(odd) {
     background-color: rgba(0,0,0,.05);
@@ -9,9 +7,9 @@ select{padding: 4px 20px;}
 .h-167{height: 166px;}
 .header{height: 65px;}
 .main-content{margin-top: 65px;}
-.cursor {
-    cursor: pointer;
-}
+.home .main-content{margin-top: -65px;}
+.home .header{background: #000  !important; opacity: 0.9;}
+.cursor {cursor: pointer;}
 .ellipsis {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -21,6 +19,7 @@ select{padding: 4px 20px;}
     color: #FF645A;
     font-weight: bold;
 }
+.home .nav-menu a{color: #fff;}
 .header-layer {
     background: url(../images/background.jpg);
     height: 450px;
@@ -99,6 +98,11 @@ select{padding: 4px 20px;}
 .restnt-card .restnt-detail-wrap .restnt-info .restnt-loc {
     font-size: 11px;
     color: #8f8f8f;
+}
+.restnt-card .img img {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
 }
 .restnt-card .restnt-detail-wrap .detail-info ul li {
     margin-top: 5px;
@@ -196,6 +200,7 @@ select{padding: 4px 20px;}
 .booking-section .el-date-editor.el-input, .el-date-editor.el-input__inner {
     width: 100%;
 }
+
 @media (min-width: 1280px){
     .container {
         max-width: 1180px;

@@ -29,9 +29,17 @@ class LocationController extends Controller
     public function fetchLocation(Request $request)
     {
         $zone = $request->zone??'';
-        return Location::withCount('restaurents')
+        $keyWord = $request->keyword??'';
+        return Location::with('zone')
+            ->withCount('restaurents')
             ->when($zone != '', function($q) use ($zone){
                 $q->where('zone_id', $zone);
+            })
+            ->when($keyWord != '', function($q) use ($keyWord){
+                $q->where('name','like','%'.$keyWord.'%');
+                $q->orWhereHas('zone', function($p) use ($keyWord){
+                    $p->where('name','like','%'.$keyWord.'%');
+                });
             })
             ->orderBy('restaurents_count', 'desc')
             ->take(30)

@@ -1,15 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
-
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\ZoneController;
-use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CuisineController;
 use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\RestaurentController;
+use App\Http\Controllers\Admin\ZoneController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PageController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +27,11 @@ Route::get('/restaurents', [PageController::class,'restaurents']);
 Route::get('/restaurents/{slug}', [PageController::class,'restaurentView']);
 Route::get('/{type}/restaurents/{slug}', [PageController::class,'restaurentFilter']);
 Route::get('/privacy-policy', [PageController::class,'privacy']);
+
+Route::get('/login', [AuthController::class,'index']);
+Route::post('/login', [AuthController::class,'login']);
+
+
 
 
 Route::get('/admin/', [AdminController::class,'dashboard']);

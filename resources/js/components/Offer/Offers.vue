@@ -1,6 +1,6 @@
 <template>
 	<div class="offer-cards grid grid-cols-4 gap-4 mt-10 mb-10">
-        <div class="img offer-image cursor" v-for="(offer, index) in offers" :key="offer.id">
+        <div class="rounded img offer-image cursor" v-for="(offer, index) in offers" :key="offer.id">
 			<img :src="offer.image_src">
         </div>
     </div>

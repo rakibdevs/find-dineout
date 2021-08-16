@@ -1,5 +1,6 @@
 @extends('app')
 @section('title','Home')
+@section('class','home')
 @section('container')
 	<div class="header-layer">
 		<div class="find-dineout">
