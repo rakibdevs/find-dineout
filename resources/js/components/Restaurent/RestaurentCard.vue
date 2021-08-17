@@ -1,5 +1,5 @@
 <template>
-	<div class="restnt-card restaurant hover:shadow-xl">
+	<div class="restnt-card restaurant rounded hover:shadow-xl">
 		<div class="restnt-main-wrap clearfix">
 			<div class="img-wrap">
 				<a :href="restaurent.public_uri" class="img cursor">

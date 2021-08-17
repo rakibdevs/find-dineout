@@ -247,8 +247,10 @@
             },
             update(){
                 let formData = new FormData();
+                formData.append('_method', 'PUT')
                 formData.append('image', this.item.image);
                 for ( var key in this.item ) {
+                    formData.append(key, this.item[key])
                     Array.isArray(this.item[key])
                     ? this.item[key].forEach(value => formData.append(key + '[]', value))
                     : formData.append(key, this.item[key]) ;
@@ -256,14 +258,14 @@
                 if(this.menuCards.length > 0){
                     formData.append('menu_cards', this.menuCards);
                 }
-                axios.put('/admin/restaurents/'+this.item.id, formData, {
+                axios.post('/admin/restaurents/'+this.item.id, formData, {
                     headers: {
                       'Content-Type': 'multipart/form-data'
                     }
                 }).then(res => {
                     this.$notify({
                       title: 'Success',
-                      message: 'New restaurent added to the list',
+                      message: 'Restaurent information updated successfully',
                       type: 'success'
                     });
                 }).catch(error => {

@@ -44,8 +44,12 @@ class Restaurent extends Model
      */
     public function getCoverSrcAttribute()
     {
-        return isset($this->cover)?asset($this->cover):asset('images/resource/no-image.jpg');
+        return isset($this->cover)?asset('images/restaurents/'.$this->cover):asset('images/resource/no-image.jpg');
     }
+
+
+
+
 
     /**
      * Get all of the restaurents's public uri.

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use DB;
 use Image;
+use Str;
 
 class RestaurentController extends Controller
 {
@@ -73,7 +74,7 @@ class RestaurentController extends Controller
 
             // store image
             if($request->hasfile('image')){
-                $restaurent->cover = $this->storeImage($request->file('image'));
+                $restaurent->cover = $this->storeImage($request->file('image'),Str::slug($restaurent->name));
             }
 
             if ($restaurent->save()){
@@ -97,9 +98,12 @@ class RestaurentController extends Controller
 
     public function storeImage($image, $name = null, $path = null)
     {
-        Image::make($image)->save('images/restaurents/bar.jpg');
+        $ext = explode(".", $image->getClientOriginalName());
+        $fileName = ($name != null?$name:'').uniqid().'.'.end($ext);
+        $imageInstance = Image::make($image)
+            ->save('images/restaurents/'.$fileName);
 
-        return  'images/restaurents/bar.jpg';
+        return  $fileName;
     }
 
     /**
@@ -146,7 +150,7 @@ class RestaurentController extends Controller
 
             // store image
             if($request->hasfile('image')){
-                $restaurent->cover = $this->storeImage($request->file('image'));
+                $restaurent->cover = $this->storeImage($request->file('image'), Str::slug($restaurent->name));
             }
 
             if ($restaurent->save()){

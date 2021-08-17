@@ -5,9 +5,20 @@ table tr:nth-of-type(odd) {
 }
 select{padding: 4px 20px;}
 .h-167{height: 166px;}
+.h-300px{height: 300px;}
+.w-300px{width: 300px;}
+.w-400px{width: 400px;}
+.banner-text{
+    font-size: 60px;line-height: 1.2em;
+    
+}
+.custom-shadow{
+    background: #00000095;
+    box-shadow: 10px 10px 10px 40px #00000095;
+}
 .header{height: 65px;}
 .main-content{margin-top: 65px;}
-.home .main-content{margin-top: -65px;}
+.home .main-content{}
 .home .header{background: #000  !important; opacity: 0.9;}
 .cursor {cursor: pointer;}
 .ellipsis {
@@ -21,9 +32,14 @@ select{padding: 4px 20px;}
 }
 .home .nav-menu a{color: #fff;}
 .header-layer {
+    margin-top: -65px;
     background: url(../images/background.jpg);
-    height: 450px;
     background-position: center;
+}
+.banner-layer{
+    height: 100%;
+    background: #00000090;
+    z-index: 1;
 }
 .find-dineout {
     margin: auto;
@@ -35,13 +51,11 @@ select{padding: 4px 20px;}
     font-size: 20px;
     font-weight: bold;
 }
-.find-dineout input.form-control {
-    border-radius: 30px;
-    padding: 5px 0 5px 30px;
-    height: 60px;
+.header-layer input.form-control {
+    height: 40px;
     border-color: transparent;
-    background: #2a2a2a;
-    width: 100%;
+    background: #00000098;
+    width: 280px;
 }
 .btn-search {
     position: absolute;
@@ -116,8 +130,8 @@ select{padding: 4px 20px;}
     box-shadow: 2px 1px 10px -1px #d1d1d1;
 }
 .offer-image img {
-    width: 250px;
-    height: 250px;
+    width: 160px;
+    height: 160px;
     object-fit: cover;
     margin: auto;
 }

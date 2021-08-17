@@ -22,6 +22,10 @@ export default {
         startPoint: {
             type: String,
             required: true
+        },
+        show: {
+            type: Number,
+            required: false
         }
     },
     components: {RestaurentCardLoader},
@@ -41,6 +45,9 @@ export default {
             this.startUpdating();
             axios.get(endpoint).then(({data}) => {
                 this.restaurents.push(...data.data);
+                if(this.show){
+                    this.restaurents = this.restaurents.slice(0,4)
+                }
                 this.isLoading = false
                 this.nextUrl = data.next_page_url;
                 this.stopUpdating();
