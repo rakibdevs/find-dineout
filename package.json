@@ -24,8 +24,11 @@
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^29.0.0",
         "@ckeditor/ckeditor5-vue": "^2.0.1",
+        "@j-t-mcc/vue3-chartjs": "^1.1.4",
         "@meforma/vue-toaster": "^1.2.2",
         "@tailwindcss/forms": "^0.3.3",
+        "chart.js": "^3.5.0",
+        "chartjs-adapter-moment": "^1.0.0",
         "element-plus": "*",
         "moment": "^2.29.1",
         "query-string": "^7.0.1",

@@ -11,8 +11,9 @@
 					</div>
 					<div class="restnt-detail-wrap p-4">
 						<div class="restaurant-info-section restnt-detail" >
-							<div class="restnt-info cursor" >
+							<div class="restnt-info cursor " >
 								<h3 class="font-bold text-xl">{{restaurent.name}}</h3>
+
 							</div>
 							<div class="detail-info">
 								<ul>
@@ -28,10 +29,11 @@
 									<li class="ellipsis"></li>
 								</ul>
 
-								<div class="restnt-loc ellipsis" data-w-onclick="stopClickPropagation|w1-restarant">
-									<i class="las la-map-marker"></i> {{restaurent.address}},
-									<a v-if="restaurent.location" :href="'/restaurents/location/'+restaurent.location.slug">{{restaurent.location.name}}</a>, 
-									<a v-if="restaurent.location" :href="'/restaurents/zone/'+restaurent.location.zone.slug" data-name="North Kochi" data-type="AreaClick">{{restaurent.location.zone.name}}</a>
+								<div class="restnt-loc ellipsis text-xs text-gray-700" data-w-onclick="stopClickPropagation|w1-restarant">
+									<i class="text-xs text-gray-700 las la-map-marker"></i> {{restaurent.address}},
+									<a class="text-xs text-gray-700" v-if="restaurent.location" :href="'/restaurents/location/'+restaurent.location.slug">{{restaurent.location.name}}</a>, 
+									<a class="text-xs text-gray-700" v-if="restaurent.location" :href="'/restaurents/zone/'+restaurent.location.zone.slug" data-name="North Kochi" data-type="AreaClick">{{restaurent.location.zone.name}}</a>
+									<span class="text-xs text-gray-700 ml-4"><i class="las la-eye"></i> {{restaurent.view}}</span>
 								</div>
 							</div>
 							

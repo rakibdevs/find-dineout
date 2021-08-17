@@ -32,6 +32,7 @@ app.component('loading-table', require('./components/Common/LoadingTable.vue').d
 
 app.component('admin-header', require('./components/Admin/Include/AdminHeader.vue').default);
 app.component('admin-sidebar', require('./components/Admin/Include/AdminSidebar.vue').default);
+app.component('dashboard', require('./components/Admin/Dashboard/Dashboard.vue').default);
 
 app.component('cuisine-list', require('./components/Admin/Cuisines/CuisineList.vue').default);
 app.component('feature-list', require('./components/Admin/Features/FeatureList.vue').default);

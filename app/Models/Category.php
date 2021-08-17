@@ -41,7 +41,7 @@ class Category extends Model
      */
     public function getPublicUriAttribute()
     {
-        return url('categories/restaurents/'.$this->slug);
+        return url('restaurents/categories/'.$this->slug);
     }
 
 

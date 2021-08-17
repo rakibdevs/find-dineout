@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PageController::class,'index']);
 Route::get('/restaurents', [PageController::class,'restaurents']);
 Route::get('/restaurents/{slug}', [PageController::class,'restaurentView']);
-Route::get('/{type}/restaurents/{slug}', [PageController::class,'restaurentFilter']);
+Route::get('/restaurents/{type}/{slug}', [PageController::class,'restaurentFilter']);
 Route::get('/privacy-policy', [PageController::class,'privacy']);
 
 Route::get('/login', [AuthController::class,'index']);
@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin'], function(){
 	Route::resource('restaurents', RestaurentController::class);
 	
 	Route::get('fetch/restaurents/', [RestaurentController::class, 'fetch']);
+	Route::get('fetch/top-restaurents/', [RestaurentController::class, 'topRestaurents']);
 	Route::get('fetch/cuisines/', [CuisineController::class, 'fetch']);
 	Route::get('fetch/features/', [FeatureController::class, 'fetch']);
 	Route::get('fetch/categories/', [CategoryController::class, 'fetch']);

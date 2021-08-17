@@ -85,7 +85,7 @@
 		                this.locations = data;
 		            });
 	            }else{
-	            	this.fetch = true;
+	            	this.fetch = false;
 	            	this.locations = [];
 	            }
 

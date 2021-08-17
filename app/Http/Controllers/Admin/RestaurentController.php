@@ -35,6 +35,14 @@ class RestaurentController extends Controller
             ->paginate($perpage);
     }
 
+    public function topRestaurents()
+    {
+        return Restaurent::with('location','location.zone')
+            ->orderByDesc('view')
+            ->take(5)
+            ->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
