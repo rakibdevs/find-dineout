@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\RestaurentController;
 use App\Http\Controllers\Admin\ZoneController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::get('/privacy-policy', [PageController::class,'privacy']);
 Route::get('/login', [AuthController::class,'index']);
 Route::post('/login', [AuthController::class,'login']);
 
+Route::post('/bookings/store', [BookingController::class,'store']);
 
 
 

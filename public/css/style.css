@@ -214,7 +214,24 @@ select{padding: 4px 20px;}
 .booking-section .el-date-editor.el-input, .el-date-editor.el-input__inner {
     width: 100%;
 }
+.time-slot-header.active:before {
+    content: '';
+    position: absolute;
+    left: 25%;
+    top: 100%;
+    width: 50%;
+    height: 3px;
+    background-color: #2acdc1;
+    display: block;
+    border-radius: 5px;
+}
+.time-slot-item.active{
 
+    --tw-text-opacity: 1;
+    color: rgba(255, 255, 255, var(--tw-text-opacity));
+    --tw-bg-opacity: 1;
+    background-color: rgba(96, 165, 250, var(--tw-bg-opacity));
+}
 @media (min-width: 1280px){
     .container {
         max-width: 1180px;

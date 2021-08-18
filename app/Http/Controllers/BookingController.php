@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookingRequest;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 
@@ -33,9 +34,13 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookingRequest $request, Booking $booking)
     {
-        //
+        $input = $request->all();
+        $input['booking_code'] = $request->restaurent_id;
+        $booking->create($input);
+
+        return $booking;
     }
 
     /**
