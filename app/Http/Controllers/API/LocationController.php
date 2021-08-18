@@ -7,7 +7,7 @@ use App\Models\Location;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 
-class ZoneController extends Controller
+class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,9 +29,30 @@ class ZoneController extends Controller
     public function fetchLocation(Request $request)
     {
         $zone = $request->zone??'';
-        return Location::withCount('restaurents')
+        $keyWord = $request->keyword??'';
+        return Location::with('zone')
+            ->withCount('restaurents')
             ->when($zone != '', function($q) use ($zone){
                 $q->where('zone_id', $zone);
+            })
+            ->when($keyWord != '', function($q) use ($keyWord){
+                $q->where('name','like','%'.$keyWord.'%');
+                $q->orWhereHas('zone', function($p) use ($keyWord){
+                    $p->where('name','like','%'.$keyWord.'%');
+                });
+            })
+            ->orderBy('restaurents_count', 'desc')
+            ->take(30)
+            ->get();
+    }
+
+    public function availableLocation(Request $request)
+    {
+        $location = $request->location??'';
+        return Location::with('zone')
+            ->withCount('restaurents')
+            ->when($location != '', function($q) use ($location){
+                $q->where('location_id', $location);
             })
             ->orderBy('restaurents_count', 'desc')
             ->take(30)

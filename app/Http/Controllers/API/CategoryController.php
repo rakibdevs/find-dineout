@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function get(Request $request)
     {
         return Cache::remember('categories', 3600 ,function () {
-            return Category::withCount('restaurents')->get()->toArray();
+            return Category::withCount('restaurents')->orderByDesc("restaurents_count")->get()->toArray();
         });
     }
 }

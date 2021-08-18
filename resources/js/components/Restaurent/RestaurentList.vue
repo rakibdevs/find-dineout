@@ -10,13 +10,8 @@
                 :key="restaurent.id"
                 :restaurent="restaurent">
             </restaurent-card>
-        </div>
-        <div v-if="nextUrl && !isUpdating" class="text-center my-3">
-            <button @click.prevent="fetch(nextUrl)" class="btn btn-sm btn-outline-secondary">
-                {{ __('View more restaurents') }}
-            </button>
-        </div>   
-    </div>
+        </div>  
+    </div> 
 </template>
 
 <script type="text/javascript">
@@ -27,6 +22,10 @@ export default {
         startPoint: {
             type: String,
             required: true
+        },
+        show: {
+            type: Number,
+            required: false
         }
     },
     components: {RestaurentCardLoader},
@@ -46,6 +45,9 @@ export default {
             this.startUpdating();
             axios.get(endpoint).then(({data}) => {
                 this.restaurents.push(...data.data);
+                if(this.show){
+                    this.restaurents = this.restaurents.slice(0,4)
+                }
                 this.isLoading = false
                 this.nextUrl = data.next_page_url;
                 this.stopUpdating();

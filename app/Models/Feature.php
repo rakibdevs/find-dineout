@@ -24,7 +24,7 @@ class Feature extends Model
      *
      * @var array
      */
-    protected $appends = [];
+    protected $appends = ['public_uri'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -34,6 +34,15 @@ class Feature extends Model
     protected $dates = [
         'created_at', 'updated_at'
     ];
+
+
+    /**
+     * Get all of the features's public uri.
+     */
+    public function getPublicUriAttribute()
+    {
+        return url('restaurents/features/'.$this->slug);
+    }
 
     /**
      * A feature may be assigned to many restaurents

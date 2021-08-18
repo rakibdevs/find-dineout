@@ -24,7 +24,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $appends = [];
+    protected $appends = ['public_uri'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -34,6 +34,15 @@ class Category extends Model
     protected $dates = [
         'created_at', 'updated_at'
     ];
+
+
+    /**
+     * Get all of the categories's public uri.
+     */
+    public function getPublicUriAttribute()
+    {
+        return url('restaurents/categories/'.$this->slug);
+    }
 
 
     /**

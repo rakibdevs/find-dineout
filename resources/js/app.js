@@ -18,22 +18,28 @@ const app = createApp({});
 app.component('login', require('./components/Auth/Login.vue').default);
 app.component('header-component', require('./components/Common/Header.vue').default);
 app.component('footer-component', require('./components/Common/Footer.vue').default);
+app.component('footer-location', require('./components/Common/FooterLocation.vue').default);
+app.component('booking', require('./components/Common/Booking.vue').default);
+
 app.component('offers', require('./components/Offer/Offers.vue').default);
 app.component('zone-list', require('./components/Location/ZoneList.vue').default);
 app.component('restaurents', require('./components/Restaurent/RestaurentList.vue').default);
 app.component('restaurent-filter', require('./components/Restaurent/RestaurentFilter.vue').default);
 app.component('restaurent-card', require('./components/Restaurent/RestaurentCard.vue').default);
+app.component('restaurent', require('./components/Restaurent/Restaurent.vue').default);
 
 app.component('loading-table', require('./components/Common/LoadingTable.vue').default);
 
 app.component('admin-header', require('./components/Admin/Include/AdminHeader.vue').default);
 app.component('admin-sidebar', require('./components/Admin/Include/AdminSidebar.vue').default);
+app.component('dashboard', require('./components/Admin/Dashboard/Dashboard.vue').default);
 
 app.component('cuisine-list', require('./components/Admin/Cuisines/CuisineList.vue').default);
 app.component('feature-list', require('./components/Admin/Features/FeatureList.vue').default);
 app.component('category-list', require('./components/Admin/Categories/CategoryList.vue').default);
 app.component('zones-list', require('./components/Admin/Zones/ZoneList.vue').default);
 app.component('location-list', require('./components/Admin/Locations/LocationList.vue').default);
+app.component('booking-list', require('./components/Admin/Booking/BookingList.vue').default);
 
 app.component('restaurent-list', require('./components/Admin/Restaurents/RestaurentList.vue').default);
 app.component('restaurent-create', require('./components/Admin/Restaurents/RestaurentCreate.vue').default);

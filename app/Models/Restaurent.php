@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
+use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Cuisine;
 use App\Models\Feature;
 use App\Models\Image;
 use App\Models\Location;
 use App\Models\Zone;
+use App\Traits\MakeSluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Restaurent extends Model
 {
+    use MakeSluggable;
     
      /**
      * Auto-apply mass assignment protection
@@ -26,7 +29,7 @@ class Restaurent extends Model
      *
      * @var array
      */
-    protected $appends = ['cover_src'];
+    protected $appends = ['cover_src','public_uri'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -42,7 +45,19 @@ class Restaurent extends Model
      */
     public function getCoverSrcAttribute()
     {
-        return isset($this->cover)?asset($this->cover):asset('images/resource/no-image.jpg');
+        return isset($this->cover)?asset('images/restaurents/'.$this->cover):asset('images/resource/no-image.jpg');
+    }
+
+
+
+
+
+    /**
+     * Get all of the restaurents's public uri.
+     */
+    public function getPublicUriAttribute()
+    {
+        return url('restaurents/'.$this->slug);
     }
 
     /**
@@ -86,6 +101,17 @@ class Restaurent extends Model
     public function branches()
     {
         return $this->hasMany(Branch::class);
+    }
+
+
+    /**
+     * A restaurent may has to many bookings
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 
 

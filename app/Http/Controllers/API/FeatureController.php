@@ -17,7 +17,7 @@ class FeatureController extends Controller
     public function get(Request $request)
     {
         return Cache::remember('features', 3600 ,function () {
-            return Feature::withCount('restaurents')->get()->toArray();
+            return Feature::withCount('restaurents')->orderByDesc("restaurents_count")->get()->toArray();
         });
     }
 }
