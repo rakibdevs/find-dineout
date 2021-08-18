@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\RestaurentController;
 use App\Http\Controllers\Admin\ZoneController;
+use App\Http\Controllers\Admin\BookingController as AdminBooking;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PageController;
@@ -45,6 +46,9 @@ Route::group(['prefix' => 'admin'], function(){
 	Route::resource('cuisines', CuisineController::class);
 	Route::resource('features', FeatureController::class);
 	Route::resource('restaurents', RestaurentController::class);
+	
+	Route::get('bookings', [AdminBooking::class,'index']);
+	Route::get('fetch/bookings', [AdminBooking::class,'fetch']);
 	
 	Route::get('fetch/restaurents/', [RestaurentController::class, 'fetch']);
 	Route::get('fetch/top-restaurents/', [RestaurentController::class, 'topRestaurents']);

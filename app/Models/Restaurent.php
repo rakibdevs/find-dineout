@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Cuisine;
 use App\Models\Feature;
@@ -100,6 +101,17 @@ class Restaurent extends Model
     public function branches()
     {
         return $this->hasMany(Branch::class);
+    }
+
+
+    /**
+     * A restaurent may has to many bookings
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 
 
