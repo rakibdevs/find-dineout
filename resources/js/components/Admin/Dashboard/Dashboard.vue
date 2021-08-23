@@ -13,7 +13,7 @@
                 Todays Bookings
               </p>
               <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                130
+                {{statistics.todays_booking}}
               </p>
             </div>
           </div>
@@ -29,7 +29,7 @@
                 Total Restaurents
               </p>
               <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                15
+                {{statistics.total_restaurent}}
               </p>
             </div>
           </div>
@@ -45,7 +45,7 @@
                 Restaurent Views
               </p>
               <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                37600
+                {{statistics.restaurent_views}}
               </p>
             </div>
           </div>
@@ -61,7 +61,7 @@
                 Total Bookings
               </p>
               <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                3513
+                {{statistics.total_booking}}
               </p>
             </div>
           </div>
@@ -74,20 +74,52 @@
 		        <location-chart></location-chart>        	
 		    </div>
 		    <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-		        <booking-chart></booking-chart>        	
+		        <line-chart :data="bookings"></line-chart>        	
 		    </div>
         </div>
 	</div>
 </template>
 <script>
-	import BookingChart from './BookingChart.vue';
+	import LineChart from './LineChart.vue';
 	import LocationChart from './LocationChart.vue';
 	import RestaurentCount from './RestaurentCount.vue';
 
 	export default {
-		components: { BookingChart,LocationChart,RestaurentCount },
+		components: { LineChart,LocationChart,RestaurentCount },
 		data: () => ({
+            bookings:{
+                labels: [],
+                datasets: [],
+                title: 'Booking'
+            },
+            statistics:{
+                total_restaurent:0,
+                restaurent_views:0,
+                todays_booking:0,
+                total_booking:0,
+            }
+		}),
+        created () {
+            this.getBookingsHistory();
+            this.getDashboardStatistics();
+        },
 
-		})
+        methods: {
+            getBookingsHistory()
+            {
+                axios.get('/admin/fetch/daily-bookings').then(({data}) => {
+                    data.forEach((item) => {
+                        this.bookings.labels.push(item.date)
+                        this.bookings.datasets.push(item.count)
+                    })
+                });
+            },
+            getDashboardStatistics()
+            {
+                axios.get('/admin/fetch/dashboard-statistics').then(({data}) => {
+                    this.statistics = data
+                });
+            }
+        }
 	}
 </script>

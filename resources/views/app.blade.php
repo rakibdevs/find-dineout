@@ -18,7 +18,7 @@
     <!-- loader END -->
     <div id="app" class="@yield('class')">
         <router-view></router-view>
-        <header-component></header-component>
+        <header-component :user="{{auth()->user()}}"></header-component>
         <div class="main-content">
             @yield('container')
         </div>

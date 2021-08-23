@@ -1,6 +1,6 @@
 <template>
-	<div class="location-list grid grid-cols-5 gap-4 mt-5 mb-10">
-        <div class="" v-for="(location, index) in locations" :key="location.id">
+	<div class="location-list grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  mt-5 mb-5">
+        <div class="pr-3" v-for="(location, index) in locations" :key="location.id">
 			<span><span class="">{{location.name}}, {{location.zone.name}}</span> <span class="text-gray-400">({{location.restaurents_count}})</span></span>
         </div>
     </div>

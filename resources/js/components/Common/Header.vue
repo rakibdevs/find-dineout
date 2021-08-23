@@ -4,8 +4,8 @@
     		<div class="flex justify-between h-14 md:h-18">
       			<div class="flex px-2 lg:px-0">
         			<div class="flex-shrink-0 flex items-center">
-          				<a class="inline-flex items-center font-black font-display text-cool-indigo-800 text-xl" href="/">
-          					<span class="ml-3 hidden xl:inline-block"> <span class="text-indigo-600"> foodmoy </span></span>
+          				<a class="inline-flex items-center" href="/">
+          					<img class="front-logo" src="/images/logo.png">
           				</a>  
           				     		
           			</div>
@@ -14,6 +14,7 @@
 					<!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
 					<a class="border-transparent text-gray-900 hover:border-red-300 hover:text-red-700 inline-flex items-center px-1 pt-1 border-b-2 text-base font-medium active" href="/">Home</a>
 					<a class="border-transparent text-gray-900 hover:border-red-300 hover:text-red-700 inline-flex items-center px-1 pt-1 border-b-2 text-base font-medium" href="/restaurents">Find Restaurents</a>
+					<a class="border-transparent text-gray-900 hover:border-red-300 hover:text-red-700 inline-flex items-center px-1 pt-1 border-b-2 text-base font-medium" href="/privacy-policy">Track Booking</a>
 					<a class="border-transparent text-gray-900 hover:border-red-300 hover:text-red-700 inline-flex items-center px-1 pt-1 border-b-2 text-base font-medium" href="/privacy-policy">Privacy Policy</a>
 					<!-- <a class="border-transparent text-gray-900 hover:border-red-300 hover:text-red-700 inline-flex items-center px-1 pt-1 border-b-2 text-base font-medium" href="/blog">Blog</a> -->
 	        	</div>
@@ -39,7 +40,10 @@
 						</div>
 					</div>
 
-      				<a v-if="!isAuth" href="/login" class=" px-3 py-1 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Login</a>
+      				<a v-if="!authUser" href="/login" class=" px-3 py-1 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Login</a>
+      				<div v-if="authUser">
+      					<i class="text-4xl font-normal text-gray-500 las la-user-circle cursor-pointer"></i>
+      				</div>
 			    </div>
     		</div>
   		</div>
@@ -60,6 +64,12 @@
 	import queryString from 'query-string';
 	import { mapState, mapGetters } from 'vuex'
 	export default{
+		props: {
+	        authUser: {
+	            type: Object,
+	            required: false
+	        },
+	    },
 		data(){
 			return {
 				keyword:'',
