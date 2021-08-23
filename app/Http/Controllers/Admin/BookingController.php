@@ -30,4 +30,13 @@ class BookingController extends Controller
             ->orderBy('id','desc')
             ->paginate($perpage);
     }
+
+
+    public function dailyBooking(Request $request)
+    {
+        $days = $request->days??6;
+        return $this->countGroupedByDay(Booking::class, $days);
+    }
 }
+
+

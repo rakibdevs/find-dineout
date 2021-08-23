@@ -39,7 +39,7 @@
 						</div>
 					</div>
 
-      				<a href="/login" class=" px-3 py-1 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Login</a>
+      				<a v-if="!isAuth" href="/login" class=" px-3 py-1 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Login</a>
 			    </div>
     		</div>
   		</div>
@@ -58,6 +58,7 @@
 
 <script>
 	import queryString from 'query-string';
+	import { mapState, mapGetters } from 'vuex'
 	export default{
 		data(){
 			return {
@@ -66,6 +67,12 @@
 				selectedLocation: '',
 				fetch: false
 			}
+		},
+		computed: {
+		    ...mapGetters([
+		      'isAuth',
+		      'user'
+		    ])
 		},
 		created(){
 			this.getCurrentLocation()

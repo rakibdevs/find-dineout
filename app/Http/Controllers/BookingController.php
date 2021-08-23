@@ -34,13 +34,17 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BookingRequest $request, Booking $booking)
+    public function store(BookingRequest $request)
     {
-        $input = $request->all();
-        $input['booking_code'] = $request->restaurent_id;
-        $booking->create($input);
+        try{
+            $input = $request->all();
+            $input['booking_code'] = $request->restaurent_id;
+            $booking = Booking::with('restaurent')->create($input);
 
-        return $booking;
+            return $booking;
+        }catch(\Exception $e){
+            return $e;
+        }
     }
 
     /**
