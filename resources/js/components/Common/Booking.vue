@@ -1,7 +1,18 @@
 <template>
 	<div class="bg-white rounded-xl border-transparent booking-section">
 		<div class="title-label text-center font-bold text-xl py-2">Booking Area</div>
-		<div class=" p-3">
+		<div v-if="bookingResponse" class="booking-response p-3">
+			<div class="text-center">
+				<i class="text-16xl font-bold text-green-500 las la-calendar-check"></i>
+			</div>
+			<h1 class="text-xl font-bold text-center mb-3">Congratulations!</h1>
+			<p>Hey <b>{{item.guest_name}}</b>, your booking request for <b>{{item.type}}</b> at {{item.booking_schedule}} has submitted successsfully! Please wait for the confirmation.</p>
+			<p class="font-bold text-xl my-2">Booking Code: {{item.booking_code}}</p>
+			<p><i class="las la-calendar"></i> {{item.booking_schedule}}</p>
+
+			<p class="text-red-600 text-sm mt-4">N.B. Preserve booking code and mobile no for tracking your booking.</p>
+		</div>
+		<div v-else class=" p-3">
 			<p class="text-sm"> {{picked}}</p>
 			<el-date-picker
 		      v-model="item.booking_date"
@@ -80,7 +91,8 @@
 		    		type: 'Lunch'
 		    	},
 	    		picked_time:'',
-		    	picked:''
+		    	picked:'',
+		    	bookingResponse: false
 	    	}
 	    },
 	    computed:{
@@ -151,6 +163,9 @@
 	                      message: 'New restaurent added to the list',
 	                      type: 'success'
 	                    });
+	                    this.bookingResponse = true
+	                    this.item = res.data
+	                    console.log(this.item)
 	                }).catch(error => {
 	                    var errors = "";
 	                    this.$notify({

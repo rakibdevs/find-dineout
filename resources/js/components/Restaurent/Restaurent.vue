@@ -1,6 +1,6 @@
 <template>
-	<div class="grid grid-cols-7 gap-4">
-		<div class="col-span-5">
+	<div class="grid sm:grid-cols-1 md:grid-cols-7 gap-4">
+		<div class="md:col-span-5">
 			
 			<div class="restnt-single-item restaurant">
 				<div class="restnt-main-wrap bg-white rounded my-2 ">
@@ -81,7 +81,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-span-2">
+		<div class="md:col-span-2">
 			<booking :restaurent_id="restaurent.id"></booking>
 		</div>
 	</div>

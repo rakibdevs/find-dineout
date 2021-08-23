@@ -1,7 +1,7 @@
 <template>
 	<div>
         
-        <div class="restaurent-cards grid grid-cols-4 gap-4">
+        <div class="restaurent-cards grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-4">
             <!-- restaurent card -->
             <restaurent-card-loader v-if="isLoading" :count="4"></restaurent-card-loader>
 

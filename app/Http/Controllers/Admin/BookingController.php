@@ -30,4 +30,20 @@ class BookingController extends Controller
             ->orderBy('id','desc')
             ->paginate($perpage);
     }
+
+
+    public function dailyBooking(Request $request)
+    {
+        $days = $request->days??7;
+        $date = \Carbon\Carbon::today()->subDays($days);
+
+        $booking = Booking::selectRaw("COUNT(*) booking, DATE_FORMAT(created_at, '%Y-%m-%e') date")
+            ->where('created_at', '>=', $date)
+            ->groupBy('date')
+            ->pluck('booking','date');
+
+        dd($booking);
+    }
 }
+
+

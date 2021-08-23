@@ -39,6 +39,7 @@ class RestaurentController extends Controller
     public function topRestaurents()
     {
         return Restaurent::with('location','location.zone')
+            ->withCount('bookings')
             ->orderByDesc('view')
             ->take(5)
             ->get();

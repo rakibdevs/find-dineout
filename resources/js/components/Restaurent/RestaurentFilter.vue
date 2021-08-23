@@ -1,7 +1,7 @@
 <template>
 	<div>
-        <div class="grid grid-cols-4 gap-4">
-            <div class="">
+        <div class="grid grid-cols-4 gap-4 ">
+            <div class="mobile-filter-area">
                 <!-- filter by cuisine -->
                 <div v-if="ignore !='cuisines'" class="">
                     <h3 class="py-2">Cuisines</h3>
@@ -40,7 +40,7 @@
             </div>
             <div class="col-span-3">
                 <!-- results here -->
-                <div class="restaurent-cards grid grid-cols-3 gap-4">
+                <div class="restaurent-cards grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-4">
                     <!-- restaurent card -->
 
                     <restaurent-card v-if="!isUpdating"

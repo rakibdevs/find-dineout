@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function(){
 		
 		Route::get('bookings', [AdminBooking::class,'index']);
 		Route::get('fetch/bookings', [AdminBooking::class,'fetch']);
+		Route::get('fetch/daily-bookings', [AdminBooking::class,'dailyBooking']);
 		
 		Route::get('fetch/restaurents/', [RestaurentController::class, 'fetch']);
 		Route::get('fetch/top-restaurents/', [RestaurentController::class, 'topRestaurents']);
