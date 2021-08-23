@@ -24,8 +24,13 @@ class BookingController extends Controller
         $perpage = $request->per_page != ''? ((int)$request->per_page):10;
         $keyword = $request->keyword??'';
         return Booking::with('restaurent')
-            ->whereHas('restaurent', function($q) use ($keyword){
-                $q->where('name','like','%'.$keyword.'%');
+            ->when($keyword != '', function($q) use ($keyword){
+                $q->where('booking_code','like','%'.$keyword.'%')
+                  ->orWhere('guest_name','like','%'.$keyword.'%')
+                  ->orWhere('mobile_no','like','%'.$keyword.'%')
+                  ->orWhereHas('restaurent', function($q) use ($keyword){
+                        $q->where('name','like','%'.$keyword.'%');
+                    });
             })
             ->orderBy('id','desc')
             ->paginate($perpage);

@@ -17,7 +17,10 @@
 			<el-date-picker
 		      v-model="item.booking_date"
 		      type="date"
-		      placeholder="Pick a date" value-format="YYYY-MM-DD">
+		      placeholder="Pick a date" 
+		      value-format="YYYY-MM-DD"
+		      
+		      >
 
 		    </el-date-picker>
 		    <div class="p-3 rounded border border-gray-200 mt-2">
@@ -46,6 +49,15 @@
                 <span class="text-gray-700 font-bold">Email</span>
                 <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter email address" v-model="item.email">
             </label> 
+            <label class="block">
+                <span class="text-gray-700 font-bold">No of Guest</span>
+                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter email address" v-model="item.guest_count">
+            </label>
+            <label class="block">
+                <span class="text-gray-700 font-bold"> Special Request</span>
+                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter email address" v-model="item.special_request">
+                <span class="text-sm text-gray-500">(If any special request)</span>
+            </label>
 
             <label class="block mt-3">
             	<button type="button" class="bg-indigo-900 h-10 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center block" @click="booking">
@@ -92,11 +104,23 @@
 		    	},
 	    		picked_time:'',
 		    	picked:'',
-		    	bookingResponse: false
+		    	bookingResponse: false,
+		    	datePickerOptions: {
+			      disabledDate (date) {
+			        return date > new Date()
+			      }
+			    }
 	    	}
 	    },
-	    computed:{
-	    },
+	    computed: {
+		  inBetweenDatesPickerOptions() {
+		    return {
+		      disabledDate: (time) => {
+		        return time <= new Date()
+		      }
+		    }
+		  }
+		},
 	    methods:{
 	    	changeTimeSlot(type)
 	    	{

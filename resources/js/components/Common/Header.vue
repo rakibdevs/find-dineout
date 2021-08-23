@@ -4,8 +4,8 @@
     		<div class="flex justify-between h-14 md:h-18">
       			<div class="flex px-2 lg:px-0">
         			<div class="flex-shrink-0 flex items-center">
-          				<a class="inline-flex items-center font-black font-display text-cool-indigo-800 text-xl" href="/">
-          					<span class="ml-3 hidden xl:inline-block"> <span class="text-indigo-600"> foodmoy </span></span>
+          				<a class="inline-flex items-center" href="/">
+          					<img class="front-logo" src="/images/logo.png">
           				</a>  
           				     		
           			</div>
@@ -40,8 +40,8 @@
 						</div>
 					</div>
 
-      				<a v-if="!user" href="/login" class=" px-3 py-1 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Login</a>
-      				<div v-if="user">
+      				<a v-if="!authUser" href="/login" class=" px-3 py-1 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Login</a>
+      				<div v-if="authUser">
       					<i class="text-4xl font-normal text-gray-500 las la-user-circle cursor-pointer"></i>
       				</div>
 			    </div>
@@ -65,7 +65,7 @@
 	import { mapState, mapGetters } from 'vuex'
 	export default{
 		props: {
-	        user: {
+	        authUser: {
 	            type: Object,
 	            required: false
 	        },
