@@ -33,13 +33,20 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-
-        if (Auth::attempt($request->all())) {
+        $credential = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+        if (Auth::attempt($credential)) {
             $request->session()->regenerate();
 
+            $user = auth()->user();
+
+            $reload = $user->user_type == 'admin'?url('/admin'):url('/');
             return [
                 'status' => true,
-                'user' => auth()->user()
+                'user' => auth()->user(),
+                'location' => $reload
             ];
         }
 

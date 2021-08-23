@@ -89,22 +89,40 @@
 
         },
         methods:{
-            ...mapMutations(['isAuth','hasRole']),
+            ...mapMutations(['isAuth','setUser']),
             login(){
                 axios.post('/login', {
                     email: this.email,
                     password: this.password,
                     remember: this.remember,
                 }).then(res => {
-                    this.$store.commit('setAuth', true)
-                    this.$store.commit('hasRole', 'admin')
-                    this.$notify({
-                      title: 'Success',
-                      message: 'Successfully logged in',
-                      type: 'success'
-                    });
+                    if(res.data.status){
+                        this.$store.commit('setAuth', true)
+                        this.$store.commit('setUser', res.data.user)
+                        this.$notify({
+                          title: 'Success',
+                          message: 'Successfully logged in',
+                          type: 'success'
+                        });
+                        if(res.data.user.user_type == 'admin'){
+                            window.location.pathname = '/admin'
+                        }else{
+                            window.location.pathname = '/'
+                        }
+                    }else{
+                        this.$notify({
+                          title: 'Error',
+                          message: res.error,
+                          type: 'error'
+                        });
+                    }
                 }).catch(error => {
-                    var errors = "";
+                    console.log(error)
+                    this.$notify({
+                      title: 'Error',
+                      message: error.error,
+                      type: 'error'
+                    });
                     
                 });
             },

@@ -24,7 +24,7 @@ export default {
             required: true
         },
         show: {
-            type: Number,
+            type: String,
             required: false
         }
     },

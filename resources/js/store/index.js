@@ -2,12 +2,12 @@ const globalStore = {
     state: {
         sideBarOpen: false,
         isAuth:false,
-        hasRole: '',
+        user: ''
     },
     getters: {
         sideBarOpen: state => state.sideBarOpen,
         isAuth: state => state.isAuth,
-        hasRole: state => state.hasRole
+        user: state => state.user
     },
     mutations: {
         toggleSidebar (state) {
@@ -16,9 +16,9 @@ const globalStore = {
         setAuth(state, status) {
             state.isAuth = status
         },
-        setRole(state, role)
+        setUser(state, user)
         {
-            state.hasRole = role
+            state.user = user
         }
     },
     actions: {

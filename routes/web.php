@@ -30,8 +30,8 @@ Route::get('/restaurents/{slug}', [PageController::class,'restaurentView']);
 Route::get('/restaurents/{type}/{slug}', [PageController::class,'restaurentFilter']);
 Route::get('/privacy-policy', [PageController::class,'privacy']);
 
-Route::get('/login', [AuthController::class,'index']);
-Route::get('/register', [AuthController::class,'register']);
+Route::get('/login', [AuthController::class,'index'])->name('login');
+Route::get('/register', [AuthController::class,'register'])->name('register');
 Route::get('/logout', [AuthController::class,'logout']);
 Route::post('/login', [AuthController::class,'login']);
 
