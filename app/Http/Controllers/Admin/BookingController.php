@@ -34,15 +34,8 @@ class BookingController extends Controller
 
     public function dailyBooking(Request $request)
     {
-        $days = $request->days??7;
-        $date = \Carbon\Carbon::today()->subDays($days);
-
-        $booking = Booking::selectRaw("COUNT(*) booking, DATE_FORMAT(created_at, '%Y-%m-%e') date")
-            ->where('created_at', '>=', $date)
-            ->groupBy('date')
-            ->pluck('booking','date');
-
-        dd($booking);
+        $days = $request->days??6;
+        return $this->countGroupedByDay(Booking::class, $days);
     }
 }
 
