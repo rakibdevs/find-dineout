@@ -43,7 +43,7 @@ import { mapState } from 'vuex'
 export default {
     name: 'Navbar',
     computed: {
-        ...mapState(['sideBarOpen'])
+        ...mapState(['sideBarOpen','isAuth','hasRole'])
     },
     data() {
         return {

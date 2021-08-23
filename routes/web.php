@@ -31,34 +31,36 @@ Route::get('/restaurents/{type}/{slug}', [PageController::class,'restaurentFilte
 Route::get('/privacy-policy', [PageController::class,'privacy']);
 
 Route::get('/login', [AuthController::class,'index']);
+Route::get('/register', [AuthController::class,'register']);
+Route::get('/logout', [AuthController::class,'logout']);
 Route::post('/login', [AuthController::class,'login']);
 
 Route::post('/bookings/store', [BookingController::class,'store']);
 
+Route::group(['middleware' => 'auth'], function(){
 
+	Route::get('/admin/', [AdminController::class,'dashboard']);
 
-Route::get('/admin/', [AdminController::class,'dashboard']);
-
-Route::group(['prefix' => 'admin'], function(){
-	Route::resource('zones', ZoneController::class);
-	Route::resource('locations', LocationController::class);
-	Route::resource('categories', CategoryController::class);
-	Route::resource('cuisines', CuisineController::class);
-	Route::resource('features', FeatureController::class);
-	Route::resource('restaurents', RestaurentController::class);
-	
-	Route::get('bookings', [AdminBooking::class,'index']);
-	Route::get('fetch/bookings', [AdminBooking::class,'fetch']);
-	
-	Route::get('fetch/restaurents/', [RestaurentController::class, 'fetch']);
-	Route::get('fetch/top-restaurents/', [RestaurentController::class, 'topRestaurents']);
-	Route::get('fetch/cuisines/', [CuisineController::class, 'fetch']);
-	Route::get('fetch/features/', [FeatureController::class, 'fetch']);
-	Route::get('fetch/categories/', [CategoryController::class, 'fetch']);
-	Route::get('fetch/zones/', [ZoneController::class, 'fetch']);
-	Route::get('fetch/locations/', [LocationController::class, 'fetch']);
+	Route::group(['prefix' => 'admin'], function(){
+		Route::resource('zones', ZoneController::class);
+		Route::resource('locations', LocationController::class);
+		Route::resource('categories', CategoryController::class);
+		Route::resource('cuisines', CuisineController::class);
+		Route::resource('features', FeatureController::class);
+		Route::resource('restaurents', RestaurentController::class);
+		
+		Route::get('bookings', [AdminBooking::class,'index']);
+		Route::get('fetch/bookings', [AdminBooking::class,'fetch']);
+		
+		Route::get('fetch/restaurents/', [RestaurentController::class, 'fetch']);
+		Route::get('fetch/top-restaurents/', [RestaurentController::class, 'topRestaurents']);
+		Route::get('fetch/cuisines/', [CuisineController::class, 'fetch']);
+		Route::get('fetch/features/', [FeatureController::class, 'fetch']);
+		Route::get('fetch/categories/', [CategoryController::class, 'fetch']);
+		Route::get('fetch/zones/', [ZoneController::class, 'fetch']);
+		Route::get('fetch/locations/', [LocationController::class, 'fetch']);
+	});
 });
-
 
 
 

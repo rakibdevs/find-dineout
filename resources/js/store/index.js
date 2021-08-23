@@ -1,15 +1,24 @@
 const globalStore = {
     state: {
-        sideBarOpen: false
+        sideBarOpen: false,
+        isAuth:false,
+        hasRole: '',
     },
     getters: {
-        sideBarOpen: state => {
-            return state.sideBarOpen
-        }
+        sideBarOpen: state => state.sideBarOpen,
+        isAuth: state => state.isAuth,
+        hasRole: state => state.hasRole
     },
     mutations: {
         toggleSidebar (state) {
             state.sideBarOpen = !state.sideBarOpen
+        },
+        setAuth(state, status) {
+            state.isAuth = status
+        },
+        setRole(state, role)
+        {
+            state.hasRole = role
         }
     },
     actions: {
