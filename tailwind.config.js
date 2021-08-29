@@ -1,8 +1,8 @@
 module.exports = {
   purge: [
-    './resources/**/*.{php,vue,js,ts,jsx,tsx}',
-    './resources/**/**/*.{php,vue,js,ts,jsx,tsx}',
-    './resources/**/**/**/*.{php,vue,js,ts,jsx,tsx}'
+    './resources/**/*.{php,vue}',
+    './resources/**/**/*.{php,vue}',
+    './resources/**/**/**/*.{php,vue}'
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {

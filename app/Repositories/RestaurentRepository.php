@@ -49,7 +49,7 @@ class RestaurentRepository
                     $q->whereIn('slug', $cuisines);
                 });
             })
-            ->where('location_id', $location)
+            //->where('location_id', $location)
             ->paginate($per_page);
     }
 

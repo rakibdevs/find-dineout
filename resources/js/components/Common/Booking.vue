@@ -189,7 +189,6 @@
 	                    });
 	                    this.bookingResponse = true
 	                    this.item = res.data
-	                    console.log(this.item)
 	                }).catch(error => {
 	                    var errors = "";
 	                    this.$notify({
