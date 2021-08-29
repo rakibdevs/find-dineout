@@ -42,7 +42,7 @@
 				</div>
 				<div class="bg-white rounded mt-3 p-4">
 					<h2 class="text-gray-700 font-bold">About</h2>
-					<p :v-html="restaurent.description"></p>
+					<p v-html="restaurent.description"></p>
 					<div class="flex space-x-2 pt-3">
 						<i class="h-10 pt-2 w-10 text-4xl text-indigo-700 las la-hamburger align-bottom"></i>
 						<div class="min-w-0 relative flex-auto sm:pr-20 lg:pr-0 xl:pr-20">
