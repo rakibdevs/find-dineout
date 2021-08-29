@@ -42,6 +42,13 @@ class BookingController extends Controller
         $days = $request->days??6;
         return $this->countGroupedByDay(Booking::class, $days);
     }
+
+
+    public function show($id)
+    {
+        return Booking::with('restaurent','restaurent.cuisines','restaurent.location','restaurent.location.zone')
+            ->find($id);
+    }
 }
 
 
