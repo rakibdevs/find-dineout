@@ -48,10 +48,6 @@ class Restaurent extends Model
         return isset($this->cover)?asset('images/restaurents/'.$this->cover):asset('images/resource/no-image.jpg');
     }
 
-
-
-
-
     /**
      * Get all of the restaurents's public uri.
      */
@@ -131,5 +127,19 @@ class Restaurent extends Model
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    /**
+     * similiar restaurents
+     */
+    public function similiar()
+    {
+        return static::with('location','location.zone','cuisines')->whereHas('cuisines', function ($q) {
+            return $q->whereIn('name',$this->cuisines->pluck('name')); 
+        })
+        ->where('id', '!=', $this->id) // So you won't fetch same restaurent
+        ->inRandomOrder()
+        ->limit(5)
+        ->get();
     }
 }

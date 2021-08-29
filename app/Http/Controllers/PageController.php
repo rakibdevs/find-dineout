@@ -29,11 +29,11 @@ class PageController extends Controller
         $restaurent = Restaurent::with('categories','cuisines','features','location','location.zone')
             ->whereSlug($slug)
             ->first();
-            
+        $similiar = $restaurent->similiar();
         $restaurent->increment('view', 1);
 
 
-        return view('pages.restaurent', compact('restaurent'));
+        return view('pages.restaurent', compact('restaurent','similiar'));
     }
 
 
