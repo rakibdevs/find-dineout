@@ -2,7 +2,7 @@
 	<div class="grid sm:grid-cols-1 md:grid-cols-7 gap-4">
 		<div class="md:col-span-5">
 			
-			<div class="restnt-single-item restaurant">
+			<div class="restnt-single-item restaurant mb-3">
 				<div class="restnt-main-wrap bg-white rounded my-2 ">
 					<div class="img-wrap">
 						<div class="img cursor restaurent-cover">
@@ -82,12 +82,35 @@
 			</div>
 
 			<!-- show similiar restaurents -->
-			<div class="restaurent-cards grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+			<div class="bg-white block w-full p-3 mb-3">
+				
+				<h2 class="text-gray-700 font-bold">Restaurents you may like</h2>
+			</div>
+			<div class="restaurent-cards grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 mb-3">
 				<restaurent-card
-	                v-for="(resItem, ik) in similiar"
+	                v-for="(resItem, ik) in similiar.slice(0,3)"
 	                :key="resItem.id"
 	                :restaurent="resItem">
 	            </restaurent-card>
+	        </div>
+	        <div class="bg-white  w-full p-3 mb-3">
+	        	<h1 class="font-bold mb-3">We're always here to help</h1>
+	        	<div class="grid grid-cols-2">
+		        	<div class="flex">
+		        		<i class="font-bold text-4xl las la-phone-volume mr-3 mt-2 text-indigo-700"></i>
+		        		<div>
+		        			<h1 class="font-bold">Call Us</h1>
+		        			+880 160000000000
+		        		</div>
+		        	</div>
+		        	<div class="flex">
+		        		<i class="font-bold text-4xl las la-phone-volume mr-3 mt-2 text-indigo-700"></i>
+		        		<div>
+		        			<h1 class="font-bold">Call the Restaurent</h1>
+		        			{{restaurent.mobile_no}}
+		        		</div>
+		        	</div>
+	        	</div>
 	        </div>
 
 		</div>
