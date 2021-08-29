@@ -128,4 +128,18 @@ class Restaurent extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    /**
+     * similiar restaurents
+     */
+    public function similiar()
+    {
+        return static::whereHas('cuisines', function ($q) {
+            return $q->whereIn('name',$this->cuisines->pluck('name')); 
+        })
+        ->where('id', '!=', $this->id) // So you won't fetch same restaurent
+        ->inRandomOrder()
+        ->limit(5)
+        ->get();
+    }
 }

@@ -29,7 +29,7 @@ class PageController extends Controller
         $restaurent = Restaurent::with('categories','cuisines','features','location','location.zone')
             ->whereSlug($slug)
             ->first();
-            
+        dd($restaurent->similiar());
         $restaurent->increment('view', 1);
 
 
