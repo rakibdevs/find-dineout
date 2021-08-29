@@ -41,6 +41,8 @@ app.component('zones-list', require('./components/Admin/Zones/ZoneList.vue').def
 app.component('location-list', require('./components/Admin/Locations/LocationList.vue').default);
 app.component('booking-list', require('./components/Admin/Booking/BookingList.vue').default);
 
+app.component('offer-list', require('./components/Admin/Offers/OfferList.vue').default);
+
 app.component('restaurent-list', require('./components/Admin/Restaurents/RestaurentList.vue').default);
 app.component('restaurent-create', require('./components/Admin/Restaurents/RestaurentCreate.vue').default);
 app.component('restaurent-edit', require('./components/Admin/Restaurents/RestaurentEdit.vue').default);

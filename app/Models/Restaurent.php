@@ -8,6 +8,7 @@ use App\Models\Cuisine;
 use App\Models\Feature;
 use App\Models\Image;
 use App\Models\Location;
+use App\Models\Offer;
 use App\Models\Zone;
 use App\Traits\MakeSluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -86,6 +87,17 @@ class Restaurent extends Model
     public function cuisines()
     {
         return $this->belongsToMany(Cuisine::class, 'restaurent_cuisines')
+            ->withTimestamps();
+    }
+
+    /**
+     * A restaurent may has many types of offers
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function offers()
+    {
+        return $this->belongsToMany(Offer::class, 'restaurent_offers')
             ->withTimestamps();
     }
 

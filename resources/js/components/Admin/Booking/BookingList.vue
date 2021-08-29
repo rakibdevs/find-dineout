@@ -35,7 +35,7 @@
 						<th>Restaurent Name</th>
 						<th>Guest Name</th>
 						<th>Mobile No</th>
-						<th>Mobile No</th>
+						<th>Email</th>
 						<th>Guest Count</th>
 						<th>Status</th>
 						<th>Action</th>
@@ -44,12 +44,12 @@
 				<tbody>
 					<tr v-for="(row, index) in rows" :key="index">
 						<td class="text-center">{{++index}}</td>
-						<td class="text-center">{{row.booking_code}}</td>
+						<td class="text-center" @click="bookingModal(row.id)">{{row.booking_code}}</td>
 						<td>{{row.booking_schedule}}</td>
 						<td>{{row.restaurent.name}}</td>
 						<td>{{row.guest_name}}</td>
 						<td>{{row.mobile_no}}</td>
-						<td>{{row.guest_email}}</td>
+						<td>{{row.email}}</td>
 						<td class="text-center">{{row.guest_count}}</td>
 						<td class="text-center">
 							<i v-if="row.status == 1" class="las la-check text-green-600 text-bold"></i>
@@ -88,10 +88,49 @@
 			</nav>
 		</div>
 		<loading-table v-if="isLoading"></loading-table>
+
+		<!-- create modal -->
+		<div class="modal fade apps-modal" :class="showBooking == true?'modal-open':''">
+	    	<div class="modal-dialog modal-dialog-centered" role="document">
+	        	<div class="modal-content p-5 " style="width: 600px;">
+		        	<span class="close cursor-pointer hover:text-red-500 focus:text-red-500 " @click="closeBookingModal"><i class="las la-times font-bold text-xl"></i></span>
+		        	<div v-if="booking" class="grid grid-cols-2 mt-3">
+		        		<div class="booking-info">
+		        			<i class="font-bold text-3xl las la-calendar-check mr-3 text-indigo-700"></i>
+		        			<span class="font-bold text-3xl text-indigo-700">{{booking.booking_code}}</span>
+		        			<br><br>
+		        			<p><i class="las la-clock"></i> {{booking.booking_schedule}}</p>
+		        			<p><i class="las la-hamburger"></i> {{booking.type}}</p>
+		        			<p><i class="las la-user-tie"></i> {{booking.guest_name}}</p>
+		        			<p><i class="las la-envelope"></i> {{booking.email}}</p>
+		        			<p><i class="las la-phone-volume"></i> {{booking.mobile_no}}</p>
+		        			<p><i class="las la-users"></i> {{booking.guest_count}}</p>
+		        			<p><i class="las la-info-circle"></i> {{booking.special_request}}</p>
+		        			<br>
+		        			<p><i class="las la-utensils"></i> <span class="font-bold">{{booking.restaurent.name}}</span></p>
+		        			<p>
+		        				<i class="las la-map-marker-alt"></i> 
+		        				{{booking.restaurent.address}},
+							    {{booking.restaurent.location.name}}, 
+							    {{booking.restaurent.location.zone.name}}
+		        			</p>
+		        		</div>
+		        		<div class="restaurent-cards mt-3">
+			        		<restaurent-info-card
+				                :restaurent="booking.restaurent">
+				            </restaurent-info-card>
+				        </div>
+		        		
+
+			        </div>
+		        </div>
+	         </div>
+	    </div>
 	</div>
 	
 </template>
 <script>
+	import RestaurentInfoCard from './../../Restaurent/RestaurentInfoCard'
 	export default{
 		props:{
 	        startpoint: {
@@ -107,18 +146,16 @@
 		    	isLoading: false,
 		    	per_page:10,
 		    	search_text:null,
-		    	/*item:{
-		    		id:null,
-		    		name: null,
-		    		zone_id: ""
-		    	},*/
-		    	//zones:[]
+		    	booking:null,
+		    	showBooking:false,
+		    	isBookingLoading: false
 		    }
 	    },
 	    created () {
 	        this.fetch(this.startpoint);
 	        //this.fetchZones()
 	    },
+	    components:{RestaurentInfoCard},
 	    methods: {
 	    	withParams( page_url ){
 	    		let params = 'per_page='+this.per_page;
@@ -144,6 +181,21 @@
 	        loadPage(page_url) {
 	        	this.fetch(page_url)
 	        },
+	        bookingModal(id)
+	        {
+	        	this.isBookingLoading = true
+	        	this.showBooking = true;
+	        	axios.get('/admin/bookings/'+id).then(({data}) => {
+	        		console.log(data)
+	                this.booking = data
+	                this.isBookingLoading = false;
+	                
+	            });
+	        },
+	        closeBookingModal()
+	        {
+	        	this.showBooking = false;
+	        }
 	        /*destroy(id) {
 	        	console.log('hi');
 	        	if(confirm('are you sure?')){
