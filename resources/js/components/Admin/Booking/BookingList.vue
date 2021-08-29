@@ -35,7 +35,7 @@
 						<th>Restaurent Name</th>
 						<th>Guest Name</th>
 						<th>Mobile No</th>
-						<th>Mobile No</th>
+						<th>Email</th>
 						<th>Guest Count</th>
 						<th>Status</th>
 						<th>Action</th>
@@ -49,7 +49,7 @@
 						<td>{{row.restaurent.name}}</td>
 						<td>{{row.guest_name}}</td>
 						<td>{{row.mobile_no}}</td>
-						<td>{{row.guest_email}}</td>
+						<td>{{row.email}}</td>
 						<td class="text-center">{{row.guest_count}}</td>
 						<td class="text-center">
 							<i v-if="row.status == 1" class="las la-check text-green-600 text-bold"></i>
