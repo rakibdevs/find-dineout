@@ -51,11 +51,11 @@
             </label> 
             <label class="block">
                 <span class="text-gray-700 font-bold">No of Guest</span>
-                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter email address" v-model="item.guest_count">
+                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter no of guest" v-model="item.guest_count">
             </label>
             <label class="block">
                 <span class="text-gray-700 font-bold"> Special Request</span>
-                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter email address" v-model="item.special_request">
+                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Add if any special request" v-model="item.special_request">
                 <span class="text-sm text-gray-500">(If any special request)</span>
             </label>
 
