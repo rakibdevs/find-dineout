@@ -80,6 +80,16 @@
 					
 				</div>
 			</div>
+
+			<!-- show similiar restaurents -->
+			<div class="restaurent-cards grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+				<restaurent-card
+	                v-for="(resItem, ik) in similiar"
+	                :key="resItem.id"
+	                :restaurent="resItem">
+	            </restaurent-card>
+	        </div>
+
 		</div>
 		<div class="md:col-span-2">
 			<booking :restaurent_id="restaurent.id"></booking>
@@ -95,6 +105,10 @@ export default {
         restaurent: {
             type: Object,
             required: true
+        },
+        similiar: {
+            type: Object,
+            required: false
         }
     }
 }

@@ -134,7 +134,7 @@ class Restaurent extends Model
      */
     public function similiar()
     {
-        return static::whereHas('cuisines', function ($q) {
+        return static::with('location','location.zone','cuisines')->whereHas('cuisines', function ($q) {
             return $q->whereIn('name',$this->cuisines->pluck('name')); 
         })
         ->where('id', '!=', $this->id) // So you won't fetch same restaurent
