@@ -1,69 +1,93 @@
 <template>
-	<div class="bg-white rounded-xl border-transparent booking-section">
-		<div class="title-label text-center font-bold text-xl py-2">Booking Area</div>
-		<div v-if="bookingResponse" class="booking-response p-3">
-			<div class="text-center">
-				<i class="text-16xl font-bold text-green-500 las la-calendar-check"></i>
+	<div>
+		<div class="bg-white rounded-xl border-transparent booking-section relative">
+			<div class="title-label text-center font-bold text-xl py-2 relative text-white z-10">Booking Area</div>
+			<div class="absolute bgm bg-indigo-500 h-16 top-0 w-full rounded-xl"> </div>
+
+			<div v-if="bookingResponse" class="booking-response p-3 mt-3">
+				<div class="text-center">
+					<i class="text-8xl font-bold text-green-500 las la-calendar-check"></i>
+				</div>
+				<h1 class="text-xl font-bold text-center mb-3">Congratulations!</h1>
+				<p>Hey <b>{{item.guest_name}}</b>, your booking request for <b>{{item.type}}</b> at {{item.booking_schedule}} has submitted successsfully! Check email for confirmation.</p>
+				<p class="font-bold text-xl my-2">Booking Code: {{item.booking_code}}</p>
+				<p><i class="las la-calendar"></i> {{item.booking_schedule}}</p>
+
+				<p class="text-red-600 text-sm mt-4">N.B. Preserve booking code and mobile no for tracking your booking.</p>
 			</div>
-			<h1 class="text-xl font-bold text-center mb-3">Congratulations!</h1>
-			<p>Hey <b>{{item.guest_name}}</b>, your booking request for <b>{{item.type}}</b> at {{item.booking_schedule}} has submitted successsfully! Please wait for the confirmation.</p>
-			<p class="font-bold text-xl my-2">Booking Code: {{item.booking_code}}</p>
-			<p><i class="las la-calendar"></i> {{item.booking_schedule}}</p>
+			<div v-else class=" p-3 mt-3">
+				<div v-if="booking_level == 1" class="booking-level-1">				
+					<el-date-picker
+				      v-model="item.booking_date"
+				      type="date"
+				      placeholder="Pick a date" 
+				      value-format="YYYY-MM-DD"
+				      
+				      >
 
-			<p class="text-red-600 text-sm mt-4">N.B. Preserve booking code and mobile no for tracking your booking.</p>
-		</div>
-		<div v-else class=" p-3">
-			<p class="text-sm"> {{picked}}</p>
-			<el-date-picker
-		      v-model="item.booking_date"
-		      type="date"
-		      placeholder="Pick a date" 
-		      value-format="YYYY-MM-DD"
-		      
-		      >
-
-		    </el-date-picker>
-		    <div class="p-3 rounded border border-gray-200 mt-2">
-			    <p class="text-green-700 text-center"> Pick a suitable timeslot</p>
-			    <div class="time-picker  my-3">
-			    	<div class="grid grid-cols-3 gap-4 mb-3">
-			    		<div v-for="(time, index) in this.timeSlot" :key="index" class="text-base font-medium text-center cursor-pointer time-slot-header relative" :class="{ active: item.type == time.type }" @click="changeTimeSlot(time.type)">{{time.type}}</div>
-			    	</div>
-			    	<div v-for="(time, index) in this.timeSlot" :key="index">
-				    	<div v-if="item.type == time.type" class="grid grid-cols-3 gap-3 time-slot">
-				    		<span v-for="(slot, i) in time.slots" :key="i" class="inline-flex items-center justify-center py-2 px-2 mr-2 text-base leading-none  bg-blue-100 hover:bg-blue-400 hover:text-white rounded-full cursor-pointer time-slot-item" :class="{ active: picked_time == slot }" @click="setTime(slot)">{{slot}}</span>
-				    	</div>
+				    </el-date-picker>
+				    <div class="p-3 rounded border border-gray-200 mt-2">
+					    <p class="text-green-700 text-center"> Pick a suitable timeslot</p>
+					    <div class="time-picker  my-3">
+					    	<div class="grid grid-cols-3 gap-4 mb-3">
+					    		<div v-for="(time, index) in this.timeSlot" :key="index" class="text-base font-medium text-center cursor-pointer time-slot-header relative" :class="{ active: item.type == time.type }" @click="changeTimeSlot(time.type)">{{time.type}}</div>
+					    	</div>
+					    	<div v-for="(time, index) in this.timeSlot" :key="index">
+						    	<div v-if="item.type == time.type" class="grid grid-cols-3 gap-3 time-slot">
+						    		<span v-for="(slot, i) in time.slots" :key="i" class="inline-flex items-center justify-center py-2 px-2 mr-2 text-base leading-none  bg-blue-100 hover:bg-blue-400 hover:text-white rounded-full cursor-pointer time-slot-item" :class="{ active: picked_time == slot }" @click="setTime(slot)">{{slot}}</span>
+						    	</div>
+						    </div>
+					    </div>
+				    	
 				    </div>
-			    </div>
-		    	
-		    </div>
-		    <label class="block">
-                <span class="text-gray-700 font-bold">Guest Name</span>
-                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter guest name" v-model="item.guest_name">
-            </label> 
-            <label class="block">
-                <span class="text-gray-700 font-bold">Mobile No.</span>
-                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter guest mobile no" v-model="item.mobile_no">
-            </label> 
-            <label class="block">
-                <span class="text-gray-700 font-bold">Email</span>
-                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter email address" v-model="item.email">
-            </label> 
-            <label class="block">
-                <span class="text-gray-700 font-bold">No of Guest</span>
-                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter no of guest" v-model="item.guest_count">
-            </label>
-            <label class="block">
-                <span class="text-gray-700 font-bold"> Special Request</span>
-                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Add if any special request" v-model="item.special_request">
-                <span class="text-sm text-gray-500">(If any special request)</span>
-            </label>
+				</div>
+			    <p class="text-sm"> {{picked}}</p>
+			    <div v-if="booking_level == 2" class="booking-level-2">	
+				    <label class="block">
+		                <span class="text-gray-700 font-bold">Guest Name</span>
+		                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter guest name" v-model="item.guest_name">
+		            </label> 
+		            <label class="block">
+		                <span class="text-gray-700 font-bold">Mobile No.</span>
+		                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter guest mobile no" v-model="item.mobile_no">
+		            </label> 
+		            <label class="block">
+		                <span class="text-gray-700 font-bold">Email</span>
+		                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter email address" v-model="item.email">
+		            </label> 
+		            <label class="block">
+		                <span class="text-gray-700 font-bold">No of Guest</span>
+		                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter no of guest" v-model="item.guest_count">
+		            </label>
+		            <label class="block">
+		                <span class="text-gray-700 font-bold"> Special Request</span>
+		                <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Add if any special request" v-model="item.special_request">
+		                <span class="text-sm text-gray-500">(If any special request)</span>
+		            </label>
+		        </div>
+		        <label v-if="booking_level == 1" class="flex mt-3 justify-center">
+	            	<button type="button" class="bg-indigo-900 h-10 hover:bg-indigo-500 focus:outline-none text-white text-sm  rounded-full px-6  items-center " @click="nextStep">
+	                    <span>Next</span> <i class="las la-arrow-right"></i>
+	                </button>
+	            </label>
 
-            <label class="block mt-3">
-            	<button type="button" class="bg-indigo-900 h-10 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center block" @click="booking">
-                    <span>Book Now</span>
-                </button>
-            </label>
+	            <label v-if="booking_level == 2" class="flex mt-3 justify-center">
+	            	<button type="button" class="bg-indigo-900 h-10 hover:bg-indigo-500 focus:outline-none text-white text-sm  rounded-full px-6  items-center mr-3" @click="previousStep">
+	                    <i class="las la-arrow-left"></i> <span>Previous</span>
+	                </button>
+	            	<button type="button" class="bg-indigo-900 h-10 hover:bg-indigo-500 focus:outline-none text-white text-sm  rounded-full px-6  items-center " @click="booking">
+	                    <span>Book Now</span>
+	                </button>
+	            </label>
+			</div>
+
+		</div>
+		<div class="bg-white flex p-3 mt-3">
+			<i class="font-bold text-4xl las la-phone-volume mr-3 mt-2 text-indigo-700 ml-3"></i>
+    		<div>
+    			<h1 class="font-bold">Direct Booking</h1>
+    			+88 016 00000000
+    		</div>
 		</div>
 	</div>
 </template>
@@ -109,7 +133,8 @@
 			      disabledDate (date) {
 			        return date > new Date()
 			      }
-			    }
+			    },
+			    booking_level:1
 	    	}
 	    },
 	    computed: {
@@ -142,8 +167,28 @@
 		    		this.picked_time = time
 		    		let dateObj = new Date(this.item.booking_date +' '+ time);
 		    		this.item.booking_time = moment(dateObj).format('HH:mm:ss')
-		    		this.picked = moment(dateObj).format('LLLL')
+		    		this.picked = this.item.type+' at '+ moment(dateObj).format('LLLL')
 	    		}
+	    	},
+	    	nextStep(){
+	    		let error = '';
+	    		if(this.item.booking_date == ''){
+	    			error = 'Booking Date'
+	    		}else if(this.picked_time == ''){
+	    			error = 'Booking Time'
+	    		}
+	    		if(error){
+	    			this.$notify({
+                      title: 'Danger',
+                      message: error+ ' is missing!',
+                      type: 'error'
+                    });
+	    		}else{
+		    		this.booking_level = 2
+	    		}
+	    	},
+	    	previousStep(){
+	    		this.booking_level = 1
 	    	},
 	    	validateRequest()
 	    	{

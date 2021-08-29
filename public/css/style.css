@@ -241,6 +241,10 @@ select{padding: 4px 20px;}
     padding: 5px;
     margin-top: 24px;
 }
+.bgm{
+    clip-path: ellipse(53% 82% at 49.54% 0%);
+}
+
 
 @media (min-width: 1280px){
     .container {
