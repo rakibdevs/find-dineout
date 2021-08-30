@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RestaurentRequest;
+use App\Models\Image as ImageLibrary;
+use App\Models\MenuCard;
 use App\Models\Restaurent;
-use Illuminate\Http\Request;
-
 use DB;
+use Illuminate\Http\Request;
 use Image;
 use Str;
 
@@ -63,6 +64,7 @@ class RestaurentController extends Controller
      */
     public function store(RestaurentRequest $request, Restaurent $restaurent)
     {
+        //dd($request->all());
         DB::beginTransaction();
         try{
             $restaurent->name = $request->name;
@@ -88,6 +90,18 @@ class RestaurentController extends Controller
                 if(isset($request->categories)){
                     $restaurent->categories()->attach($request->categories);
                 }
+
+                // store feature images
+                if(isset($request->images)){
+                    $this->storeFeatureImages($restaurent, $request->images);
+                }
+
+                // store feature images
+                if(isset($request->menucards)){
+                    $this->storeMenucards($restaurent, $request->menucards);
+                }
+
+                // store menu cards
             }
             DB::commit();
             return $restaurent;
@@ -105,6 +119,37 @@ class RestaurentController extends Controller
             ->save('images/restaurents/'.$fileName);
 
         return  $fileName;
+    }
+
+
+    public function storeFeatureImages($restaurent, $images)
+    {
+        foreach($images as $key => $image){ 
+            $ext = explode(".", $image->getClientOriginalName());
+            $fileName = 'feature_'.$restaurent->id.'_'.uniqid().'.'.end($ext);
+            $imageInstance = Image::make($image)
+                ->save('images/gallery/'.$fileName);
+
+            $img = new ImageLibrary(['src' => $fileName]);
+
+            $h = $restaurent->images()->save($img);
+        }
+        return 'done';
+    }
+
+    public function storeMenucards($restaurent, $images)
+    {
+        foreach($images as $key => $image){ 
+            $ext = explode(".", $image->getClientOriginalName());
+            $fileName = 'menucards_'.$restaurent->id.'_'.uniqid().'.'.end($ext);
+            $imageInstance = Image::make($image)
+                ->save('images/menucards/'.$fileName);
+
+            $img = new MenuCard(['src' => $fileName]);
+            
+            $h = $restaurent->menucards()->save($img);
+        }
+        return 'done';
     }
 
     /**

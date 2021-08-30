@@ -16,6 +16,10 @@ class Image extends Model
         'id'
     ];
 
+    protected $guarded = [
+        'id'
+    ];
+
     /**
      * The accessors to append to the model's array form
      *
@@ -34,9 +38,9 @@ class Image extends Model
 
 
     /**
-     * Get the parent imageable model (Restaurent or Menu).
+     * Get the parent model model (Restaurent or Menu).
      */
-    public function imageable()
+    public function model()
     {
         return $this->morphTo();
     }
