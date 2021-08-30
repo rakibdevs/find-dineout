@@ -8,6 +8,7 @@ use App\Models\Cuisine;
 use App\Models\Feature;
 use App\Models\Image;
 use App\Models\Location;
+use App\Models\MenuCard;
 use App\Models\Offer;
 use App\Models\Zone;
 use App\Traits\MakeSluggable;
@@ -124,11 +125,22 @@ class Restaurent extends Model
 
 
     /**
+     * A restaurent may has to many menucards
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function menucards()
+    {
+        return $this->hasMany(MenuCard::class);
+    }
+
+
+    /**
      * Get all of the restaurents's images.
      */
     public function images()
     {
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->morphMany(Image::class, 'model');
     }
 
     /**

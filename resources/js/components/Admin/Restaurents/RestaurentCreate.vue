@@ -48,10 +48,9 @@
                             :auto-upload="false" 
                             multiple
                             name="images"
-                            :file-list="extraImages"
                             :on-change="setExtraImages"
                             :on-remove="extraImageRemove"
-                            
+                            :file-list="extraImageFiles"
                             >
                            <template #default>
                             <i class="el-icon-plus"></i>
@@ -67,10 +66,10 @@
                             action="#" list-type="picture-card" 
                             :auto-upload="false" 
                             multiple
-                            name="images"
-                            :file-list="menuCards"
+                            name="menus"
                             :on-change="setMenuImages"
                             :on-remove="handleRemove"
+                            :file-list="extraMenuFiles"
                             
                             >
                            <template #default>
@@ -203,7 +202,9 @@
                 menuCards:[],
                 checkedCities:[],
                 img_src: '',
-                extraImages:[]
+                extraImages:[],
+                extraImageFiles:[],
+                extraMenuFiles:[]
             }
         },
         components:{ Wysiwyg, ImageUpload },
@@ -244,14 +245,18 @@
             },
             save(){
                 let formData = new FormData();
+
+                for (let i = 0; i < this.extraImages.length; i++) {
+                    formData.append('images[]', this.extraImages[i]);
+                }
+                for (let i = 0; i < this.menuCards.length; i++) {
+                    formData.append('menucards[]', this.menuCards[i]);
+                }
                 formData.append('image', this.item.image);
                 for ( var key in this.item ) {
                     Array.isArray(this.item[key])
                     ? this.item[key].forEach(value => formData.append(key + '[]', value))
                     : formData.append(key, this.item[key]) ;
-                }
-                if(this.menuCards.length > 0){
-                    formData.append('menu_cards', this.menuCards);
                 }
                 axios.post('/admin/restaurents', formData, {
                     headers: {
@@ -278,18 +283,32 @@
                     this.img_src = e.target.result;
                 };
             },
+            setExtraImages(file, filelist){
+                let reader = new FileReader();
+                reader.readAsDataURL(file.raw);
+                reader.onload = (e) => {
+                this.extraImageFiles.push({ name: file.raw.name, url: e.target.result });
+                }
+                this.extraImages.push(file.raw);
+                filelist = this.extraImageFiles;
+            },
+            extraImageRemove(file, filelist) {
+                const j = this.extraImages.findIndex(x => x.name === file.name)
+                this.extraImages.splice(j, 1);
+            },
             setMenuImages(file, filelist){
-                this.menuCards = filelist;
+                let reader = new FileReader();
+                reader.readAsDataURL(file.raw);
+                reader.onload = (e) => {
+                this.extraMenuFiles.push({ name: file.raw.name, url: e.target.result });
+                }
+                this.menuCards.push(file.raw);
+                filelist = this.extraMenuFiles;
             },
             handleRemove(file, filelist) {
-                this.menuCards = filelist;
+                const j = this.menuCards.findIndex(x => x.name === file.name)
+                this.menuCards.splice(j, 1);
             },
-            setMenuImages(file, filelist){
-                this.menuCards = filelist;
-            },
-            handleRemove(file, filelist) {
-                this.menuCards = filelist;
-            }
 
         }
     }
