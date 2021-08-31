@@ -15,7 +15,7 @@
                 <div class="col-span-2">
                     <div class="grid grid-cols-1 gap-3 mb-3">
                         <label class="block">
-                            <span class="text-gray-700 font-bold">Restaurent Name</span>
+                            <span class="text-gray-700 font-bold required">Restaurent Name</span>
                             <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter a title" v-model="item.name">
                         </label>
                         <label class="block">
@@ -28,20 +28,6 @@
 
                         <label class="block">
                             <span class="text-gray-700 font-bold">Images</span>
-                            <!-- <div class="grid grid-cols-3 gap-3 mb-3">
-                                <div class="image-item">
-                                    
-                                    <img class="img w-148px h-full object-cover" v-if="img_gallery_item" :src="img_gallery_item" >
-                                </div>
-                                <label class="custom-file-label photo-uploader photo-uploader-multiple" >
-                                    <div class="el-upload el-upload--picture-card" tabindex="0">
-                                        <i class="el-icon-plus"></i>
-
-                                        <input type="file" accept="image/*"
-                                        @change="multipleImages" class="custom-file-input" multiple style="display:none;">
-                                    </div>
-                                </label>
-                            </div> -->
                         </label>
                         <el-upload 
                             action="#" list-type="picture-card" 
@@ -85,7 +71,7 @@
                 </div>
                 <div class="">
                     <label class="block">
-                        <span class="text-gray-700 font-bold">Feature Image</span>
+                        <span class="text-gray-700 font-bold required">Feature Image</span>
                         <!-- <image-upload @loaded="onLoad" > </image-upload> -->
                         <label class="custom-file-label photo-uploader" >
                             <div class="el-upload el-upload--picture-card w-full" tabindex="0">
@@ -98,7 +84,7 @@
                         </label>
                     </label>
                     <label class="block">
-                        <span class="text-gray-700 font-bold">
+                        <span class="text-gray-700 font-bold required">
                             Cost 
                             <span class="text-sm font-normal">(Approximate for 2)</span>
                         </span>
@@ -106,7 +92,7 @@
                     </label>
 
                     <label class="block">
-                        <span class="text-gray-700 font-bold required">Contact</span>
+                        <span class="text-gray-700 font-bold">Contact</span>
                         <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter mobile no" v-model="item.mobile_no">
                     </label>
                     
@@ -114,14 +100,14 @@
                     
                     
                     <label class="block">
-                        <span class="text-gray-700 font-bold">Zone</span>
+                        <span class="text-gray-700 font-bold required">Zone</span>
                         <select v-model="item.zone_id" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" @change="fetchLocation()">
                             <option  value="">Please select one</option>
                             <option v-for="(zone, z) in zones" :key="z" :value="zone.id">{{zone.name}}</option>
                         </select>
                     </label>
                     <label class="block">
-                        <span class="text-gray-700 font-bold">Location</span>
+                        <span class="text-gray-700 font-bold required">Location</span>
                         <select v-model="item.location_id" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option  value="">Please select one</option>
                             <option v-for="(location, z) in locations" :key="z" :value="location.id">{{location.name}}</option>
@@ -139,7 +125,7 @@
                     </label>
                     <label class="block">
                         <span class="text-gray-700 font-bold">Cuisines</span>
-                        <div class="libray-items-checkbox overflow-y-auto max-h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
+                        <div class="libray-items-checkbox overflow-y-auto max-h-40 h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
                             <label class="block items-center" v-for="(lib, index) in libCuisines">
                                 <input type="checkbox" class="form-checkbox" v-model="item.cuisines" :value="lib.id"> 
                                 <span class="pl-3">{{lib.name}}</span>
@@ -149,7 +135,7 @@
                     </label>
                     <label class="block">
                         <span class="text-gray-700 font-bold">Categories</span>
-                        <div class="libray-items-checkbox overflow-y-auto max-h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
+                        <div class="libray-items-checkbox overflow-y-auto max-h-40 h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
                             <label class="block items-center" v-for="(lib, index) in libCategories">
                                 <input type="checkbox" class="form-checkbox" v-model="item.categories" :value="lib.id"> 
                                 <span class="pl-3">{{lib.name}}</span>
@@ -158,17 +144,18 @@
                     </label>
                     <label class="block">
                         <span class="text-gray-700 font-bold">Features</span>
-                        <div class="libray-items-checkbox overflow-y-auto max-h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
+                        <div class="libray-items-checkbox overflow-y-auto max-h-40 h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
                             <label class="block items-center" v-for="(lib, index) in libFeatures">
                                 <input type="checkbox" class="form-checkbox" v-model="item.features" :value="lib.id" > 
                                 <span class="pl-3">{{lib.name}}</span>
                             </label>
                         </div>
                     </label>
-
-                    <button type="button" class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="save">
-                        <span>Save</span>
-                    </button>
+                    <div class="block mt-3">
+                        <button type="button" class="bg-indigo-900 w-full rounded-full hover:bg-indigo-500 focus:outline-none text-white text-sm  py-2 text-center text-xl " @click="save">
+                           Save
+                        </button>
+                    </div>
                 </div>
 
                 
@@ -268,6 +255,7 @@
                       message: 'New restaurent added to the list',
                       type: 'success'
                     });
+                    location.href= '/admin/restaurents'
                 }).catch(error => {
                     var errors = "";
                     

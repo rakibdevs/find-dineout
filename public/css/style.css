@@ -244,6 +244,10 @@ select{padding: 4px 20px;}
 .bgm{
     clip-path: ellipse(53% 82% at 49.54% 0%);
 }
+.required::after {
+    content: '*';
+    color: red;
+}
 
 
 @media (min-width: 1280px){
