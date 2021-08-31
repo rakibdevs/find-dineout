@@ -28,7 +28,7 @@ class MenuCard extends Model
      *
      * @var array
      */
-    protected $appends = [];
+    protected $appends = ['image_src'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -38,6 +38,14 @@ class MenuCard extends Model
     protected $dates = [
         'created_at', 'updated_at'
     ];
+
+    /**
+     * Get all of the restaurents's menucards.
+     */
+    public function getImageSrcAttribute()
+    {
+        return asset('images/menucards/'.$this->src);
+    }
 
 
     /**

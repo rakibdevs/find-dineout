@@ -25,7 +25,15 @@ class Image extends Model
      *
      * @var array
      */
-    protected $appends = [];
+    protected $appends = ['image_src'];
+
+    /**
+     * Get all of the restaurents's menucards.
+     */
+    public function getImageSrcAttribute()
+    {
+        return asset('images/gallery/'.$this->src);
+    }
 
     /**
      * The attributes that should be mutated to dates.

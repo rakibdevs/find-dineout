@@ -15,7 +15,7 @@
                 <div class="col-span-2">
                     <div class="grid grid-cols-1 gap-3 mb-3">
                         <label class="block">
-                            <span class="text-gray-700 font-bold">Restaurent Name</span>
+                            <span class="text-gray-700 font-bold required">Restaurent Name</span>
                             <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter a title" v-model="item.name">
                         </label>
                         <label class="block">
@@ -25,6 +25,25 @@
                             @input="updateBody"
                             placeholder="Add restaurent description" :class="'h-30'" :value="item.description">
                         </wysiwyg>
+
+
+                        <label class="block">
+                            <span class="text-gray-700 font-bold">Images</span>
+                        </label>
+                        <el-upload 
+                            action="#" list-type="picture-card" 
+                            :auto-upload="false" 
+                            multiple
+                            name="images"
+                            :on-change="setExtraImages"
+                            :on-remove="extraImageRemove"
+                            :file-list="extraImageFiles"
+                            >
+                           <template #default>
+                            <i class="el-icon-plus"></i>
+                          </template>
+                        </el-upload>
+                        
                         <label class="block">
                             <span class="text-gray-700 font-bold">Menu Card</span>
                         </label>
@@ -34,46 +53,16 @@
                             action="#" list-type="picture-card" 
                             :auto-upload="false" 
                             multiple
-                            name="images"
-                            :file-list="menuCards"
+                            name="menus"
                             :on-change="setMenuImages"
+                            :on-remove="handleRemove"
+                            :file-list="extraMenuFiles"
                             
                             >
-                          <template #default>
+                           <template #default>
                             <i class="el-icon-plus"></i>
                           </template>
-                          <template #file="{file}">
-                            <div>
-                              <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
-                              <span class="el-upload-list__item-actions">
-                                <span
-                                  class="el-upload-list__item-preview"
-                                  @click="handlePictureCardPreview(file)"
-                                >
-                                  <i class="el-icon-zoom-in"></i>
-                                </span>
-                                <span
-                                  v-if="!disabled"
-                                  class="el-upload-list__item-delete"
-                                  @click="handleDownload(file)"
-                                >
-                                  <i class="el-icon-download"></i>
-                                </span>
-                                <span
-                                  v-if="!disabled"
-                                  class="el-upload-list__item-delete"
-                                  @click="handleRemove(file)"
-                                >
-                                  <i class="el-icon-delete"></i>
-                                </span>
-                              </span>
-                            </div>
-                          </template>
                         </el-upload>
-                        <el-dialog v-model="dialogVisible">
-                          <img width="100%" :src="dialogImageUrl" alt="" />
-
-                        </el-dialog>
 
 
 
@@ -81,11 +70,11 @@
                 </div>
                 <div class="">
                     <label class="block">
-                        <span class="text-gray-700 font-bold">Feature Image</span>
+                        <span class="text-gray-700 font-bold required">Feature Image</span>
                         <!-- <image-upload @loaded="onLoad" > </image-upload> -->
                         <label class="custom-file-label photo-uploader" >
-                            <div class="el-upload el-upload--picture-card" tabindex="0">
-                                <img class="img w-full h-full object-cover" v-if="img_src" :src="this.img_src">
+                            <div class="el-upload el-upload--picture-card w-full" tabindex="0">
+                                <img class="img w-full h-full object-cover" v-if="img_src" :src="img_src">
                                 <i v-else class="el-icon-plus"></i>
 
                                 <input type="file" accept="image/*"
@@ -95,22 +84,24 @@
                     </label>
 
                     <label class="block">
-                        <span class="text-gray-700 font-bold">Approximate Cost</span>
+                        <span class="text-gray-700 font-bold required">Approximate Cost</span>
                         <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter cost" v-model="item.approx_cost">
                     </label>
-                    <label class="block my-3">
-                        <input type="checkbox" class="form-checkbox" v-model="item.is_booking"> 
-                        <span class="text-gray-700 text-sm ml-3">Booking Available</span>
-                    </label>
+
                     <label class="block">
-                        <span class="text-gray-700 font-bold">Zone</span>
+                        <span class="text-gray-700 font-bold">Contact</span>
+                        <input type="text" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter mobile no" v-model="item.mobile_no">
+                    </label>
+                    
+                    <label class="block">
+                        <span class="text-gray-700 font-bold required">Zone</span>
                         <select v-model="item.zone_id" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" @change="fetchLocation()">
                             <option  value="">Please select one</option>
                             <option v-for="(zone, z) in zones" :key="z" :value="zone.id" >{{zone.name}}</option>
                         </select>
                     </label>
                     <label class="block">
-                        <span class="text-gray-700 font-bold">Location</span>
+                        <span class="text-gray-700 font-bold required">Location</span>
                         <select v-model="item.location_id" class="mt-1 block w-full h-10 text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option  value="">Please select one</option>
                             <option v-for="(location, z) in locations" :key="z" :value="location.id">{{location.name}}</option>
@@ -122,10 +113,14 @@
                     </label>
                 </div>
                 <div class="">
+                    <label class="block my-3">
+                        <input type="checkbox" class="form-checkbox" v-model="item.is_booking"> 
+                        <span class="text-gray-700 text-sm ml-3">Booking Available</span>
+                    </label>
                     <div class="">
                         <label class="block">
                             <span class="text-gray-700 font-bold">Cuisines</span>
-                            <div class="libray-items-checkbox overflow-y-auto max-h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
+                            <div class="libray-items-checkbox overflow-y-auto max-h-40 h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
                                 <label class="block items-center" v-for="(lib, index) in libCuisines">
                                     <input type="checkbox" class="form-checkbox" v-model="item.cuisines" :value="lib.id"> 
                                     <span class="pl-3">{{lib.name}}</span>
@@ -137,7 +132,7 @@
                     <div class="">
                         <label class="block">
                             <span class="text-gray-700 font-bold">Categories</span>
-                            <div class="libray-items-checkbox overflow-y-auto max-h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
+                            <div class="libray-items-checkbox overflow-y-auto max-h-40 h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
                                 <label class="block items-center" v-for="(lib, index) in libCategories">
                                     <input type="checkbox" class="form-checkbox" v-model="item.categories" :value="lib.id"> 
                                     <span class="pl-3">{{lib.name}}</span>
@@ -148,7 +143,7 @@
                     <div class="">
                         <label class="block">
                             <span class="text-gray-700 font-bold">Features</span>
-                            <div class="libray-items-checkbox overflow-y-auto max-h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
+                            <div class="libray-items-checkbox overflow-y-auto max-h-40 h-40 border border-gray-300 px-3 py-2 mt-1 rounded" >
                                 <label class="block items-center" v-for="(lib, index) in libFeatures">
                                     <input type="checkbox" class="form-checkbox" v-model="item.features" :value="lib.id" > 
                                     <span class="pl-3">{{lib.name}}</span>
@@ -157,9 +152,11 @@
                         </label>
                     </div>
 
-                    <button type="button" class="bg-indigo-900 h-8 hover:bg-indigo-500 focus:outline-none text-white text-sm  px-3 rounded inline-flex items-center" @click="update">
-                        <span>Save</span>
-                    </button>
+                    <div class="block mt-3">
+                        <button type="button" class="bg-indigo-900 w-full rounded-full hover:bg-indigo-500 focus:outline-none text-white text-sm  py-2 text-center text-xl " @click="update">
+                           Update
+                        </button>
+                    </div>
                     
                 </div>
             </div>
@@ -197,7 +194,10 @@
                 image:[],
                 menuCards:[],
                 checkedCities:[],
-                img_src: ''
+                img_src: '',
+                extraImages:[],
+                extraImageFiles:[],
+                extraMenuFiles:[]
             }
         },
         components:{ Wysiwyg, ImageUpload },
@@ -214,6 +214,16 @@
                 this.item.cuisines = this.restaurent.cuisines.map(a => a.id);
                 this.item.features = this.restaurent.features.map(a => a.id);
                 this.item.categories = this.restaurent.categories.map(a => a.id);
+                this.img_src = this.restaurent.cover_src
+
+                // put feature images
+                this.item.images.forEach((item) => {
+                    this.extraImageFiles.push({ name: item.id, url: item.image_src });
+                })
+                // put menu items
+                 this.item.menucards.forEach((item) => {
+                    this.extraMenuFiles.push({ name: item.id, url: item.image_src });
+                })
             },
             fetchZones(){
                 axios.get('/api/fetch/zones/').then(({data}) => {
@@ -224,6 +234,7 @@
                 axios.get('/api/fetch/locations?zone='+this.item.zone_id).then(({data}) => {
                     this.locations = data;
                 });
+                console.log(this.extraImageFiles)
             },
             fetchLibrary(){
                 // fetch cuisine
@@ -249,6 +260,12 @@
                 let formData = new FormData();
                 formData.append('_method', 'PUT')
                 formData.append('image', this.item.image);
+                for (let i = 0; i < this.extraImages.length; i++) {
+                    formData.append('images[]', this.extraImages[i]);
+                }
+                for (let i = 0; i < this.menuCards.length; i++) {
+                    formData.append('menucards[]', this.menuCards[i]);
+                }
                 for ( var key in this.item ) {
                     formData.append(key, this.item[key])
                     Array.isArray(this.item[key])
@@ -273,16 +290,6 @@
                     
                 });
             },
-            handleRemove(file) {
-                console.log(this.menuCards)
-            },
-            handlePictureCardPreview(file) {
-                this.dialogImageUrl = file.url
-                this.dialogVisible = true
-            },
-            handleDownload(file) {
-                console.log(file)
-            },
             onChange(e)
             {
                 if (! e.target.files.length) return;
@@ -293,10 +300,32 @@
                     this.img_src = e.target.result;
                 };
             },
+            setExtraImages(file, filelist){
+                let reader = new FileReader();
+                reader.readAsDataURL(file.raw);
+                reader.onload = (e) => {
+                this.extraImageFiles.push({ name: file.raw.name, url: e.target.result });
+                }
+                this.extraImages.push(file.raw);
+                filelist = this.extraImageFiles;
+            },
+            extraImageRemove(file, filelist) {
+                const j = this.extraImages.findIndex(x => x.name === file.name)
+                this.extraImages.splice(j, 1);
+            },
             setMenuImages(file, filelist){
-                this.menuCards = filelist;
-                console.log(filelist)
-            }
+                let reader = new FileReader();
+                reader.readAsDataURL(file.raw);
+                reader.onload = (e) => {
+                this.extraMenuFiles.push({ name: file.raw.name, url: e.target.result });
+                }
+                this.menuCards.push(file.raw);
+                filelist = this.extraMenuFiles;
+            },
+            handleRemove(file, filelist) {
+                const j = this.menuCards.findIndex(x => x.name === file.name)
+                this.menuCards.splice(j, 1);
+            },
 
         }
     }

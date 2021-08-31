@@ -171,7 +171,17 @@ class RestaurentController extends Controller
      */
     public function edit($id)
     {
-        $restaurent = Restaurent::with('categories','cuisines','features','location','location.zone')->find($id);
+        $restaurent = Restaurent::with(
+            'images',
+            'menucards',
+            'categories',
+            'cuisines',
+            'features',
+            'location',
+            'location.zone'
+        )->find($id);
+
+        //dd($restaurent);
         return view('admin.restaurents.edit', compact('restaurent'));
     }
 
@@ -208,6 +218,16 @@ class RestaurentController extends Controller
                 }
                 if(isset($request->categories)){
                     $restaurent->categories()->sync($request->categories);
+                }
+
+                // store feature images
+                if(isset($request->images)){
+                    $this->storeFeatureImages($restaurent, $request->images);
+                }
+
+                // store feature images
+                if(isset($request->menucards)){
+                    $this->storeMenucards($restaurent, $request->menucards);
                 }
             }
             DB::commit();
