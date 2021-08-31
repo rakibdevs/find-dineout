@@ -282,6 +282,7 @@
                       message: 'Restaurent information updated successfully',
                       type: 'success'
                     });
+                    location.reload()
                 }).catch(error => {
                     var errors = "";
                     

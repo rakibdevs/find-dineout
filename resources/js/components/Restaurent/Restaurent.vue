@@ -43,7 +43,7 @@
 				<div v-if="restaurent.menucards.length > 0" class="bg-white rounded mt-3 p-4">
 					<h2 class="text-gray-700 font-bold">Menu Cards</h2>
 					<div class="grid grid-cols-6 xs:grid-cols-2 ">
-						<img class="h-16 y-20 object-cover m-3 ml-0 border rounded" v-for="(gallery, index) in restaurent.menucards" :src="gallery.image_src">
+						<img class="h-16 y-20 object-cover m-3 ml-0 border rounded cursor-pointer" v-for="(gallery, index) in restaurent.menucards" :src="gallery.image_src" @click="showImage(gallery.image_src)">
 					</div>
 				</div>
 				<div class="bg-white rounded mt-3 p-4">
@@ -88,7 +88,7 @@
 				<div v-if="restaurent.images.length > 0" class="bg-white rounded mt-3 p-4">
 					<h2 class="text-gray-700 font-bold">Gallery</h2>
 					<div class="grid grid-cols-6 xs:grid-cols-2 ">
-						<img class="h-16 y-20 object-cover m-3 ml-0 border rounded" v-for="(gallery, index) in restaurent.images" :src="gallery.image_src">
+						<img class="h-16 y-20 object-cover m-3 ml-0 border rounded cursor-pointer" v-for="(gallery, index) in restaurent.images" :src="gallery.image_src" @click="showImage(gallery.image_src)">
 					</div>
 				</div>
 
@@ -130,6 +130,16 @@
 		<div class="md:col-span-2">
 			<booking :restaurent_id="restaurent.id"></booking>
 		</div>
+		<div class="modal fade apps-modal" :class="imageModal == true?'modal-open':''">
+	    	<div class="modal-dialog modal-dialog-centered" role="document">
+	        	<div class="modal-content p-5 " style="width: 800px;height: 400px;">
+		        	<span class="close cursor-pointer hover:text-red-500 focus:text-red-500 " @click="closeImageModal"><i class="las la-times font-bold text-xl"></i></span>
+		        	<div class="w-full h-full mx-auto overflow-x-auto;">
+			        	<img class="w-full  object-cover" :src="imageUrl">
+			        </div>
+		        </div>
+	         </div>
+	    </div>
 	</div>
 </template>
 
@@ -146,6 +156,24 @@ export default {
             type: Object,
             required: false
         }
+    },
+    data(){
+    	return {
+    		imageModal:false,
+    		imageUrl: null
+    	}
+
+    },
+    methods:{
+    	showImage(url){
+    		this.imageUrl = url;
+    		this.imageModal = true;
+    	},
+    	closeImageModal()
+    	{
+    		this.imageUrl = null;
+    		this.imageModal = false;
+    	}
     }
 }
 </script>
