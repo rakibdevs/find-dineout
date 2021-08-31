@@ -26,9 +26,18 @@ class PageController extends Controller
 
     public function restaurentView($slug)
     {
-        $restaurent = Restaurent::with('categories','cuisines','features','location','location.zone')
-            ->whereSlug($slug)
-            ->first();
+        $restaurent = Restaurent::with(
+            'images',
+            'menucards',
+            'categories',
+            'cuisines',
+            'features',
+            'location',
+            'location.zone'
+        )
+        ->whereSlug($slug)
+        ->first();
+
         $similiar = $restaurent->similiar();
         $restaurent->increment('view', 1);
 

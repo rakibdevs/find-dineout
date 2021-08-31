@@ -272,9 +272,6 @@
                     ? this.item[key].forEach(value => formData.append(key + '[]', value))
                     : formData.append(key, this.item[key]) ;
                 }
-                if(this.menuCards.length > 0){
-                    formData.append('menu_cards', this.menuCards);
-                }
                 axios.post('/admin/restaurents/'+this.item.id, formData, {
                     headers: {
                       'Content-Type': 'multipart/form-data'
@@ -308,6 +305,8 @@
                 }
                 this.extraImages.push(file.raw);
                 filelist = this.extraImageFiles;
+
+                console.log(filelist);
             },
             extraImageRemove(file, filelist) {
                 const j = this.extraImages.findIndex(x => x.name === file.name)

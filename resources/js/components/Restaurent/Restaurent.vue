@@ -40,6 +40,12 @@
 						</div>
 					</div>
 				</div>
+				<div v-if="restaurent.menucards.length > 0" class="bg-white rounded mt-3 p-4">
+					<h2 class="text-gray-700 font-bold">Menu Cards</h2>
+					<div class="grid grid-cols-6 xs:grid-cols-2 ">
+						<img class="h-16 y-20 object-cover m-3 ml-0 border rounded" v-for="(gallery, index) in restaurent.menucards" :src="gallery.image_src">
+					</div>
+				</div>
 				<div class="bg-white rounded mt-3 p-4">
 					<h2 class="text-gray-700 font-bold">About</h2>
 					<p v-html="restaurent.description"></p>
@@ -79,6 +85,13 @@
 					</div>
 					
 				</div>
+				<div v-if="restaurent.images.length > 0" class="bg-white rounded mt-3 p-4">
+					<h2 class="text-gray-700 font-bold">Gallery</h2>
+					<div class="grid grid-cols-6 xs:grid-cols-2 ">
+						<img class="h-16 y-20 object-cover m-3 ml-0 border rounded" v-for="(gallery, index) in restaurent.images" :src="gallery.image_src">
+					</div>
+				</div>
+
 			</div>
 
 			<!-- show similiar restaurents -->
