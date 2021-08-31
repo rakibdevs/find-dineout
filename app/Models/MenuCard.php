@@ -44,7 +44,7 @@ class MenuCard extends Model
      */
     public function getImageSrcAttribute()
     {
-        return asset('images/menucards/'.$this->src);
+        return asset('/images/menucards/'.$this->src);
     }
 
 

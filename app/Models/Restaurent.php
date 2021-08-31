@@ -47,7 +47,7 @@ class Restaurent extends Model
      */
     public function getCoverSrcAttribute()
     {
-        return isset($this->cover)?asset('images/restaurents/'.$this->cover):asset('images/resource/no-image.jpg');
+        return isset($this->cover)?asset('/images/restaurents/'.$this->cover):asset('/images/resource/no-image.jpg');
     }
 
     /**
@@ -55,7 +55,7 @@ class Restaurent extends Model
      */
     public function getPublicUriAttribute()
     {
-        return url('restaurents/'.$this->slug);
+        return url('/restaurents/'.$this->slug);
     }
 
     /**

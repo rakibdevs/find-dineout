@@ -40,7 +40,7 @@ class Offer extends Model
      */
     public function getImageSrcAttribute()
     {
-        return isset($this->image)?asset($this->image):asset('images/resource/no-image.jpg');
+        return isset($this->image)?asset($this->image):asset('/images/resource/no-image.jpg');
     }
 
     /**
@@ -48,7 +48,7 @@ class Offer extends Model
      */
     public function getPublicUriAttribute()
     {
-        return url('offers/'.$this->slug);
+        return url('/offers/'.$this->slug);
     }
 
     /**
