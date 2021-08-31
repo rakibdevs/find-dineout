@@ -32,7 +32,7 @@ class Image extends Model
      */
     public function getImageSrcAttribute()
     {
-        return asset('images/gallery/'.$this->src);
+        return asset('/images/gallery/'.$this->src);
     }
 
     /**

@@ -41,7 +41,7 @@ class Cuisine extends Model
      */
     public function getPublicUriAttribute()
     {
-        return url('restaurents/cuisines/'.$this->slug);
+        return url('/restaurents/cuisines/'.$this->slug);
     }
 
 

@@ -41,7 +41,7 @@ class Feature extends Model
      */
     public function getPublicUriAttribute()
     {
-        return url('restaurents/features/'.$this->slug);
+        return url('/restaurents/features/'.$this->slug);
     }
 
     /**

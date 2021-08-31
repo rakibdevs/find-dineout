@@ -197,7 +197,6 @@ class RestaurentController extends Controller
         DB::beginTransaction();
         try{
             $restaurent->name = $request->name;
-            $restaurent->slug = $request->name;
             $restaurent->is_booking = $request->is_booking?1:0;
             $restaurent->location_id = $request->location_id;
             $restaurent->description = $request->description;
